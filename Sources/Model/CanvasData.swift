@@ -31,7 +31,7 @@ extension CanvasData {
         shapeLayer.lineWidth = 3
         // Brush
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.green.cgColor
+        shapeLayer.strokeColor = brush.color.cgColor
         return shapeLayer
     }
     

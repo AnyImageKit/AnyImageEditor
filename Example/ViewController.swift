@@ -16,6 +16,13 @@ final class ViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let controller = ImageEditorController(delegate: self)
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true, completion: nil)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let controller = ImageEditorController(delegate: self)
         controller.modalPresentationStyle = .fullScreen

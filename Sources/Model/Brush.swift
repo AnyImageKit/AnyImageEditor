@@ -11,6 +11,7 @@ import UIKit
 /// 画笔，描述 path 的样式
 final class Brush {
     
-    
+    var name: String = ""
+    var color: UIColor = .red
     
 }
