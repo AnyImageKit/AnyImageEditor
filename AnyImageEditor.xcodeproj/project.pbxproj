@@ -12,10 +12,14 @@
 		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
 		A5AC6F342360274500DED461 /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5AC6F332360274500DED461 /* Asset.xcassets */; };
-		A5AC6F362360274F00DED461 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F352360274F00DED461 /* TestView.swift */; };
-		A5AC6F382360275800DED461 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F372360275800DED461 /* TestModel.swift */; };
 		A5AC6F3E23602F1100DED461 /* AnyImageEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */; };
 		A5AC6F3F23602F1100DED461 /* AnyImageEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F6C2360413A00ADF268 /* BezierGenerator.swift */; };
+		A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F6F2360422F00ADF268 /* Ex+CGPoint.swift */; };
+		A5B59F722360476B00ADF268 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F712360476B00ADF268 /* Brush.swift */; };
+		A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F73236047BD00ADF268 /* Canvas.swift */; };
+		A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */; };
+		A5B59F782360536500ADF268 /* CanvasData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F772360536500ADF268 /* CanvasData.swift */; };
 		A5DB047B236023D7008D57A1 /* AnyImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = A5DB0479236023D7008D57A1 /* AnyImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048C23602467008D57A1 /* AppDelegate.swift */; };
 		A5DB048F23602467008D57A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048E23602467008D57A1 /* SceneDelegate.swift */; };
@@ -59,8 +63,12 @@
 		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
 		A5AC6F332360274500DED461 /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
-		A5AC6F352360274F00DED461 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		A5AC6F372360275800DED461 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		A5B59F6C2360413A00ADF268 /* BezierGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierGenerator.swift; sourceTree = "<group>"; };
+		A5B59F6F2360422F00ADF268 /* Ex+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CGPoint.swift"; sourceTree = "<group>"; };
+		A5B59F712360476B00ADF268 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
+		A5B59F73236047BD00ADF268 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIBezierPath.swift"; sourceTree = "<group>"; };
+		A5B59F772360536500ADF268 /* CanvasData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasData.swift; sourceTree = "<group>"; };
 		A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnyImageEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5DB0479236023D7008D57A1 /* AnyImageEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnyImageEditor.h; sourceTree = "<group>"; };
 		A5DB047A236023D7008D57A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +117,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A5B59F6E2360421800ADF268 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A5B59F6F2360422F00ADF268 /* Ex+CGPoint.swift */,
+				A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		A5DB046C236023D7008D57A1 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +155,7 @@
 				A5DB048323602440008D57A1 /* View */,
 				A5DB048223602439008D57A1 /* Model */,
 				A5DB048123602435008D57A1 /* Util */,
+				A5B59F6E2360421800ADF268 /* Extension */,
 				A5DB048523602452008D57A1 /* Resources */,
 			);
 			path = Sources;
@@ -154,7 +172,9 @@
 		A5DB048223602439008D57A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A5AC6F372360275800DED461 /* TestModel.swift */,
+				A5B59F772360536500ADF268 /* CanvasData.swift */,
+				A5B59F6C2360413A00ADF268 /* BezierGenerator.swift */,
+				A5B59F712360476B00ADF268 /* Brush.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,7 +182,7 @@
 		A5DB048323602440008D57A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A5AC6F352360274F00DED461 /* TestView.swift */,
+				A5B59F73236047BD00ADF268 /* Canvas.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -270,7 +290,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1110;
-				ORGANIZATIONNAME = AnyImageProject;
+				ORGANIZATIONNAME = AnyImageProject.org;
 				TargetAttributes = {
 					A5DB0475236023D7008D57A1 = {
 						CreatedOnToolsVersion = 11.1;
@@ -390,11 +410,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5AC6F362360274F00DED461 /* TestView.swift in Sources */,
+				A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */,
 				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
-				A5AC6F382360275800DED461 /* TestModel.swift in Sources */,
+				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
+				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
+				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
+				A5B59F782360536500ADF268 /* CanvasData.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,
 				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
+				A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
