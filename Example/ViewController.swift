@@ -17,14 +17,15 @@ final class ViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let controller = PhotoEditorController(delegate: self)
+        let controller = ImageEditorController(delegate: self)
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion: nil)
     }
 }
 
-extension ViewController: PhotoEditorControllerDelegate {
+extension ViewController: ImageEditorControllerDelegate {
     
-    func photoEditor(_ editor: PhotoEditorController, didFinish photo: UIImage) {
+    func imageEditor(_ editor: ImageEditorController, didFinish photo: UIImage) {
         
     }
     

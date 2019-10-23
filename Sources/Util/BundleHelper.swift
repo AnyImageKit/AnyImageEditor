@@ -10,7 +10,7 @@ import UIKit
 
 struct BundleHelper {
     
-    static var bundle = Bundle(for: PhotoEditorController.self)
+    static var bundle = Bundle(for: ImageEditorController.self)
     static private var _languageBundle: Bundle?
     
     static var languageBundle: Bundle? {

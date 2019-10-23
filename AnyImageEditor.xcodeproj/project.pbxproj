@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3E36C275DF844C512B750240 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C81789E5CA00ED6EDCF208 /* Pods_Example.framework */; };
-		A5AC6F2E2360269600DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* PhotoEditorController.swift */; };
-		A5AC6F302360270700DED461 /* _PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* _PhotoEditorController.swift */; };
+		A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* ImageEditorController.swift */; };
+		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
 		A5AC6F342360274500DED461 /* Asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5AC6F332360274500DED461 /* Asset.xcassets */; };
 		A5AC6F362360274F00DED461 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F352360274F00DED461 /* TestView.swift */; };
 		A5AC6F382360275800DED461 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F372360275800DED461 /* TestModel.swift */; };
+		A5AC6F3E23602F1100DED461 /* AnyImageEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */; };
+		A5AC6F3F23602F1100DED461 /* AnyImageEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A5DB047B236023D7008D57A1 /* AnyImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = A5DB0479236023D7008D57A1 /* AnyImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048C23602467008D57A1 /* AppDelegate.swift */; };
 		A5DB048F23602467008D57A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048E23602467008D57A1 /* SceneDelegate.swift */; };
@@ -24,13 +26,37 @@
 		B1A8D468CEB9C889E5D7B34C /* Pods_AnyImageEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0213D6F4888EE0396D40FB72 /* Pods_AnyImageEditor.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A5AC6F4023602F1100DED461 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5DB046D236023D7008D57A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5DB0475236023D7008D57A1;
+			remoteInfo = AnyImageEditor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A5AC6F4223602F1100DED461 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A5AC6F3F23602F1100DED461 /* AnyImageEditor.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0213D6F4888EE0396D40FB72 /* Pods_AnyImageEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnyImageEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		313C31A398EA33F23D24CBCB /* Pods-AnyImageEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyImageEditor.debug.xcconfig"; path = "Target Support Files/Pods-AnyImageEditor/Pods-AnyImageEditor.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE28828A40A14E0F4F30AAF /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		65EDBE4A3617D303F5227B55 /* Pods-AnyImageEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyImageEditor.release.xcconfig"; path = "Target Support Files/Pods-AnyImageEditor/Pods-AnyImageEditor.release.xcconfig"; sourceTree = "<group>"; };
-		A5AC6F2D2360269600DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
-		A5AC6F2F2360270700DED461 /* _PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _PhotoEditorController.swift; sourceTree = "<group>"; };
+		A5AC6F2D2360269600DED461 /* ImageEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorController.swift; sourceTree = "<group>"; };
+		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
 		A5AC6F332360274500DED461 /* Asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asset.xcassets; sourceTree = "<group>"; };
 		A5AC6F352360274F00DED461 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -64,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5AC6F3E23602F1100DED461 /* AnyImageEditor.framework in Frameworks */,
 				3E36C275DF844C512B750240 /* Pods_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,8 +170,8 @@
 		A5DB048423602443008D57A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A5AC6F2D2360269600DED461 /* PhotoEditorController.swift */,
-				A5AC6F2F2360270700DED461 /* _PhotoEditorController.swift */,
+				A5AC6F2D2360269600DED461 /* ImageEditorController.swift */,
+				A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -223,10 +250,12 @@
 				A5DB048723602467008D57A1 /* Frameworks */,
 				A5DB048823602467008D57A1 /* Resources */,
 				F1497715CE67443198429AB6 /* [CP] Embed Pods Frameworks */,
+				A5AC6F4223602F1100DED461 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A5AC6F4123602F1100DED461 /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -362,10 +391,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5AC6F362360274F00DED461 /* TestView.swift in Sources */,
-				A5AC6F2E2360269600DED461 /* PhotoEditorController.swift in Sources */,
+				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
 				A5AC6F382360275800DED461 /* TestModel.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,
-				A5AC6F302360270700DED461 /* _PhotoEditorController.swift in Sources */,
+				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +409,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A5AC6F4123602F1100DED461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5DB0475236023D7008D57A1 /* AnyImageEditor */;
+			targetProxy = A5AC6F4023602F1100DED461 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A5DB049223602467008D57A1 /* Main.storyboard */ = {
@@ -529,6 +566,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -544,6 +582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnyImageProject.AnyImageEditor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,6 +597,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -573,6 +613,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnyImageProject.AnyImageEditor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
