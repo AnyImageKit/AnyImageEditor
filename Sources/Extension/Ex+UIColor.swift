@@ -42,31 +42,31 @@ extension UIColor {
 
 extension UIColor {
     
-    static var panWhite: UIColor {
+    static var penWhite: UIColor {
         return UIColor.color(hex: 0xF2F2F2)
     }
     
-    static var panBlack: UIColor {
+    static var penBlack: UIColor {
         return UIColor.color(hex: 0x2B2B2B)
     }
     
-    static var panRed: UIColor {
+    static var penRed: UIColor {
         return UIColor.color(hex: 0xFA5151)
     }
     
-    static var panYellow: UIColor {
+    static var penYellow: UIColor {
         return UIColor.color(hex: 0xFFC300)
     }
     
-    static var panGreen: UIColor {
+    static var penGreen: UIColor {
         return UIColor.color(hex: 0x07C160)
     }
     
-    static var panBlue: UIColor {
+    static var penBlue: UIColor {
         return UIColor.color(hex: 0x10AEFF)
     }
     
-    static var panPurple: UIColor {
+    static var penPurple: UIColor {
         return UIColor.color(hex: 0x6467EF)
     }
     

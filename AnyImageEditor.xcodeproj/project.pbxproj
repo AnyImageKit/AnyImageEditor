@@ -18,6 +18,7 @@
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
 		A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6223617AC400710C16 /* ResponseTouch.swift */; };
 		A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6A23617E4600710C16 /* Ex+CGRect.swift */; };
+		A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */; };
 		A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* ImageEditorController.swift */; };
 		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
@@ -79,6 +80,7 @@
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		A5874F6223617AC400710C16 /* ResponseTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTouch.swift; sourceTree = "<group>"; };
 		A5874F6A23617E4600710C16 /* Ex+CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CGRect.swift"; sourceTree = "<group>"; };
+		A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPenToolView.swift; sourceTree = "<group>"; };
 		A5AC6F2D2360269600DED461 /* ImageEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				A550F0C823613D600089D584 /* CanvasContentView.swift */,
 				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
 				A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */,
+				A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */,
 				A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */,
 				A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */,
+				A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */,
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
 				A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */,
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
