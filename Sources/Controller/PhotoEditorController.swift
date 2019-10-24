@@ -10,23 +10,42 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
 
-    lazy var canvasController: CanvasController = {
-        let controller = CanvasController()
-        return controller
+    lazy var canvasView: CanvasContentView = {
+        let view = CanvasContentView(frame: self.view.bounds)
+        return view
+    }()
+    lazy var toolView: PhotoToolView = {
+        let view = PhotoToolView(frame: self.view.bounds)
+        
+        return view
+    }()
+    private lazy var backButton: UIButton = {
+        let view = UIButton(type: .custom)
+        view.setImage(BundleHelper.image(named: "EditReturnBackButton"), for: .normal)
+        view.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupView() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped(_:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Undo", style: .plain, target: self, action: #selector(undoButtonTapped(_:)))
+        view.addSubview(canvasView)
+        view.addSubview(toolView)
+        view.addSubview(backButton)
         
-        addChild(canvasController)
-        view.addSubview(canvasController.view)
-        canvasController.view.frame = view.bounds
+        backButton.snp.makeConstraints { (maker) in
+            if #available(iOS 11.0, *) {
+                maker.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            } else {
+                maker.top.equalToSuperview().offset(40)
+            }
+            maker.left.equalToSuperview().offset(20)
+            maker.width.height.equalTo(30)
+        }
     }
 }
 
@@ -37,7 +56,4 @@ extension PhotoEditorController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func undoButtonTapped(_ sender: UIButton) {
-//        canvas.undo()
-    }
 }

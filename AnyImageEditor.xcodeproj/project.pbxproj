@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3E36C275DF844C512B750240 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C81789E5CA00ED6EDCF208 /* Pods_Example.framework */; };
-		A550F0C7236130790089D584 /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C6236130790089D584 /* CanvasController.swift */; };
+		A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* CanvasContentView.swift */; };
+		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
+		A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */; };
+		A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */; };
+		A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */; };
+		A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D2236143800089D584 /* Ex+UIColor.swift */; };
 		A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* ImageEditorController.swift */; };
 		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
@@ -60,7 +65,12 @@
 		313C31A398EA33F23D24CBCB /* Pods-AnyImageEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyImageEditor.debug.xcconfig"; path = "Target Support Files/Pods-AnyImageEditor/Pods-AnyImageEditor.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE28828A40A14E0F4F30AAF /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		65EDBE4A3617D303F5227B55 /* Pods-AnyImageEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyImageEditor.release.xcconfig"; path = "Target Support Files/Pods-AnyImageEditor/Pods-AnyImageEditor.release.xcconfig"; sourceTree = "<group>"; };
-		A550F0C6236130790089D584 /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
+		A550F0C823613D600089D584 /* CanvasContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContentView.swift; sourceTree = "<group>"; };
+		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
+		A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHelper.swift; sourceTree = "<group>"; };
+		A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIDevice.swift"; sourceTree = "<group>"; };
+		A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageEditorController+Config.swift"; sourceTree = "<group>"; };
+		A550F0D2236143800089D584 /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
 		A5AC6F2D2360269600DED461 /* ImageEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
@@ -122,8 +132,10 @@
 		A5B59F6E2360421800ADF268 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A550F0D2236143800089D584 /* Ex+UIColor.swift */,
 				A5B59F6F2360422F00ADF268 /* Ex+CGPoint.swift */,
 				A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */,
+				A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -167,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				A5AC6F312360272000DED461 /* BundleHelper.swift */,
+				A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -185,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				A5B59F73236047BD00ADF268 /* Canvas.swift */,
+				A550F0C823613D600089D584 /* CanvasContentView.swift */,
+				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,8 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				A5AC6F2D2360269600DED461 /* ImageEditorController.swift */,
+				A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */,
 				A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */,
-				A550F0C6236130790089D584 /* CanvasController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -414,13 +429,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */,
-				A550F0C7236130790089D584 /* CanvasController.swift in Sources */,
 				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
+				A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */,
+				A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */,
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
+				A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */,
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
 				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
 				A5B59F782360536500ADF268 /* CanvasData.swift in Sources */,
+				A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,
+				A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */,
+				A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */,
 				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
 				A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */,
 			);

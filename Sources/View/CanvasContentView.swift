@@ -1,5 +1,5 @@
 //
-//  CanvasController.swift
+//  CanvasContentView.swift
 //  AnyImageEditor
 //
 //  Created by 蒋惠 on 2019/10/24.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-final class CanvasController: UIViewController {
+final class CanvasContentView: UIView {
 
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-        view.maximumZoomScale = 15.0
+        view.maximumZoomScale = 3.0 // 15.0
         view.isScrollEnabled = false
         if #available(iOS 11.0, *) {
             view.contentInsetAdjustmentBehavior = .never
@@ -36,9 +36,9 @@ final class CanvasController: UIViewController {
     
     /// 计算contentSize应处于的中心位置
     var centerOfContentSize: CGPoint {
-        let deltaWidth = view.bounds.width - scrollView.contentSize.width
+        let deltaWidth = bounds.width - scrollView.contentSize.width
         let offsetX = deltaWidth > 0 ? deltaWidth * 0.5 : 0
-        let deltaHeight = view.bounds.height - scrollView.contentSize.height
+        let deltaHeight = bounds.height - scrollView.contentSize.height
         let offsetY = deltaHeight > 0 ? deltaHeight * 0.5 : 0
         return CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX,
                        y: scrollView.contentSize.height * 0.5 + offsetY)
@@ -65,13 +65,17 @@ final class CanvasController: UIViewController {
         return CGRect(x: 0, y: y, width: size.width, height: size.height)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupView() {
-        view.addSubview(scrollView)
+        addSubview(scrollView)
         scrollView.addSubview(imageView)
         imageView.addSubview(canvas)
         
@@ -79,9 +83,8 @@ final class CanvasController: UIViewController {
         layout()
     }
     
-    /// 重新布局
     private func layout() {
-        scrollView.frame = view.bounds
+        scrollView.frame = bounds
         scrollView.setZoomScale(1.0, animated: false)
         imageView.frame = fitFrame
         canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
@@ -91,12 +94,8 @@ final class CanvasController: UIViewController {
 
 }
 
-extension CanvasController {
-    
-}
-
 // MARK: - Private functino
-extension CanvasController {
+extension CanvasContentView {
     /// 获取缩放比例
     private func getDefaultScale() -> CGFloat {
         guard let image = imageView.image else { return 1.0 }
@@ -112,7 +111,7 @@ extension CanvasController {
 }
 
 // MARK: - CanvasDataSource
-extension CanvasController: CanvasDataSource {
+extension CanvasContentView: CanvasDataSource {
     
     func canvasGetScale(_ canvas: Canvas) -> CGFloat {
         return scrollView.zoomScale
@@ -120,7 +119,7 @@ extension CanvasController: CanvasDataSource {
 }
 
 // MARK: - UIScrollViewDelegate
-extension CanvasController: UIScrollViewDelegate {
+extension CanvasContentView: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
