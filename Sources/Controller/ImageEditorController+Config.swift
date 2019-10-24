@@ -30,3 +30,18 @@ extension ImageEditorController {
     }
     
 }
+
+extension ImageEditorController.PhotoEditOption {
+    var imageName: String {
+        switch self {
+        case .pan:
+            return "PhotoToolPan"
+        case .text:
+            return "PhotoToolText"
+        case .crop:
+            return "PhotoToolCrop"
+        case .mosaic:
+            return "PhotoToolMosaic"
+        }
+    }
+}

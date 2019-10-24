@@ -15,7 +15,7 @@ final class PhotoEditorController: UIViewController {
         return view
     }()
     lazy var toolView: PhotoToolView = {
-        let view = PhotoToolView(frame: self.view.bounds)
+        let view = PhotoToolView(frame: self.view.bounds, options: PhotoManager.shared.config.editOptions)
         
         return view
     }()

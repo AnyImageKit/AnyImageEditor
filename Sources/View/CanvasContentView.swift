@@ -22,7 +22,7 @@ final class CanvasContentView: UIView {
         }
         return view
     }()
-    lazy var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.isUserInteractionEnabled = true
         view.clipsToBounds = true

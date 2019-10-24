@@ -14,6 +14,8 @@ protocol PhotoToolViewDelegate: class {
 
 final class PhotoToolView: UIView {
     
+    private let options: [ImageEditorController.PhotoEditOption]
+    
     private lazy var topCoverLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         let statusBarHeight = StatusBarHelper.height
@@ -43,7 +45,13 @@ final class PhotoToolView: UIView {
         return layer
     }()
     
-    override init(frame: CGRect) {
+    private lazy var editOptionsView: PhotoEditOptionsView = {
+        let view = PhotoEditOptionsView(frame: .zero, options: options)
+        return view
+    }()
+    
+    init(frame: CGRect, options: [ImageEditorController.PhotoEditOption]) {
+        self.options = options
         super.init(frame: frame)
         isUserInteractionEnabled = false
         setupView()
@@ -56,6 +64,17 @@ final class PhotoToolView: UIView {
     private func setupView() {
         layer.addSublayer(topCoverLayer)
         layer.addSublayer(bottomCoverLayer)
+        addSubview(editOptionsView)
+        
+        editOptionsView.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(20)
+            if #available(iOS 11, *) {
+                maker.bottom.equalTo(safeAreaLayoutGuide).offset(-14)
+            } else {
+                maker.bottom.equalToSuperview().offset(-14)
+            }
+            maker.height.equalTo(50)
+        }
     }
 }
 
