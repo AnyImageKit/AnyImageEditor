@@ -18,10 +18,11 @@ final class PhotoEditOptionsView: UIView {
     
     weak var delegate: PhotoEditOptionsViewDelegate?
     
-    private(set) var current: ImageEditorController.PhotoEditOption?
+    private(set) var currentOption: ImageEditorController.PhotoEditOption?
     
     private let options: [ImageEditorController.PhotoEditOption]
     private var buttons: [UIButton] = []
+    private let spacing: CGFloat = 25
     
     init(frame: CGRect, options: [ImageEditorController.PhotoEditOption]) {
         self.options = options
@@ -41,7 +42,7 @@ final class PhotoEditOptionsView: UIView {
         }
         
         let stackView = UIStackView(arrangedSubviews: buttons)
-        stackView.spacing = 25
+        stackView.spacing = spacing
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         addSubview(stackView)
@@ -60,30 +61,52 @@ final class PhotoEditOptionsView: UIView {
     
     private func createButton(with option: ImageEditorController.PhotoEditOption) -> UIButton {
         let button = UIButton(type: .custom)
-        let image = BundleHelper.image(named: option.imageName)
+        let image = BundleHelper.image(named: option.imageName)?.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
-        button.setImage(BundleHelper.image(named: "ReturnBackButton"), for: .selected) // TODO: change
+        button.imageView?.tintColor = .white
         return button
+    }
+    
+    private func selectButton(_ button: UIButton) {
+        for btn in buttons {
+            let isSelected = btn == button
+            btn.isSelected = isSelected
+            btn.imageView?.tintColor = isSelected ? .green : .white
+        }
     }
 }
 
 // MARK: - Public function
 extension PhotoEditOptionsView {
     
-    func tap(_ point: CGPoint) {
+    func unSelectButtons() {
+        for button in buttons {
+            button.isSelected = false
+            button.imageView?.tintColor = .white
+        }
+    }
+}
+
+// MARK: - ResponseTouch
+extension PhotoEditOptionsView: ResponseTouch {
+    
+    @discardableResult
+    func responseTouch(_ point: CGPoint) -> Bool {
         for (idx, button) in buttons.enumerated() {
-            let inside = button.point(inside: point, with: nil)
-            if inside {
-                if let current = current, options[idx] == current {
-                    self.current = nil
-                    button.isSelected = false
+            let frame = button.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
+            if frame.contains(point) { // inside
+                if let current = currentOption, options[idx] == current {
+                    self.currentOption = nil
+                    unSelectButtons()
                 } else {
-                    self.current = options[idx]
-                    button.isSelected = true
+                    self.currentOption = options[idx]
+                    selectButton(button)
                 }
-                delegate?.editOptionsView(self, optionDidChange: self.current)
-                return
+                delegate?.editOptionsView(self, optionDidChange: self.currentOption)
+                return true
             }
         }
+        print("None")
+        return false
     }
 }

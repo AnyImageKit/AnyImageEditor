@@ -16,6 +16,8 @@
 		A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D2236143800089D584 /* Ex+UIColor.swift */; };
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
+		A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6223617AC400710C16 /* ResponseTouch.swift */; };
+		A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6A23617E4600710C16 /* Ex+CGRect.swift */; };
 		A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* ImageEditorController.swift */; };
 		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
@@ -75,6 +77,8 @@
 		A550F0D2236143800089D584 /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
 		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		A5874F6223617AC400710C16 /* ResponseTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTouch.swift; sourceTree = "<group>"; };
+		A5874F6A23617E4600710C16 /* Ex+CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CGRect.swift"; sourceTree = "<group>"; };
 		A5AC6F2D2360269600DED461 /* ImageEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
@@ -133,11 +137,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A5874F61236179DC00710C16 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A5874F6223617AC400710C16 /* ResponseTouch.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		A5B59F6E2360421800ADF268 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				A550F0D2236143800089D584 /* Ex+UIColor.swift */,
 				A5B59F6F2360422F00ADF268 /* Ex+CGPoint.swift */,
+				A5874F6A23617E4600710C16 /* Ex+CGRect.swift */,
 				A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */,
 				A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */,
 			);
@@ -172,6 +185,7 @@
 				A5DB048423602443008D57A1 /* Controller */,
 				A5DB048323602440008D57A1 /* View */,
 				A5DB048223602439008D57A1 /* Model */,
+				A5874F61236179DC00710C16 /* Protocol */,
 				A5DB048123602435008D57A1 /* Util */,
 				A5B59F6E2360421800ADF268 /* Extension */,
 				A5DB048523602452008D57A1 /* Resources */,
@@ -436,8 +450,10 @@
 			files = (
 				A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */,
 				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
+				A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */,
 				A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */,
 				A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */,
+				A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */,
 				A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */,
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
 				A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */,

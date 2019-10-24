@@ -10,11 +10,11 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
 
-    lazy var canvasView: CanvasContentView = {
+    private lazy var canvasView: CanvasContentView = {
         let view = CanvasContentView(frame: self.view.bounds)
         return view
     }()
-    lazy var toolView: PhotoToolView = {
+    private lazy var toolView: PhotoToolView = {
         let view = PhotoToolView(frame: self.view.bounds, options: PhotoManager.shared.config.editOptions)
         
         return view
@@ -24,6 +24,9 @@ final class PhotoEditorController: UIViewController {
         view.setImage(BundleHelper.image(named: "ReturnBackButton"), for: .normal)
         view.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
         return view
+    }()
+    private lazy var singleTap: UITapGestureRecognizer = {
+        return UITapGestureRecognizer(target: self, action: #selector(onSingleTap(_:)))
     }()
     
     override func viewDidLoad() {
@@ -36,6 +39,7 @@ final class PhotoEditorController: UIViewController {
         view.addSubview(canvasView)
         view.addSubview(toolView)
         view.addSubview(backButton)
+        view.addGestureRecognizer(singleTap)
         
         backButton.snp.makeConstraints { (maker) in
             if #available(iOS 11.0, *) {
@@ -49,11 +53,15 @@ final class PhotoEditorController: UIViewController {
     }
 }
 
-// MARK: - Action
+// MARK: - Target
 extension PhotoEditorController {
     
     @objc private func backButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc private func onSingleTap(_ tap: UITapGestureRecognizer) {
+        let point = tap.location(in: toolView)
+        toolView.responseTouch(point)
+    }
 }

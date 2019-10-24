@@ -10,9 +10,16 @@ import UIKit
 
 protocol PhotoToolViewDelegate: class {
     
+    func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?)
 }
 
 final class PhotoToolView: UIView {
+    
+    weak var delegate: PhotoToolViewDelegate?
+    
+    var currentOption: ImageEditorController.PhotoEditOption? {
+        editOptionsView.currentOption
+    }
     
     private let options: [ImageEditorController.PhotoEditOption]
     
@@ -47,6 +54,7 @@ final class PhotoToolView: UIView {
     
     private lazy var editOptionsView: PhotoEditOptionsView = {
         let view = PhotoEditOptionsView(frame: .zero, options: options)
+        view.delegate = self
         return view
     }()
     
@@ -78,7 +86,21 @@ final class PhotoToolView: UIView {
     }
 }
 
-// MARK: - Public function
-extension PhotoToolView {
+// MARK: - PhotoEditOptionsViewDelegate
+extension PhotoToolView: PhotoEditOptionsViewDelegate {
     
+    func editOptionsView(_ editOptionsView: PhotoEditOptionsView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
+        delegate?.toolView(self, optionDidChange: option)
+    }
+    
+}
+
+// MARK: - ResponseTouch
+extension PhotoToolView: ResponseTouch {
+    
+    @discardableResult
+    func responseTouch(_ point: CGPoint) -> Bool {
+        let newPoint = point.subtraction(with: editOptionsView.frame.origin)
+        return editOptionsView.responseTouch(newPoint)
+    }
 }
