@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol CanvasContentViewDelegate: class {
+    
+    func canvasDidPen()
+}
+
 final class CanvasContentView: UIView {
 
+    weak var delegate: CanvasContentViewDelegate?
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.delegate = self
@@ -30,8 +37,9 @@ final class CanvasContentView: UIView {
     }()
     private(set) lazy var canvas: Canvas = {
         let view = Canvas()
-        view.isUserInteractionEnabled = false
+        view.delegate = self
         view.dataSource = self
+        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -108,6 +116,14 @@ extension CanvasContentView {
             return size.height / screenSize.height
         }
         return 1.0
+    }
+}
+
+// MARK: - CanvasDelegate
+extension CanvasContentView: CanvasDelegate {
+    
+    func canvasDidPen() {
+        delegate?.canvasDidPen()
     }
 }
 

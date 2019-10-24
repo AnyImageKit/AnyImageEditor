@@ -8,14 +8,19 @@
 
 import UIKit
 
+protocol CanvasDelegate: class {
+    
+    func canvasDidPen()
+}
+
 protocol CanvasDataSource: class {
     
     func canvasGetScale(_ canvas: Canvas) -> CGFloat
-    
 }
 
 class Canvas: UIView {
 
+    weak var delegate: CanvasDelegate?
     weak var dataSource: CanvasDataSource?
     
     var brush = Brush()
@@ -51,16 +56,14 @@ class Canvas: UIView {
         let point = touch.preciseLocation(in: self)
         pushPoint(point, to: bezierGenerator, state: .end)
     }
-    
-    override func draw(_ rect: CGRect) {
-        
-//        self.layer.addSublayer(shapeLayer)
-    }
-
 }
 
 // MARK: - Public function
 extension Canvas {
+    
+    func canUndo() -> Bool {
+        data.canUndo()
+    }
     
     func undo() {
         data.undo()
@@ -81,6 +84,10 @@ extension Canvas {
         let shapeLayer = data.layer(of: points, brush: brush, scale: scale)
         data.currentElement.layerList.append(shapeLayer)
         self.layer.addSublayer(shapeLayer)
+        
+        if state == .end {
+            delegate?.canvasDidPen()
+        }
     }
     
 }

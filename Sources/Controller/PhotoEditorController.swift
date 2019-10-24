@@ -12,6 +12,7 @@ final class PhotoEditorController: UIViewController {
     
     private lazy var canvasView: CanvasContentView = {
         let view = CanvasContentView(frame: self.view.bounds)
+        view.delegate = self
         view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
         return view
     }()
@@ -73,6 +74,15 @@ extension PhotoEditorController {
     }
 }
 
+// MARK: -
+extension PhotoEditorController: CanvasContentViewDelegate {
+    
+    func canvasDidPen() {
+        toolView.penToolView.undoButton.isEnabled = true
+    }
+}
+
+// MARK: - PhotoToolViewDelegate
 extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
@@ -89,5 +99,6 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView) {
         canvasView.canvas.undo()
+        toolView.penToolView.undoButton.isEnabled = canvasView.canvas.canUndo()
     }
 }

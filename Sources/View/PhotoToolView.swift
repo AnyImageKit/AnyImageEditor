@@ -56,12 +56,12 @@ final class PhotoToolView: UIView {
         return layer
     }()
     
-    private lazy var editOptionsView: PhotoEditOptionsView = {
+    private(set) lazy var editOptionsView: PhotoEditOptionsView = {
         let view = PhotoEditOptionsView(frame: .zero, options: config.editOptions)
         view.delegate = self
         return view
     }()
-    private lazy var penToolView: PhotoPenToolView = {
+    private(set) lazy var penToolView: PhotoPenToolView = {
         let view = PhotoPenToolView(frame: .zero, colors: config.penColors, defaultIdx: config.defaultPenIdx)
         view.delegate = self
         view.isHidden = true

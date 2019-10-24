@@ -35,6 +35,11 @@ extension CanvasData {
         return shapeLayer
     }
     
+    func canUndo() -> Bool {
+        removeEmptyElement()
+        return !elements.isEmpty
+    }
+    
     func undo() {
         removeEmptyElement()
         if elements.isEmpty { return }
