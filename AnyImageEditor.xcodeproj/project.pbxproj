@@ -14,6 +14,7 @@
 		A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */; };
 		A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */; };
 		A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D2236143800089D584 /* Ex+UIColor.swift */; };
+		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2D2360269600DED461 /* ImageEditorController.swift */; };
 		A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */; };
 		A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AC6F312360272000DED461 /* BundleHelper.swift */; };
@@ -71,6 +72,7 @@
 		A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIDevice.swift"; sourceTree = "<group>"; };
 		A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageEditorController+Config.swift"; sourceTree = "<group>"; };
 		A550F0D2236143800089D584 /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
+		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A5AC6F2D2360269600DED461 /* ImageEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditorController.swift; sourceTree = "<group>"; };
 		A5AC6F312360272000DED461 /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				A5B59F73236047BD00ADF268 /* Canvas.swift */,
 				A550F0C823613D600089D584 /* CanvasContentView.swift */,
 				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
+				A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,
 				A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */,
+				A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */,
 				A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */,
 				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
 				A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */,

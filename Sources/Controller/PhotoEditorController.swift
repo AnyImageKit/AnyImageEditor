@@ -21,7 +21,7 @@ final class PhotoEditorController: UIViewController {
     }()
     private lazy var backButton: UIButton = {
         let view = UIButton(type: .custom)
-        view.setImage(BundleHelper.image(named: "EditReturnBackButton"), for: .normal)
+        view.setImage(BundleHelper.image(named: "ReturnBackButton"), for: .normal)
         view.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
         return view
     }()
