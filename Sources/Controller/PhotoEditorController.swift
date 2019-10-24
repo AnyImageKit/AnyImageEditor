@@ -98,6 +98,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
         canvasView.canvas.isUserInteractionEnabled = false
+        canvasView.scrollView.isScrollEnabled = option == nil
         guard let option = option else { return }
         if option == .pen {
             canvasView.canvas.isUserInteractionEnabled = true

@@ -30,7 +30,7 @@ final class PhotoPenToolView: UIView {
     
     private let colors: [UIColor]
     private var colorViews:[UIView] = []
-    private let spacing: CGFloat = 20
+    private let spacing: CGFloat = 22
     
     init(frame: CGRect, colors: [UIColor], defaultIdx: Int) {
         self.colors = colors

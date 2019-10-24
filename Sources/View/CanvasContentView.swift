@@ -18,13 +18,12 @@ final class CanvasContentView: UIView {
 
     weak var delegate: CanvasContentViewDelegate?
     
-    private lazy var scrollView: UIScrollView = {
+    private(set) lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
         view.maximumZoomScale = 3.0 // 15.0
-        view.isScrollEnabled = false
         if #available(iOS 11.0, *) {
             view.contentInsetAdjustmentBehavior = .never
         }
