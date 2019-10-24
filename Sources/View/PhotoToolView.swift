@@ -11,6 +11,7 @@ import UIKit
 protocol PhotoToolViewDelegate: class {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?)
+    func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int)
 }
 
 final class PhotoToolView: UIView {
@@ -21,7 +22,7 @@ final class PhotoToolView: UIView {
         editOptionsView.currentOption
     }
     
-    private let options: [ImageEditorController.PhotoEditOption]
+    private let config: ImageEditorController.PhotoConfig
     
     private lazy var topCoverLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
@@ -53,13 +54,20 @@ final class PhotoToolView: UIView {
     }()
     
     private lazy var editOptionsView: PhotoEditOptionsView = {
-        let view = PhotoEditOptionsView(frame: .zero, options: options)
+        let view = PhotoEditOptionsView(frame: .zero, options: config.editOptions)
         view.delegate = self
         return view
     }()
+    private lazy var penToolView: PhotoPenToolView = {
+        let view = PhotoPenToolView(frame: .zero, colors: config.penColors, defaultIdx: config.defaultPenIdx)
+        view.delegate = self
+        view.isHidden = true
+        return view
+    }()
     
-    init(frame: CGRect, options: [ImageEditorController.PhotoEditOption]) {
-        self.options = options
+    
+    init(frame: CGRect, config: ImageEditorController.PhotoConfig) {
+        self.config = config
         super.init(frame: frame)
         isUserInteractionEnabled = false
         setupView()
@@ -73,6 +81,7 @@ final class PhotoToolView: UIView {
         layer.addSublayer(topCoverLayer)
         layer.addSublayer(bottomCoverLayer)
         addSubview(editOptionsView)
+        addSubview(penToolView)
         
         editOptionsView.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
@@ -83,6 +92,11 @@ final class PhotoToolView: UIView {
             }
             maker.height.equalTo(50)
         }
+        penToolView.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(20)
+            maker.bottom.equalTo(editOptionsView.snp.top).offset(-20)
+            maker.height.equalTo(20)
+        }
     }
 }
 
@@ -91,8 +105,22 @@ extension PhotoToolView: PhotoEditOptionsViewDelegate {
     
     func editOptionsView(_ editOptionsView: PhotoEditOptionsView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
         delegate?.toolView(self, optionDidChange: option)
+        
+        guard let option = option else {
+            penToolView.isHidden = true
+            return
+        }
+        
+        penToolView.isHidden = option != .pen
     }
+}
+
+// MARK: - PhotoPenToolViewDelegate
+extension PhotoToolView: PhotoPenToolViewDelegate {
     
+    func penToolView(_ penToolView: PhotoPenToolView, colorDidChange idx: Int) {
+        delegate?.toolView(self, colorDidChange: idx)
+    }
 }
 
 // MARK: - ResponseTouch
@@ -100,7 +128,13 @@ extension PhotoToolView: ResponseTouch {
     
     @discardableResult
     func responseTouch(_ point: CGPoint) -> Bool {
-        let newPoint = point.subtraction(with: editOptionsView.frame.origin)
-        return editOptionsView.responseTouch(newPoint)
+        let subViews = [editOptionsView, penToolView].filter{ !$0.isHidden }
+        for subView in subViews {
+            let viewPoint = point.subtraction(with: subView.frame.origin)
+            if let subView = subView as? ResponseTouch, subView.responseTouch(viewPoint) {
+                return true
+            }
+        }
+        return false
     }
 }

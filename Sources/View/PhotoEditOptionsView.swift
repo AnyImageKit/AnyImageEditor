@@ -106,7 +106,6 @@ extension PhotoEditOptionsView: ResponseTouch {
                 return true
             }
         }
-        print("None")
         return false
     }
 }

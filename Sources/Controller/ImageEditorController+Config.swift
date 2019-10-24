@@ -16,6 +16,7 @@ extension ImageEditorController {
         
         public var penColors: [UIColor] = [.penWhite, .penBlack, .penRed, .penYellow, .penGreen, .penBlue, .penPurple]
         
+        public var defaultPenIdx: Int = 2
     }
     
     public enum PhotoEditOption {

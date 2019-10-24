@@ -28,7 +28,7 @@ final class CanvasContentView: UIView {
         view.clipsToBounds = true
         return view
     }()
-    private lazy var canvas: Canvas = {
+    private(set) lazy var canvas: Canvas = {
         let view = Canvas()
         view.dataSource = self
         return view

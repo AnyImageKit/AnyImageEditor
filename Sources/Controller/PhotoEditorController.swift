@@ -12,11 +12,12 @@ final class PhotoEditorController: UIViewController {
 
     private lazy var canvasView: CanvasContentView = {
         let view = CanvasContentView(frame: self.view.bounds)
+        view.canvas.brush.color = PhotoManager.shared.config.penColors[PhotoManager.shared.config.defaultPenIdx]
         return view
     }()
     private lazy var toolView: PhotoToolView = {
-        let view = PhotoToolView(frame: self.view.bounds, options: PhotoManager.shared.config.editOptions)
-        
+        let view = PhotoToolView(frame: self.view.bounds, config: PhotoManager.shared.config)
+        view.delegate = self
         return view
     }()
     private lazy var backButton: UIButton = {
@@ -63,5 +64,16 @@ extension PhotoEditorController {
     @objc private func onSingleTap(_ tap: UITapGestureRecognizer) {
         let point = tap.location(in: toolView)
         toolView.responseTouch(point)
+    }
+}
+
+extension PhotoEditorController: PhotoToolViewDelegate {
+    
+    func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
+        
+    }
+    
+    func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int) {
+        canvasView.canvas.brush.color = PhotoManager.shared.config.penColors[idx]
     }
 }
