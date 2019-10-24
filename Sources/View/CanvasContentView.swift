@@ -30,6 +30,7 @@ final class CanvasContentView: UIView {
     }()
     private(set) lazy var canvas: Canvas = {
         let view = Canvas()
+        view.isUserInteractionEnabled = false
         view.dataSource = self
         return view
     }()

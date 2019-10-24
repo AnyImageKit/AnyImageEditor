@@ -36,10 +36,25 @@ extension CanvasData {
     }
     
     func undo() {
+        removeEmptyElement()
         if elements.isEmpty { return }
         let element = elements.removeLast()
         for layer in element.layerList {
             layer.removeFromSuperlayer()
+        }
+    }
+    
+    /// 删除空的元素
+    func removeEmptyElement() {
+        var idx = elements.count-1
+        for element in elements.reversed() {
+            if element.layerList.count < 3 {
+                for layer in element.layerList {
+                    layer.removeFromSuperlayer()
+                }
+                elements.remove(at: idx)
+            }
+            idx -= 1
         }
     }
 }

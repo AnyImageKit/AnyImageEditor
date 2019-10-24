@@ -11,7 +11,10 @@ import UIKit
 protocol PhotoToolViewDelegate: class {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?)
+    
     func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int)
+    
+    func toolViewUndoButtonTapped(_ toolView: PhotoToolView)
 }
 
 final class PhotoToolView: UIView {
@@ -93,7 +96,7 @@ final class PhotoToolView: UIView {
             maker.height.equalTo(50)
         }
         penToolView.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
+            maker.left.right.equalToSuperview().inset(20)
             maker.bottom.equalTo(editOptionsView.snp.top).offset(-20)
             maker.height.equalTo(20)
         }
@@ -120,6 +123,10 @@ extension PhotoToolView: PhotoPenToolViewDelegate {
     
     func penToolView(_ penToolView: PhotoPenToolView, colorDidChange idx: Int) {
         delegate?.toolView(self, colorDidChange: idx)
+    }
+    
+    func penToolViewUndoButtonTapped(_ penToolView: PhotoPenToolView) {
+        delegate?.toolViewUndoButtonTapped(self)
     }
 }
 

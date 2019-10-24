@@ -11,6 +11,8 @@ import UIKit
 protocol PhotoPenToolViewDelegate: class {
     
     func penToolView(_ penToolView: PhotoPenToolView, colorDidChange idx: Int)
+    
+    func penToolViewUndoButtonTapped(_ penToolView: PhotoPenToolView)
 }
 
 final class PhotoPenToolView: UIView {
@@ -21,6 +23,7 @@ final class PhotoPenToolView: UIView {
     
     private(set) lazy var undoButton: UIButton = {
         let view = UIButton(type: .custom)
+        view.isEnabled = false
         view.setImage(BundleHelper.image(named: "PhotoToolUndo"), for: .normal)
         return view
     }()
@@ -49,6 +52,17 @@ final class PhotoPenToolView: UIView {
     }
     
     private func setupView() {
+        setupColorView()
+        addSubview(undoButton)
+        
+        undoButton.snp.makeConstraints { (maker) in
+            maker.right.equalToSuperview()
+            maker.centerY.equalToSuperview()
+            maker.width.height.equalTo(22)
+        }
+    }
+    
+    private func setupColorView() {
         for (idx, color) in colors.enumerated() {
             colorViews.append(createColorView(color, idx: idx))
         }
@@ -58,7 +72,7 @@ final class PhotoPenToolView: UIView {
         stackView.distribution = .equalSpacing
         addSubview(stackView)
         stackView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.left.equalToSuperview()
             maker.centerY.equalToSuperview()
             maker.height.equalTo(22)
         }
@@ -88,6 +102,7 @@ extension PhotoPenToolView: ResponseTouch {
     
     @discardableResult
     func responseTouch(_ point: CGPoint) -> Bool {
+        // Color view
         for (idx, colorView) in colorViews.enumerated() {
             let frame = colorView.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
             if frame.contains(point) { // inside
@@ -98,6 +113,11 @@ extension PhotoPenToolView: ResponseTouch {
                 delegate?.penToolView(self, colorDidChange: currentIdx)
                 return true
             }
+        }
+        // Undo
+        let undoFrame = undoButton.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
+        if undoFrame.contains(point) {
+            delegate?.penToolViewUndoButtonTapped(self)
         }
         return false
     }

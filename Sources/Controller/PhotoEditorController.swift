@@ -9,10 +9,10 @@
 import UIKit
 
 final class PhotoEditorController: UIViewController {
-
+    
     private lazy var canvasView: CanvasContentView = {
         let view = CanvasContentView(frame: self.view.bounds)
-        view.canvas.brush.color = PhotoManager.shared.config.penColors[PhotoManager.shared.config.defaultPenIdx]
+        view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
         return view
     }()
     private lazy var toolView: PhotoToolView = {
@@ -29,6 +29,8 @@ final class PhotoEditorController: UIViewController {
     private lazy var singleTap: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(onSingleTap(_:)))
     }()
+    
+    private let manager = PhotoManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +54,10 @@ final class PhotoEditorController: UIViewController {
             maker.width.height.equalTo(30)
         }
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 }
 
 // MARK: - Target
@@ -70,10 +76,18 @@ extension PhotoEditorController {
 extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
-        
+        canvasView.canvas.isUserInteractionEnabled = false
+        guard let option = option else { return }
+        if option == .pen {
+            canvasView.canvas.isUserInteractionEnabled = true
+        }
     }
     
     func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int) {
         canvasView.canvas.brush.color = PhotoManager.shared.config.penColors[idx]
+    }
+    
+    func toolViewUndoButtonTapped(_ toolView: PhotoToolView) {
+        canvasView.canvas.undo()
     }
 }
