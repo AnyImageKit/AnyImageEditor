@@ -22,13 +22,13 @@ final class CanvasData {
 // MARK: - Public function
 extension CanvasData {
     
-    func layer(of points: [CGPoint], brush: Brush) -> CAShapeLayer {
+    func layer(of points: [CGPoint], brush: Brush, scale: CGFloat) -> CAShapeLayer {
         let path = UIBezierPath.create(with: points)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.lineCap = .round
         shapeLayer.lineJoin = .round
-        shapeLayer.lineWidth = 3
+        shapeLayer.lineWidth = 5.0 / scale
         // Brush
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = brush.color.cgColor

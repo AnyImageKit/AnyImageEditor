@@ -8,8 +8,16 @@
 
 import UIKit
 
+protocol CanvasDataSource: class {
+    
+    func canvasGetScale(_ canvas: Canvas) -> CGFloat
+    
+}
+
 class Canvas: UIView {
 
+    weak var dataSource: CanvasDataSource?
+    
     var brush = Brush()
     
     let data = CanvasData()
@@ -69,7 +77,8 @@ extension Canvas {
         
         let points = bezier.pushPoint(point)
         if points.count < 3 { return }
-        let shapeLayer = data.layer(of: points, brush: brush)
+        let scale = dataSource?.canvasGetScale(self) ?? 1.0
+        let shapeLayer = data.layer(of: points, brush: brush, scale: scale)
         data.currentElement.layerList.append(shapeLayer)
         self.layer.addSublayer(shapeLayer)
     }

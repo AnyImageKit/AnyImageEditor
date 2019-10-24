@@ -10,10 +10,9 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
 
-    private lazy var canvas: Canvas = {
-        let view = Canvas()
-        view.backgroundColor = .white
-        return view
+    lazy var canvasController: CanvasController = {
+        let controller = CanvasController()
+        return controller
     }()
     
     override func viewDidLoad() {
@@ -25,11 +24,9 @@ final class PhotoEditorController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Undo", style: .plain, target: self, action: #selector(undoButtonTapped(_:)))
         
-        
-        view.addSubview(canvas)
-        canvas.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
+        addChild(canvasController)
+        view.addSubview(canvasController.view)
+        canvasController.view.frame = view.bounds
     }
 }
 
@@ -41,6 +38,6 @@ extension PhotoEditorController {
     }
     
     @objc private func undoButtonTapped(_ sender: UIButton) {
-        canvas.undo()
+//        canvas.undo()
     }
 }
