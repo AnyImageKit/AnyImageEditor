@@ -10,7 +10,8 @@ import UIKit
 
 protocol CanvasDelegate: class {
     
-    func canvasDidPen()
+    func canvasDidBeginPen()
+    func canvasDidEndPen()
 }
 
 protocol CanvasDataSource: class {
@@ -77,17 +78,20 @@ extension Canvas {
             data.currentElement = CanvasDataElement()
             data.elements.append(data.currentElement)
         }
+        defer {
+            if state == .end && data.currentElement.layerList.count > 3 {
+                delegate?.canvasDidEndPen()
+            }
+        }
         
         let points = bezier.pushPoint(point)
         if points.count < 3 { return }
+        delegate?.canvasDidBeginPen()
+        
         let scale = dataSource?.canvasGetScale(self) ?? 1.0
         let shapeLayer = data.layer(of: points, brush: brush, scale: scale)
         data.currentElement.layerList.append(shapeLayer)
         self.layer.addSublayer(shapeLayer)
-        
-        if state == .end {
-            delegate?.canvasDidPen()
-        }
     }
     
 }

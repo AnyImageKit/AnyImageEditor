@@ -10,7 +10,8 @@ import UIKit
 
 protocol CanvasContentViewDelegate: class {
     
-    func canvasDidPen()
+    func canvasDidBeginPen()
+    func canvasDidEndPen()
 }
 
 final class CanvasContentView: UIView {
@@ -122,8 +123,12 @@ extension CanvasContentView {
 // MARK: - CanvasDelegate
 extension CanvasContentView: CanvasDelegate {
     
-    func canvasDidPen() {
-        delegate?.canvasDidPen()
+    func canvasDidBeginPen() {
+        delegate?.canvasDidBeginPen()
+    }
+    
+    func canvasDidEndPen() {
+        delegate?.canvasDidEndPen()
     }
 }
 

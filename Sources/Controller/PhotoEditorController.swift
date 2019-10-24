@@ -77,8 +77,19 @@ extension PhotoEditorController {
 // MARK: -
 extension PhotoEditorController: CanvasContentViewDelegate {
     
-    func canvasDidPen() {
+    func canvasDidBeginPen() {
+        UIView.animate(withDuration: 0.25) {
+            self.toolView.alpha = 0
+            self.backButton.alpha = 0
+        }
+    }
+    
+    func canvasDidEndPen() {
         toolView.penToolView.undoButton.isEnabled = true
+        UIView.animate(withDuration: 0.25) {
+            self.toolView.alpha = 1
+            self.backButton.alpha = 1
+        }
     }
 }
 
