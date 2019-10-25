@@ -22,6 +22,8 @@ extension ImageEditorController {
         
         public var defaultPenIdx: Int = 2
         
+        public var mosaicOptions: [PhotoMosaicOption] = [.default, .colorful]
+        
         public init() { }
     }
     
@@ -36,8 +38,18 @@ extension ImageEditorController {
         case mosaic
     }
     
+    public enum PhotoMosaicOption {
+        /// 默认马赛克
+        case `default`
+        ///
+        case colorful
+        ///
+        case custom(icon: UIImage, mosaic: UIImage)
+    }
+    
 }
 
+// MARK: - Extension
 extension ImageEditorController.PhotoEditOption {
     var imageName: String {
         switch self {
@@ -52,3 +64,4 @@ extension ImageEditorController.PhotoEditOption {
         }
     }
 }
+

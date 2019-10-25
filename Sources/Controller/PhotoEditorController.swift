@@ -11,7 +11,7 @@ import UIKit
 final class PhotoEditorController: UIViewController {
     
     private lazy var canvasView: CanvasContentView = {
-        let view = CanvasContentView(frame: self.view.bounds, image: manager.image)
+        let view = CanvasContentView(frame: self.view.bounds, image: manager.image, config: manager.config)
         view.delegate = self
         view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
         return view

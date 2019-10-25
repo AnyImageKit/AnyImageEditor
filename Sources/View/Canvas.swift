@@ -95,13 +95,3 @@ extension Canvas {
     }
     
 }
-
-extension Canvas {
-    
-    enum TouchState {
-        case begin
-        case move
-        case end
-    }
-    
-}

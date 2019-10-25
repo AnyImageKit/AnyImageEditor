@@ -77,10 +77,12 @@ final class CanvasContentView: UIView {
         return CGRect(x: 0, y: y, width: size.width, height: size.height)
     }
     
-    private var image: UIImage
+    private let image: UIImage
+    private let config: ImageEditorController.PhotoConfig
     
-    init(frame: CGRect, image: UIImage) {
+    init(frame: CGRect, image: UIImage, config: ImageEditorController.PhotoConfig) {
         self.image = image
+        self.config = config
         super.init(frame: frame)
         setupView()
         setupMosaicView()
@@ -131,7 +133,7 @@ extension CanvasContentView {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 print("Mosaic created")
-                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), mosaicImage: mosaicImage)
+                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), mosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
                 self.mosaic?.isUserInteractionEnabled = false
                 self.imageView.insertSubview(self.mosaic!, belowSubview: self.canvas)
                 self.delegate?.mosaicDidCreated()

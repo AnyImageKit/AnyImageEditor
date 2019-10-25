@@ -18,7 +18,6 @@ final class PhotoManager {
         case .photo(_, let image):
             return image
         }
-        fatalError()
     }
     
     var imageType: ImageEditorController.ImageType = .photo(config: ImageEditorController.PhotoConfig(), image: UIImage())

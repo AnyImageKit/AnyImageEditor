@@ -11,30 +11,14 @@ import UIKit
 final class Mosaic: UIView {
     
     private let mosaicImage: UIImage
+    private let mosaicOptions: [ImageEditorController.PhotoMosaicOption]
     
-    // 展示马赛克图片的涂层
-    private lazy var mosaicImageLayer: CALayer = {
-        let layer = CALayer()
-        layer.frame = bounds
-        layer.contents = mosaicImage.cgImage
-        return layer
-    }()
-    // 遮罩层，用于设置形状路径
-    private lazy var shapeLayer: CAShapeLayer = {
-        let layer = CAShapeLayer()
-        layer.frame = bounds
-        layer.lineCap = .round
-        layer.lineJoin = .round
-        layer.lineWidth = 10.0
-        layer.strokeColor = UIColor.white.cgColor
-        layer.fillColor = nil
-        return layer
-    }()
+    private var data: [MosaicData] = []
+    private var current: MosaicData!
     
-    var path = CGMutablePath()
-    
-    init(frame: CGRect, mosaicImage: UIImage) {
+    init(frame: CGRect, mosaicImage: UIImage, mosaicOptions: [ImageEditorController.PhotoMosaicOption]) {
         self.mosaicImage = mosaicImage
+        self.mosaicOptions = mosaicOptions
         super.init(frame: frame)
         setupView()
     }
@@ -44,22 +28,76 @@ final class Mosaic: UIView {
     }
     
     private func setupView() {
-        layer.addSublayer(mosaicImageLayer)
-        layer.addSublayer(shapeLayer)
-        mosaicImageLayer.mask = shapeLayer
+        // create
+        for option in mosaicOptions {
+            let image: UIImage
+            switch option {
+            case .default:
+                image = mosaicImage
+            case .colorful:
+                image = BundleHelper.image(named: "CustomMosaic")!
+            case .custom(_, let customMosaic):
+                image = customMosaic
+            }
+            data.append(MosaicData(frame: bounds, image: image))
+        }
+        if !data.isEmpty {
+            current = data.first!
+        }
+        
+        for item in data {
+            layer.addSublayer(item.mosaicImageLayer)
+            layer.addSublayer(item.shapeLayer)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let point = touch.preciseLocation(in: self)
-        path.move(to: point)
-        shapeLayer.path = path.copy()
+        pushPoint(point, state: .begin)
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let point = touch.preciseLocation(in: self)
-        path.addLine(to: point)
-        shapeLayer.path = path.copy()
+        pushPoint(point, state: .move)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let point = touch.preciseLocation(in: self)
+        pushPoint(point, state: .end)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let point = touch.preciseLocation(in: self)
+        pushPoint(point, state: .cancel)
+    }
+}
+
+extension Mosaic {
+    
+}
+
+// MARK: - Private function
+extension Mosaic {
+    
+    private func pushPoint(_ point: CGPoint, state: TouchState) {
+        switch state {
+        case .begin:
+            current.path.move(to: point)
+        default:
+            current.path.addLine(to: point)
+        }
+        
+        guard let copyPath = current.path.copy() else { return }
+        current.shapeLayer.path = copyPath
+        
+        if state == .end || state == .cancel {
+            current.elements.append(copyPath)
+            // TODO: 记录每次操作对象，便于 undo
+        }
     }
 }
