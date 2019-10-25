@@ -11,7 +11,7 @@ import UIKit
 final class PhotoEditorController: UIViewController {
     
     private lazy var canvasView: CanvasContentView = {
-        let view = CanvasContentView(frame: self.view.bounds)
+        let view = CanvasContentView(frame: self.view.bounds, image: manager.image)
         view.delegate = self
         view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
         return view
@@ -91,6 +91,14 @@ extension PhotoEditorController: CanvasContentViewDelegate {
             self.backButton.alpha = 1
         }
     }
+    
+    func mosaicDidCreated() {
+        // hide hud
+        guard let option = toolView.currentOption else { return }
+        if option == .mosaic {
+            canvasView.mosaic?.isUserInteractionEnabled = true
+        }
+    }
 }
 
 // MARK: - PhotoToolViewDelegate
@@ -98,10 +106,21 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
         canvasView.canvas.isUserInteractionEnabled = false
+        canvasView.mosaic?.isUserInteractionEnabled = false
         canvasView.scrollView.isScrollEnabled = option == nil
         guard let option = option else { return }
-        if option == .pen {
+        switch option {
+        case .pen:
             canvasView.canvas.isUserInteractionEnabled = true
+        case .text:
+            break
+        case .crop:
+            break
+        case .mosaic:
+            if canvasView.mosaic == nil {
+                // show hud
+            }
+            canvasView.mosaic?.isUserInteractionEnabled = true
         }
     }
     

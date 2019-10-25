@@ -30,7 +30,8 @@ open class ImageEditorController: UINavigationController {
         return .portrait
     }
     
-    required public init(delegate: ImageEditorControllerDelegate) {
+    required public init(imageType: ImageType, delegate: ImageEditorControllerDelegate) {
+        PhotoManager.shared.imageType = imageType
         let rootViewController = PhotoEditorController()
         super.init(rootViewController: rootViewController)
         self.editorDelegate = delegate

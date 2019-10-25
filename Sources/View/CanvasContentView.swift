@@ -12,6 +12,8 @@ protocol CanvasContentViewDelegate: class {
     
     func canvasDidBeginPen()
     func canvasDidEndPen()
+    
+    func mosaicDidCreated()
 }
 
 final class CanvasContentView: UIView {
@@ -30,11 +32,12 @@ final class CanvasContentView: UIView {
         return view
     }()
     private lazy var imageView: UIImageView = {
-        let view = UIImageView()
-        view.isUserInteractionEnabled = true
+        let view = UIImageView(image: image)
         view.clipsToBounds = true
+        view.isUserInteractionEnabled = true
         return view
     }()
+    /// 画板 - pen
     private(set) lazy var canvas: Canvas = {
         let view = Canvas()
         view.delegate = self
@@ -42,9 +45,11 @@ final class CanvasContentView: UIView {
         view.isUserInteractionEnabled = false
         return view
     }()
+    /// 马赛克，延时加载
+    private(set) var mosaic: Mosaic?
     
     /// 计算contentSize应处于的中心位置
-    var centerOfContentSize: CGPoint {
+    private var centerOfContentSize: CGPoint {
         let deltaWidth = bounds.width - scrollView.contentSize.width
         let offsetX = deltaWidth > 0 ? deltaWidth * 0.5 : 0
         let deltaHeight = bounds.height - scrollView.contentSize.height
@@ -52,9 +57,8 @@ final class CanvasContentView: UIView {
         return CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX,
                        y: scrollView.contentSize.height * 0.5 + offsetY)
     }
-    
     /// 取图片适屏size
-    var fitSize: CGSize {
+    private var fitSize: CGSize {
         guard let image = imageView.image else { return CGSize.zero }
         let width = scrollView.bounds.width
         let scale = image.size.height / image.size.width
@@ -66,17 +70,20 @@ final class CanvasContentView: UIView {
         }
         return size
     }
-    
     /// 取图片适屏frame
-    var fitFrame: CGRect {
+    private var fitFrame: CGRect {
         let size = fitSize
         let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
         return CGRect(x: 0, y: y, width: size.width, height: size.height)
     }
     
-    override init(frame: CGRect) {
+    private var image: UIImage
+    
+    init(frame: CGRect, image: UIImage) {
+        self.image = image
         super.init(frame: frame)
         setupView()
+        setupMosaicView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,8 +94,6 @@ final class CanvasContentView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(imageView)
         imageView.addSubview(canvas)
-        
-        imageView.image = BundleHelper.image(named: "test-image")
         layout()
     }
     
@@ -116,6 +121,22 @@ extension CanvasContentView {
             return size.height / screenSize.height
         }
         return 1.0
+    }
+    
+    /// 在子线程创建马赛克图片
+    private func setupMosaicView() {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            guard let mosaicImage = UIImage.createMosaicImage(from: self.image, level: 20) else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                print("Mosaic created")
+                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), mosaicImage: mosaicImage)
+                self.mosaic?.isUserInteractionEnabled = false
+                self.imageView.insertSubview(self.mosaic!, belowSubview: self.canvas)
+                self.delegate?.mosaicDidCreated()
+            }
+        }
     }
 }
 
