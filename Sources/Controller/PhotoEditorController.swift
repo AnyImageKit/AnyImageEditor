@@ -74,7 +74,7 @@ extension PhotoEditorController {
     }
 }
 
-// MARK: -
+// MARK: - CanvasContentViewDelegate
 extension PhotoEditorController: CanvasContentViewDelegate {
     
     func canvasDidBeginPen() {
@@ -129,7 +129,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     }
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView) {
-        canvasView.canvas.undo()
-        toolView.penToolView.undoButton.isEnabled = canvasView.canvas.canUndo()
+        canvasView.canvasUndo()
+        toolView.penToolView.undoButton.isEnabled = canvasView.canvasCanUndo()
     }
 }

@@ -13,11 +13,12 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Start")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        presentController()
+        presentController()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

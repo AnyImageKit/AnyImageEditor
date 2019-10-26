@@ -11,7 +11,6 @@
 		A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411EE236286FC0089E136 /* Ex+UIImage.swift */; };
 		A50411F12362899C0089E136 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F02362899C0089E136 /* Mosaic.swift */; };
 		A50411F32362C3630089E136 /* TouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F22362C3630089E136 /* TouchState.swift */; };
-		A50411F52362C4780089E136 /* MosaicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F42362C4780089E136 /* MosaicData.swift */; };
 		A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* CanvasContentView.swift */; };
 		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
 		A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */; };
@@ -77,7 +76,6 @@
 		A50411EE236286FC0089E136 /* Ex+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIImage.swift"; sourceTree = "<group>"; };
 		A50411F02362899C0089E136 /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		A50411F22362C3630089E136 /* TouchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchState.swift; sourceTree = "<group>"; };
-		A50411F42362C4780089E136 /* MosaicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicData.swift; sourceTree = "<group>"; };
 		A550F0C823613D600089D584 /* CanvasContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContentView.swift; sourceTree = "<group>"; };
 		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
 		A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHelper.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				A5B59F712360476B00ADF268 /* Brush.swift */,
 				A5B59F6C2360413A00ADF268 /* BezierGenerator.swift */,
 				A5B59F772360536500ADF268 /* CanvasData.swift */,
-				A50411F42362C4780089E136 /* MosaicData.swift */,
 				A50411F22362C3630089E136 /* TouchState.swift */,
 			);
 			path = Model;
@@ -472,7 +469,6 @@
 				A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */,
 				A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */,
 				A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */,
-				A50411F52362C4780089E136 /* MosaicData.swift in Sources */,
 				A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */,
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
 				A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */,

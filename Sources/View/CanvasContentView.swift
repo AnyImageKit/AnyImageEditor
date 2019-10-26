@@ -80,6 +80,9 @@ final class CanvasContentView: UIView {
     private let image: UIImage
     private let config: ImageEditorController.PhotoConfig
     
+    /// 存储马赛克过程图片
+    private var imageList: [UIImage] = []
+    
     init(frame: CGRect, image: UIImage, config: ImageEditorController.PhotoConfig) {
         self.image = image
         self.config = config
@@ -110,7 +113,29 @@ final class CanvasContentView: UIView {
 
 }
 
-// MARK: - Private functino
+// MARK: - Public function
+extension CanvasContentView {
+    
+    func canvasUndo() {
+        canvas.undo()
+    }
+    
+    func canvasCanUndo() -> Bool {
+        return canvas.canUndo()
+    }
+    
+    func mosaicUndo() {
+        if imageList.isEmpty { return }
+        imageView.image = imageList.removeLast()
+        mosaic?.reset()
+    }
+    
+    func mosaicCanUndo() -> Bool {
+        return !imageList.isEmpty
+    }
+}
+
+// MARK: - Private function
 extension CanvasContentView {
     /// 获取缩放比例
     private func getDefaultScale() -> CGFloat {
@@ -133,12 +158,28 @@ extension CanvasContentView {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 print("Mosaic created")
-                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), mosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
+                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), originalMosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
+                self.mosaic?.delegate = self
                 self.mosaic?.isUserInteractionEnabled = false
                 self.imageView.insertSubview(self.mosaic!, belowSubview: self.canvas)
                 self.delegate?.mosaicDidCreated()
             }
         }
+    }
+    
+    /// 生成截图
+    private func getScreenshot() -> UIImage? {
+        let savedOffset = scrollView.contentOffset
+        let savedFrame = scrollView.frame
+        UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, true, UIScreen.main.scale)
+        scrollView.contentOffset = .zero
+        scrollView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
+        scrollView.drawHierarchy(in: scrollView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        scrollView.contentOffset = savedOffset
+        scrollView.frame = savedFrame
+        return image
     }
 }
 
@@ -159,6 +200,19 @@ extension CanvasContentView: CanvasDataSource {
     
     func canvasGetScale(_ canvas: Canvas) -> CGFloat {
         return scrollView.zoomScale
+    }
+}
+
+// MARK: - MosaicDataSource
+extension CanvasContentView: MosaicDelegate {
+    
+    func mosaicDidBeginPen() {
+        
+    }
+    
+    func mosaicDidEndPen() {
+        guard let screenshot = getScreenshot() else { return }
+        imageList.append(screenshot)
     }
 }
 
