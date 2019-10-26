@@ -1,5 +1,5 @@
 //
-//  CanvasContentView.swift
+//  PhotoContentView.swift
 //  AnyImageEditor
 //
 //  Created by 蒋惠 on 2019/10/24.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol CanvasContentViewDelegate: class {
+protocol PhotoContentViewDelegate: class {
     
-    func canvasDidBeginPen()
-    func canvasDidEndPen()
+    func photoDidBeginPen()
+    func photoDidEndPen()
     
     func mosaicDidCreated()
 }
 
-final class CanvasContentView: UIView {
+final class PhotoContentView: UIView {
 
-    weak var delegate: CanvasContentViewDelegate?
+    weak var delegate: PhotoContentViewDelegate?
     
     private(set) lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -114,7 +114,7 @@ final class CanvasContentView: UIView {
 }
 
 // MARK: - Public function
-extension CanvasContentView {
+extension PhotoContentView {
     
     func canvasUndo() {
         canvas.undo()
@@ -136,7 +136,7 @@ extension CanvasContentView {
 }
 
 // MARK: - Private function
-extension CanvasContentView {
+extension PhotoContentView {
     /// 获取缩放比例
     private func getDefaultScale() -> CGFloat {
         guard let image = imageView.image else { return 1.0 }
@@ -184,19 +184,19 @@ extension CanvasContentView {
 }
 
 // MARK: - CanvasDelegate
-extension CanvasContentView: CanvasDelegate {
+extension PhotoContentView: CanvasDelegate {
     
     func canvasDidBeginPen() {
-        delegate?.canvasDidBeginPen()
+        delegate?.photoDidBeginPen()
     }
     
     func canvasDidEndPen() {
-        delegate?.canvasDidEndPen()
+        delegate?.photoDidEndPen()
     }
 }
 
 // MARK: - CanvasDataSource
-extension CanvasContentView: CanvasDataSource {
+extension PhotoContentView: CanvasDataSource {
     
     func canvasGetScale(_ canvas: Canvas) -> CGFloat {
         return scrollView.zoomScale
@@ -204,20 +204,21 @@ extension CanvasContentView: CanvasDataSource {
 }
 
 // MARK: - MosaicDataSource
-extension CanvasContentView: MosaicDelegate {
+extension PhotoContentView: MosaicDelegate {
     
     func mosaicDidBeginPen() {
-        
+        delegate?.photoDidBeginPen()
     }
     
     func mosaicDidEndPen() {
+        delegate?.photoDidEndPen()
         guard let screenshot = getScreenshot() else { return }
         imageList.append(screenshot)
     }
 }
 
 // MARK: - UIScrollViewDelegate
-extension CanvasContentView: UIScrollViewDelegate {
+extension PhotoContentView: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView

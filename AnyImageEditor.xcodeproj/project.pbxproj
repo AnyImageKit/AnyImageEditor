@@ -11,7 +11,7 @@
 		A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411EE236286FC0089E136 /* Ex+UIImage.swift */; };
 		A50411F12362899C0089E136 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F02362899C0089E136 /* Mosaic.swift */; };
 		A50411F32362C3630089E136 /* TouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F22362C3630089E136 /* TouchState.swift */; };
-		A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* CanvasContentView.swift */; };
+		A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* PhotoContentView.swift */; };
 		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
 		A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */; };
 		A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */; };
@@ -76,7 +76,7 @@
 		A50411EE236286FC0089E136 /* Ex+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIImage.swift"; sourceTree = "<group>"; };
 		A50411F02362899C0089E136 /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		A50411F22362C3630089E136 /* TouchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchState.swift; sourceTree = "<group>"; };
-		A550F0C823613D600089D584 /* CanvasContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContentView.swift; sourceTree = "<group>"; };
+		A550F0C823613D600089D584 /* PhotoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentView.swift; sourceTree = "<group>"; };
 		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
 		A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHelper.swift; sourceTree = "<group>"; };
 		A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIDevice.swift"; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		A5DB048323602440008D57A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A550F0C823613D600089D584 /* CanvasContentView.swift */,
+				A550F0C823613D600089D584 /* PhotoContentView.swift */,
 				A5B59F73236047BD00ADF268 /* Canvas.swift */,
 				A50411F02362899C0089E136 /* Mosaic.swift */,
 				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
@@ -471,7 +471,7 @@
 				A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */,
 				A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */,
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
-				A550F0C923613D600089D584 /* CanvasContentView.swift in Sources */,
+				A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */,
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
 				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
 				A50411F12362899C0089E136 /* Mosaic.swift in Sources */,

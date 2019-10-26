@@ -10,8 +10,8 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
     
-    private lazy var canvasView: CanvasContentView = {
-        let view = CanvasContentView(frame: self.view.bounds, image: manager.image, config: manager.config)
+    private lazy var canvasView: PhotoContentView = {
+        let view = PhotoContentView(frame: self.view.bounds, image: manager.image, config: manager.config)
         view.delegate = self
         view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
         return view
@@ -74,18 +74,27 @@ extension PhotoEditorController {
     }
 }
 
-// MARK: - CanvasContentViewDelegate
-extension PhotoEditorController: CanvasContentViewDelegate {
+// MARK: - PhotoContentViewDelegate
+extension PhotoEditorController: PhotoContentViewDelegate {
     
-    func canvasDidBeginPen() {
+    func photoDidBeginPen() {
         UIView.animate(withDuration: 0.25) {
             self.toolView.alpha = 0
             self.backButton.alpha = 0
         }
     }
     
-    func canvasDidEndPen() {
-        toolView.penToolView.undoButton.isEnabled = true
+    func photoDidEndPen() {
+        if let option = toolView.currentOption {
+            switch option {
+            case .pen:
+                toolView.penToolView.undoButton.isEnabled = true
+            case .mosaic:
+                break
+            default:
+                break
+            }
+        }
         UIView.animate(withDuration: 0.25) {
             self.toolView.alpha = 1
             self.backButton.alpha = 1
@@ -93,7 +102,7 @@ extension PhotoEditorController: CanvasContentViewDelegate {
     }
     
     func mosaicDidCreated() {
-        // hide hud
+        // TODO: hide hud
         guard let option = toolView.currentOption else { return }
         if option == .mosaic {
             canvasView.mosaic?.isUserInteractionEnabled = true
@@ -118,7 +127,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
             break
         case .mosaic:
             if canvasView.mosaic == nil {
-                // show hud
+                // TODO: show hud
             }
             canvasView.mosaic?.isUserInteractionEnabled = true
         }

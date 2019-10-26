@@ -123,12 +123,13 @@ extension Mosaic {
         case .begin:
             lenth = 0
             path.move(to: point)
-            delegate?.mosaicDidBeginPen()
         default:
             lenth += 1
             path.addLine(to: point)
         }
-
+        
+        if lenth <= 1 { return }
+        if lenth == 2 { delegate?.mosaicDidBeginPen() }
         guard let copyPath = path.copy() else { return }
         shapeLayer.path = copyPath
         
