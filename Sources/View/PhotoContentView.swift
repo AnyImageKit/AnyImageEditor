@@ -80,8 +80,8 @@ final class PhotoContentView: UIView {
     private let image: UIImage
     private let config: ImageEditorController.PhotoConfig
     
-    /// 存储马赛克过程图片
-    private var imageList: [UIImage] = []
+    /// 存储马赛克过程图片 // TODO: 改成磁盘存储
+    private var mosaicImageList: [UIImage] = []
     
     init(frame: CGRect, image: UIImage, config: ImageEditorController.PhotoConfig) {
         self.image = image
@@ -125,13 +125,14 @@ extension PhotoContentView {
     }
     
     func mosaicUndo() {
-        if imageList.isEmpty { return }
-        imageView.image = imageList.removeLast()
+        if mosaicImageList.isEmpty { return }
+        mosaicImageList.removeLast()
         mosaic?.reset()
+        imageView.image = mosaicImageList.last ?? image
     }
     
     func mosaicCanUndo() -> Bool {
-        return !imageList.isEmpty
+        return !mosaicImageList.isEmpty
     }
 }
 
@@ -213,7 +214,8 @@ extension PhotoContentView: MosaicDelegate {
     func mosaicDidEndPen() {
         delegate?.photoDidEndPen()
         guard let screenshot = getScreenshot() else { return }
-        imageList.append(screenshot)
+        mosaicImageList.append(screenshot)
+        imageView.image = screenshot
     }
 }
 

@@ -13,6 +13,7 @@ protocol PhotoToolViewDelegate: class {
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?)
     
     func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int)
+    func toolView(_ toolView: PhotoToolView, mosaicDidChange idx: Int)
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView)
 }
@@ -67,7 +68,12 @@ final class PhotoToolView: UIView {
         view.isHidden = true
         return view
     }()
-    
+    private(set) lazy var mosaicToolView: PhotoMosaicToolView = {
+        let view = PhotoMosaicToolView(frame: .zero, mosaicOptions: config.mosaicOptions)
+        view.delegate = self
+        view.isHidden = true
+        return view
+    }()
     
     init(frame: CGRect, config: ImageEditorController.PhotoConfig) {
         self.config = config
@@ -85,6 +91,7 @@ final class PhotoToolView: UIView {
         layer.addSublayer(bottomCoverLayer)
         addSubview(editOptionsView)
         addSubview(penToolView)
+        addSubview(mosaicToolView)
         
         editOptionsView.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
@@ -100,6 +107,9 @@ final class PhotoToolView: UIView {
             maker.bottom.equalTo(editOptionsView.snp.top).offset(-20)
             maker.height.equalTo(20)
         }
+        mosaicToolView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(penToolView)
+        }
     }
 }
 
@@ -111,10 +121,12 @@ extension PhotoToolView: PhotoEditOptionsViewDelegate {
         
         guard let option = option else {
             penToolView.isHidden = true
+            mosaicToolView.isHidden = true
             return
         }
         
         penToolView.isHidden = option != .pen
+        mosaicToolView.isHidden = option != .mosaic
     }
 }
 
@@ -130,12 +142,24 @@ extension PhotoToolView: PhotoPenToolViewDelegate {
     }
 }
 
+// MARK: - PhotoMosaicToolViewDelegate
+extension PhotoToolView: PhotoMosaicToolViewDelegate {
+    
+    func mosaicToolView(_ mosaicToolView: PhotoMosaicToolView, mosaicDidChange idx: Int) {
+        delegate?.toolView(self, mosaicDidChange: idx)
+    }
+    
+    func mosaicToolViewUndoButtonTapped(_ mosaicToolView: PhotoMosaicToolView) {
+        delegate?.toolViewUndoButtonTapped(self)
+    }
+}
+
 // MARK: - ResponseTouch
 extension PhotoToolView: ResponseTouch {
     
     @discardableResult
     func responseTouch(_ point: CGPoint) -> Bool {
-        let subViews = [editOptionsView, penToolView].filter{ !$0.isHidden }
+        let subViews = [editOptionsView, penToolView, mosaicToolView].filter{ !$0.isHidden }
         for subView in subViews {
             let viewPoint = point.subtraction(with: subView.frame.origin)
             if let subView = subView as? ResponseTouch, subView.responseTouch(viewPoint) {

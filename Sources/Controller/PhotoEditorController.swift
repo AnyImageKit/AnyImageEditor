@@ -10,7 +10,7 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
     
-    private lazy var canvasView: PhotoContentView = {
+    private lazy var contentView: PhotoContentView = {
         let view = PhotoContentView(frame: self.view.bounds, image: manager.image, config: manager.config)
         view.delegate = self
         view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
@@ -40,7 +40,7 @@ final class PhotoEditorController: UIViewController {
     }
     
     private func setupView() {
-        view.addSubview(canvasView)
+        view.addSubview(contentView)
         view.addSubview(toolView)
         view.addSubview(backButton)
         view.addGestureRecognizer(singleTap)
@@ -90,7 +90,7 @@ extension PhotoEditorController: PhotoContentViewDelegate {
             case .pen:
                 toolView.penToolView.undoButton.isEnabled = true
             case .mosaic:
-                break
+                toolView.mosaicToolView.undoButton.isEnabled = true
             default:
                 break
             }
@@ -105,7 +105,7 @@ extension PhotoEditorController: PhotoContentViewDelegate {
         // TODO: hide hud
         guard let option = toolView.currentOption else { return }
         if option == .mosaic {
-            canvasView.mosaic?.isUserInteractionEnabled = true
+            contentView.mosaic?.isUserInteractionEnabled = true
         }
     }
 }
@@ -114,31 +114,44 @@ extension PhotoEditorController: PhotoContentViewDelegate {
 extension PhotoEditorController: PhotoToolViewDelegate {
     
     func toolView(_ toolView: PhotoToolView, optionDidChange option: ImageEditorController.PhotoEditOption?) {
-        canvasView.canvas.isUserInteractionEnabled = false
-        canvasView.mosaic?.isUserInteractionEnabled = false
-        canvasView.scrollView.isScrollEnabled = option == nil
+        contentView.canvas.isUserInteractionEnabled = false
+        contentView.mosaic?.isUserInteractionEnabled = false
+        contentView.scrollView.isScrollEnabled = option == nil
         guard let option = option else { return }
         switch option {
         case .pen:
-            canvasView.canvas.isUserInteractionEnabled = true
+            contentView.canvas.isUserInteractionEnabled = true
         case .text:
             break
         case .crop:
             break
         case .mosaic:
-            if canvasView.mosaic == nil {
+            if contentView.mosaic == nil {
                 // TODO: show hud
             }
-            canvasView.mosaic?.isUserInteractionEnabled = true
+            contentView.mosaic?.isUserInteractionEnabled = true
         }
     }
     
     func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int) {
-        canvasView.canvas.brush.color = PhotoManager.shared.config.penColors[idx]
+        contentView.canvas.brush.color = PhotoManager.shared.config.penColors[idx]
+    }
+    
+    func toolView(_ toolView: PhotoToolView, mosaicDidChange idx: Int) {
+        contentView.mosaic?.setMosaicCoverImage(idx)
     }
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView) {
-        canvasView.canvasUndo()
-        toolView.penToolView.undoButton.isEnabled = canvasView.canvasCanUndo()
+        guard let option = toolView.currentOption else { return }
+        switch option {
+        case .pen:
+            contentView.canvasUndo()
+            toolView.penToolView.undoButton.isEnabled = contentView.canvasCanUndo()
+        case .mosaic:
+            contentView.mosaicUndo()
+            toolView.mosaicToolView.undoButton.isEnabled = contentView.mosaicCanUndo()
+        default:
+            break
+        }
     }
 }

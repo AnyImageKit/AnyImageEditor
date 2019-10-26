@@ -60,7 +60,7 @@ final class Mosaic: UIView {
             }
             mosaicCoverImage.append(image)
         }
-        setMosaicCoverImage(mosaicCoverImage.first!)
+        setMosaicCoverImage(0)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -91,7 +91,16 @@ final class Mosaic: UIView {
 
 // MARK: - Public function
 extension Mosaic {
+    
+    func setMosaicCoverImage(_ idx: Int) {
+        mosaicImage = mosaicCoverImage[idx]
+        reset()
+    }
+    
     func reset() {
+        shapeLayer.removeFromSuperlayer()
+        mosaicImageLayer.removeFromSuperlayer()
+        
         path = CGMutablePath()
         shapeLayer = CAShapeLayer()
         shapeLayer.frame = frame
@@ -113,19 +122,16 @@ extension Mosaic {
 // MARK: - Private function
 extension Mosaic {
     
-    private func setMosaicCoverImage(_ image: UIImage) {
-        mosaicImage = image
-        reset()
-    }
-    
     private func pushPoint(_ point: CGPoint, state: TouchState) {
         switch state {
         case .begin:
             lenth = 0
             path.move(to: point)
-        default:
+        case .move:
             lenth += 1
             path.addLine(to: point)
+        default:
+            break
         }
         
         if lenth <= 1 { return }
