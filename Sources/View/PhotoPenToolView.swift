@@ -118,6 +118,7 @@ extension PhotoPenToolView: ResponseTouch {
         let undoFrame = undoButton.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
         if undoFrame.contains(point) {
             delegate?.penToolViewUndoButtonTapped(self)
+            return true
         }
         return false
     }

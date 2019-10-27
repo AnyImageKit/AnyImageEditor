@@ -127,8 +127,8 @@ extension PhotoContentView {
     func mosaicUndo() {
         if mosaicImageList.isEmpty { return }
         mosaicImageList.removeLast()
-        mosaic?.reset()
         imageView.image = mosaicImageList.last ?? image
+        mosaic?.reset()
     }
     
     func mosaicCanUndo() -> Bool {
@@ -172,14 +172,17 @@ extension PhotoContentView {
     private func getScreenshot() -> UIImage? {
         let savedOffset = scrollView.contentOffset
         let savedFrame = scrollView.frame
+        let savedFrame2 = imageView.frame
         UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, true, UIScreen.main.scale)
         scrollView.contentOffset = .zero
         scrollView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
+        imageView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
         scrollView.drawHierarchy(in: scrollView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         scrollView.contentOffset = savedOffset
         scrollView.frame = savedFrame
+        imageView.frame = savedFrame2
         return image
     }
 }
@@ -215,7 +218,6 @@ extension PhotoContentView: MosaicDelegate {
         delegate?.photoDidEndPen()
         guard let screenshot = getScreenshot() else { return }
         mosaicImageList.append(screenshot)
-        imageView.image = screenshot
     }
 }
 

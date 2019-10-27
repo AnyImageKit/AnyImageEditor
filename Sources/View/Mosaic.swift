@@ -29,7 +29,7 @@ final class Mosaic: UIView {
     private var mosaicImageLayer = CALayer()
     /// 遮罩层，用于设置形状路径
     private var shapeLayer = CAShapeLayer()
-    /// 路径
+    /// 手指涂抹的路径
     private var path = CGMutablePath()
     /// 步长
     private var lenth = 0
@@ -67,7 +67,6 @@ final class Mosaic: UIView {
         guard let touch = touches.first else { return }
         let point = touch.preciseLocation(in: self)
         pushPoint(point, state: .begin)
-        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -134,13 +133,12 @@ extension Mosaic {
             break
         }
         
-        if lenth <= 1 { return }
-        if lenth == 2 { delegate?.mosaicDidBeginPen() }
+        if lenth <= 3 { return }
+        if lenth == 4 { delegate?.mosaicDidBeginPen() }
         guard let copyPath = path.copy() else { return }
         shapeLayer.path = copyPath
         
-        if (state == .end || state == .cancel) { //&& lenth > 1
-            delegate?.mosaicDidEndPen()
-        }
+        guard state == .end || state == .cancel else { return }
+        delegate?.mosaicDidEndPen()
     }
 }

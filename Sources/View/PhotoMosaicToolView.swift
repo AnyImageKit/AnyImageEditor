@@ -132,9 +132,10 @@ extension PhotoMosaicToolView: ResponseTouch {
             }
         }
         // Undo
-        let undoFrame = undoButton.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
+        let undoFrame = undoButton.frame.bigger(.init(top: 10, left: 15, bottom: 30, right: 30))
         if undoFrame.contains(point) {
             delegate?.mosaicToolViewUndoButtonTapped(self)
+            return true
         }
         return false
     }
