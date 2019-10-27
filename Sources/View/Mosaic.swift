@@ -14,8 +14,14 @@ protocol MosaicDelegate: class {
     func mosaicDidEndPen()
 }
 
+protocol MosaicDataSource: class {
+    
+    func mosaicGetScale(_ mosaic: Mosaic) -> CGFloat
+}
+
 final class Mosaic: UIView {
     
+    weak var dataSource: MosaicDataSource?
     weak var delegate: MosaicDelegate?
     
     private let originalMosaicImage: UIImage
@@ -31,6 +37,8 @@ final class Mosaic: UIView {
     private var shapeLayer = CAShapeLayer()
     /// 手指涂抹的路径
     private var path = CGMutablePath()
+    private var tmpPath = CGMutablePath()
+    private var lastPoint: CGPoint = .zero
     /// 步长
     private var lenth = 0
     
@@ -105,7 +113,8 @@ extension Mosaic {
         shapeLayer.frame = frame
         shapeLayer.lineCap = .round
         shapeLayer.lineJoin = .round
-        shapeLayer.lineWidth = 20.0
+        let sacle = dataSource?.mosaicGetScale(self) ?? 1.0
+        shapeLayer.lineWidth = 15.0 / sacle
         shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.fillColor = nil
         mosaicImageLayer = CALayer()
@@ -124,17 +133,31 @@ extension Mosaic {
     private func pushPoint(_ point: CGPoint, state: TouchState) {
         switch state {
         case .begin:
+            let sacle = dataSource?.mosaicGetScale(self) ?? 1.0
+            shapeLayer.lineWidth = 15.0 / sacle
+            
             lenth = 0
-            path.move(to: point)
+            tmpPath = CGMutablePath()
+            tmpPath.move(to: point)
+            lastPoint = point
         case .move:
+            if lastPoint == point { return }
+            lastPoint = point
             lenth += 1
-            path.addLine(to: point)
+            if lenth <= 3 {
+                tmpPath.addLine(to: point)
+            } else {
+                path.addLine(to: point)
+            }
         default:
             break
         }
         
-        if lenth <= 3 { return }
-        if lenth == 4 { delegate?.mosaicDidBeginPen() }
+        if lenth <= 2 { return }
+        if lenth == 3 {
+            path.addPath(tmpPath)
+            delegate?.mosaicDidBeginPen()
+        }
         guard let copyPath = path.copy() else { return }
         shapeLayer.path = copyPath
         

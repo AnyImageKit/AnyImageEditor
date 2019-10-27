@@ -138,7 +138,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     }
     
     func toolView(_ toolView: PhotoToolView, mosaicDidChange idx: Int) {
-        contentView.mosaic?.setMosaicCoverImage(idx)
+        contentView.setMosaicImage(idx)
     }
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView) {

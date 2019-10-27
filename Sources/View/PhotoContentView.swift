@@ -124,6 +124,11 @@ extension PhotoContentView {
         return canvas.canUndo()
     }
     
+    func setMosaicImage(_ idx: Int) {
+        mosaic?.setMosaicCoverImage(idx)
+        imageView.image = mosaicImageList.last ?? image
+    }
+    
     func mosaicUndo() {
         if mosaicImageList.isEmpty { return }
         mosaicImageList.removeLast()
@@ -161,6 +166,7 @@ extension PhotoContentView {
                 print("Mosaic created")
                 self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), originalMosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
                 self.mosaic?.delegate = self
+                self.mosaic?.dataSource = self
                 self.mosaic?.isUserInteractionEnabled = false
                 self.imageView.insertSubview(self.mosaic!, belowSubview: self.canvas)
                 self.delegate?.mosaicDidCreated()
@@ -170,20 +176,26 @@ extension PhotoContentView {
     
     /// 生成截图
     private func getScreenshot() -> UIImage? {
-        let savedOffset = scrollView.contentOffset
-        let savedFrame = scrollView.frame
-        let savedFrame2 = imageView.frame
-        UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, true, UIScreen.main.scale)
-        scrollView.contentOffset = .zero
-        scrollView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
-        imageView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
-        scrollView.drawHierarchy(in: scrollView.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, true, UIScreen.main.scale)
+        imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        scrollView.contentOffset = savedOffset
-        scrollView.frame = savedFrame
-        imageView.frame = savedFrame2
         return image
+        
+//        let savedOffset = scrollView.contentOffset
+//        let savedFrame = scrollView.frame
+//        let savedFrame2 = imageView.frame
+//        UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, true, UIScreen.main.scale)
+//        scrollView.contentOffset = .zero
+//        scrollView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
+//        imageView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
+//        scrollView.drawHierarchy(in: scrollView.bounds, afterScreenUpdates: true)
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        scrollView.contentOffset = savedOffset
+//        scrollView.frame = savedFrame
+//        imageView.frame = savedFrame2
+//        return image
     }
 }
 
@@ -207,7 +219,7 @@ extension PhotoContentView: CanvasDataSource {
     }
 }
 
-// MARK: - MosaicDataSource
+// MARK: - MosaicDelegate
 extension PhotoContentView: MosaicDelegate {
     
     func mosaicDidBeginPen() {
@@ -218,6 +230,16 @@ extension PhotoContentView: MosaicDelegate {
         delegate?.photoDidEndPen()
         guard let screenshot = getScreenshot() else { return }
         mosaicImageList.append(screenshot)
+        imageView.image = screenshot
+        mosaic?.reset()
+    }
+}
+
+// MARK: - MosaicDataSource
+extension PhotoContentView: MosaicDataSource {
+    
+    func mosaicGetScale(_ mosaic: Mosaic) -> CGFloat {
+        return scrollView.zoomScale
     }
 }
 
