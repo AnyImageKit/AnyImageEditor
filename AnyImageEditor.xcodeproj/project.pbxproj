@@ -21,6 +21,13 @@
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
 		A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240352368048000C6DB3D /* PhotoCropToolView.swift */; };
+		A582403B2368148B00C6DB3D /* CropGridLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403A2368148B00C6DB3D /* CropGridLayer.swift */; };
+		A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403C236814CE00C6DB3D /* CropCornerView.swift */; };
+		A582403F236820FA00C6DB3D /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403E236820FA00C6DB3D /* CropView.swift */; };
+		A58240412368224D00C6DB3D /* PhotoContentView+Pen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */; };
+		A5824043236822C600C6DB3D /* PhotoContentView+Getter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */; };
+		A58240452368237A00C6DB3D /* PhotoContentView+Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240442368237A00C6DB3D /* PhotoContentView+Mosaic.swift */; };
+		A58240472368238400C6DB3D /* PhotoContentView+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240462368238400C6DB3D /* PhotoContentView+Crop.swift */; };
 		A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6223617AC400710C16 /* ResponseTouch.swift */; };
 		A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6A23617E4600710C16 /* Ex+CGRect.swift */; };
 		A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */; };
@@ -88,6 +95,13 @@
 		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		A58240352368048000C6DB3D /* PhotoCropToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropToolView.swift; sourceTree = "<group>"; };
+		A582403A2368148B00C6DB3D /* CropGridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGridLayer.swift; sourceTree = "<group>"; };
+		A582403C236814CE00C6DB3D /* CropCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropCornerView.swift; sourceTree = "<group>"; };
+		A582403E236820FA00C6DB3D /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Pen.swift"; sourceTree = "<group>"; };
+		A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Getter.swift"; sourceTree = "<group>"; };
+		A58240442368237A00C6DB3D /* PhotoContentView+Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Mosaic.swift"; sourceTree = "<group>"; };
+		A58240462368238400C6DB3D /* PhotoContentView+Crop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Crop.swift"; sourceTree = "<group>"; };
 		A5874F6223617AC400710C16 /* ResponseTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTouch.swift; sourceTree = "<group>"; };
 		A5874F6A23617E4600710C16 /* Ex+CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CGRect.swift"; sourceTree = "<group>"; };
 		A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPenToolView.swift; sourceTree = "<group>"; };
@@ -147,6 +161,16 @@
 				CC3937245066C222ABC7EBC9 /* Pods-Example.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A58240392368145500C6DB3D /* Kit */ = {
+			isa = PBXGroup;
+			children = (
+				A582403E236820FA00C6DB3D /* CropView.swift */,
+				A582403C236814CE00C6DB3D /* CropCornerView.swift */,
+				A582403A2368148B00C6DB3D /* CropGridLayer.swift */,
+			);
+			path = Kit;
 			sourceTree = "<group>";
 		};
 		A5874F61236179DC00710C16 /* Protocol */ = {
@@ -231,6 +255,10 @@
 			isa = PBXGroup;
 			children = (
 				A550F0C823613D600089D584 /* PhotoContentView.swift */,
+				A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */,
+				A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */,
+				A58240462368238400C6DB3D /* PhotoContentView+Crop.swift */,
+				A58240442368237A00C6DB3D /* PhotoContentView+Mosaic.swift */,
 				A5B59F73236047BD00ADF268 /* Canvas.swift */,
 				A50411F02362899C0089E136 /* Mosaic.swift */,
 				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
@@ -238,6 +266,7 @@
 				A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */,
 				7149B73A236486E2005D5D6C /* PhotoMosaicToolView.swift */,
 				A58240352368048000C6DB3D /* PhotoCropToolView.swift */,
+				A58240392368145500C6DB3D /* Kit */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -468,6 +497,8 @@
 			files = (
 				A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */,
 				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
+				A58240452368237A00C6DB3D /* PhotoContentView+Mosaic.swift in Sources */,
+				A5824043236822C600C6DB3D /* PhotoContentView+Getter.swift in Sources */,
 				A50411F32362C3630089E136 /* TouchState.swift in Sources */,
 				7149B73B236486E2005D5D6C /* PhotoMosaicToolView.swift in Sources */,
 				A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */,
@@ -481,15 +512,20 @@
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
 				A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */,
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
+				A582403B2368148B00C6DB3D /* CropGridLayer.swift in Sources */,
 				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
 				A50411F12362899C0089E136 /* Mosaic.swift in Sources */,
 				A5B59F782360536500ADF268 /* CanvasData.swift in Sources */,
+				A58240472368238400C6DB3D /* PhotoContentView+Crop.swift in Sources */,
 				A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,
+				A58240412368224D00C6DB3D /* PhotoContentView+Pen.swift in Sources */,
 				A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */,
 				A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */,
 				A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */,
+				A582403F236820FA00C6DB3D /* CropView.swift in Sources */,
 				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
+				A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */,
 				A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
