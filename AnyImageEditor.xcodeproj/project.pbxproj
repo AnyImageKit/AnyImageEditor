@@ -20,6 +20,7 @@
 		A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D2236143800089D584 /* Ex+UIColor.swift */; };
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
+		A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240352368048000C6DB3D /* PhotoCropToolView.swift */; };
 		A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6223617AC400710C16 /* ResponseTouch.swift */; };
 		A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6A23617E4600710C16 /* Ex+CGRect.swift */; };
 		A5874F6D2361875C00710C16 /* PhotoPenToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */; };
@@ -86,6 +87,7 @@
 		A550F0D2236143800089D584 /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
 		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		A58240352368048000C6DB3D /* PhotoCropToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropToolView.swift; sourceTree = "<group>"; };
 		A5874F6223617AC400710C16 /* ResponseTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTouch.swift; sourceTree = "<group>"; };
 		A5874F6A23617E4600710C16 /* Ex+CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CGRect.swift"; sourceTree = "<group>"; };
 		A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPenToolView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */,
 				A5874F6C2361875C00710C16 /* PhotoPenToolView.swift */,
 				7149B73A236486E2005D5D6C /* PhotoMosaicToolView.swift */,
+				A58240352368048000C6DB3D /* PhotoCropToolView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				7149B73B236486E2005D5D6C /* PhotoMosaicToolView.swift in Sources */,
 				A5874F6B23617E4600710C16 /* Ex+CGRect.swift in Sources */,
 				A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */,
+				A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */,
 				A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */,
 				A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */,
 				A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */,

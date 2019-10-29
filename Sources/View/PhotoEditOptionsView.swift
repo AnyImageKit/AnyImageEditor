@@ -80,6 +80,7 @@ final class PhotoEditOptionsView: UIView {
 extension PhotoEditOptionsView {
     
     func unSelectButtons() {
+        self.currentOption = nil
         for button in buttons {
             button.isSelected = false
             button.imageView?.tintColor = .white
@@ -96,7 +97,6 @@ extension PhotoEditOptionsView: ResponseTouch {
             let frame = button.frame.bigger(.init(top: spacing/4, left: spacing/2, bottom: spacing*0.8, right: spacing/2))
             if frame.contains(point) { // inside
                 if let current = currentOption, options[idx] == current {
-                    self.currentOption = nil
                     unSelectButtons()
                 } else {
                     self.currentOption = options[idx]

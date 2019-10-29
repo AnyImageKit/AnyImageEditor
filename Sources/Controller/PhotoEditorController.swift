@@ -124,7 +124,9 @@ extension PhotoEditorController: PhotoToolViewDelegate {
         case .text:
             break
         case .crop:
-            break
+            backButton.isHidden = true
+            contentView.scrollView.isScrollEnabled = true
+            contentView.cropStart()
         case .mosaic:
             if contentView.mosaic == nil {
                 // TODO: show hud
@@ -153,5 +155,19 @@ extension PhotoEditorController: PhotoToolViewDelegate {
         default:
             break
         }
+    }
+    
+    func toolViewCropCancelButtonTapped(_ toolView: PhotoToolView) {
+        backButton.isHidden = false
+        contentView.cropCancel()
+    }
+    
+    func toolViewCropDoneButtonTapped(_ toolView: PhotoToolView) {
+        backButton.isHidden = false
+        contentView.cropDone()
+    }
+    
+    func toolViewCropResetButtonTapped(_ toolView: PhotoToolView) {
+        contentView.cropReset()
     }
 }

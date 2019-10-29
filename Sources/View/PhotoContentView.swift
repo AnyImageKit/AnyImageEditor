@@ -22,6 +22,7 @@ final class PhotoContentView: UIView {
     
     private(set) lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
+        view.clipsToBounds = false
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
@@ -50,9 +51,9 @@ final class PhotoContentView: UIView {
     
     /// 计算contentSize应处于的中心位置
     private var centerOfContentSize: CGPoint {
-        let deltaWidth = bounds.width - scrollView.contentSize.width
+        let deltaWidth = scrollView.bounds.width - scrollView.contentSize.width
         let offsetX = deltaWidth > 0 ? deltaWidth * 0.5 : 0
-        let deltaHeight = bounds.height - scrollView.contentSize.height
+        let deltaHeight = scrollView.bounds.height - scrollView.contentSize.height
         let offsetY = deltaHeight > 0 ? deltaHeight * 0.5 : 0
         return CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX,
                        y: scrollView.contentSize.height * 0.5 + offsetY)
@@ -75,6 +76,39 @@ final class PhotoContentView: UIView {
         let size = fitSize
         let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
         return CGRect(x: 0, y: y, width: size.width, height: size.height)
+    }
+    /// 裁剪的图片size
+    private var cropSize: CGSize {
+        guard let image = imageView.image else { return CGSize.zero }
+        let width = scrollView.bounds.width
+        let scale = image.size.height / image.size.width
+        let size = CGSize(width: width, height: scale * width)
+        let screenSize = scrollView.bounds.size //UIScreen.main.bounds.size
+        if size.height > screenSize.height {
+            let scale2 = screenSize.height / size.height
+            return CGSize(width: size.width * scale2, height: screenSize.height)
+        }
+        return size
+    }
+    /// 裁剪的图片frame
+    private var cropFrame: CGRect {
+        let size = cropSize
+        let x = (scrollView.bounds.width - size.width) > 0 ? (scrollView.bounds.width - size.width) * 0.5 : 0
+        let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
+        return CGRect(origin: CGPoint(x: x, y: y), size: size)
+    }
+    /// 裁剪的scrollView frame
+    private var cropScrollViewFrame: CGRect {
+        let y: CGFloat
+        let height: CGFloat
+        if #available(iOS 11, *) {
+            y = 15 + safeAreaInsets.top
+            height = bounds.height - y - 125 - safeAreaInsets.bottom
+        } else {
+            y = 15
+            height = bounds.height - y - 125
+        }
+        return CGRect(x: 15, y: y, width: bounds.width-30, height: height)
     }
     
     private let image: UIImage
@@ -104,11 +138,20 @@ final class PhotoContentView: UIView {
     
     private func layout() {
         scrollView.frame = bounds
+        scrollView.maximumZoomScale = 3.0
         scrollView.setZoomScale(1.0, animated: false)
         imageView.frame = fitFrame
         canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
         scrollView.minimumZoomScale = getDefaultScale()
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
+    }
+    
+    private func layoutCrop() {
+        scrollView.frame = cropScrollViewFrame
+        scrollView.maximumZoomScale = 15.0
+        scrollView.setZoomScale(1.0, animated: false)
+        imageView.frame = cropFrame
+        scrollView.contentSize = imageView.bounds.size
     }
 
 }
@@ -138,6 +181,26 @@ extension PhotoContentView {
     
     func mosaicCanUndo() -> Bool {
         return !mosaicImageList.isEmpty
+    }
+    
+    func cropStart() {
+        UIView.animate(withDuration: 0.25) {
+            self.layoutCrop()
+        }
+    }
+    
+    func cropCancel() {
+        UIView.animate(withDuration: 0.25) {
+            self.layout()
+        }
+    }
+    
+    func cropDone() {
+        
+    }
+    
+    func cropReset() {
+        
     }
 }
 
@@ -181,21 +244,6 @@ extension PhotoContentView {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
-        
-//        let savedOffset = scrollView.contentOffset
-//        let savedFrame = scrollView.frame
-//        let savedFrame2 = imageView.frame
-//        UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, true, UIScreen.main.scale)
-//        scrollView.contentOffset = .zero
-//        scrollView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
-//        imageView.frame = CGRect(origin: .zero, size: scrollView.contentSize)
-//        scrollView.drawHierarchy(in: scrollView.bounds, afterScreenUpdates: true)
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        scrollView.contentOffset = savedOffset
-//        scrollView.frame = savedFrame
-//        imageView.frame = savedFrame2
-//        return image
     }
 }
 

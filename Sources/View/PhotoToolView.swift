@@ -16,6 +16,10 @@ protocol PhotoToolViewDelegate: class {
     func toolView(_ toolView: PhotoToolView, mosaicDidChange idx: Int)
     
     func toolViewUndoButtonTapped(_ toolView: PhotoToolView)
+    
+    func toolViewCropCancelButtonTapped(_ toolView: PhotoToolView)
+    func toolViewCropDoneButtonTapped(_ toolView: PhotoToolView)
+    func toolViewCropResetButtonTapped(_ toolView: PhotoToolView)
 }
 
 final class PhotoToolView: UIView {
@@ -68,6 +72,12 @@ final class PhotoToolView: UIView {
         view.isHidden = true
         return view
     }()
+    private(set) lazy var cropToolView: PhotoCropToolView = {
+        let view = PhotoCropToolView(frame: .zero)
+        view.delegate = self
+        view.isHidden = true
+        return view
+    }()
     private(set) lazy var mosaicToolView: PhotoMosaicToolView = {
         let view = PhotoMosaicToolView(frame: .zero, mosaicOptions: config.mosaicOptions)
         view.delegate = self
@@ -91,8 +101,8 @@ final class PhotoToolView: UIView {
         layer.addSublayer(bottomCoverLayer)
         addSubview(editOptionsView)
         addSubview(penToolView)
+        addSubview(cropToolView)
         addSubview(mosaicToolView)
-        
         editOptionsView.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
             if #available(iOS 11, *) {
@@ -111,6 +121,18 @@ final class PhotoToolView: UIView {
             maker.edges.equalTo(penToolView)
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cropToolView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalToSuperview()
+            if #available(iOS 11, *) {
+                maker.height.equalTo(65 + safeAreaInsets.bottom)
+            } else {
+                maker.height.equalTo(65)
+            }
+        }
+    }
 }
 
 // MARK: - PhotoEditOptionsViewDelegate
@@ -121,12 +143,18 @@ extension PhotoToolView: PhotoEditOptionsViewDelegate {
         
         guard let option = option else {
             penToolView.isHidden = true
+            cropToolView.isHidden = true
             mosaicToolView.isHidden = true
             return
         }
         
         penToolView.isHidden = option != .pen
+        cropToolView.isHidden = option != .crop
         mosaicToolView.isHidden = option != .mosaic
+        
+        if option == .crop {
+            editOptionsView.isHidden = true
+        }
     }
 }
 
@@ -139,6 +167,30 @@ extension PhotoToolView: PhotoPenToolViewDelegate {
     
     func penToolViewUndoButtonTapped(_ penToolView: PhotoPenToolView) {
         delegate?.toolViewUndoButtonTapped(self)
+    }
+}
+
+// MARK: - PhotoCropToolViewDelegate
+extension PhotoToolView: PhotoCropToolViewDelegate {
+    
+    func cropToolViewCancelButtonTapped(_ cropToolView: PhotoCropToolView) {
+        delegate?.toolViewCropCancelButtonTapped(self)
+        editOptionsView.isHidden = false
+        topCoverLayer.isHidden = false
+        cropToolView.isHidden = true
+        editOptionsView.unSelectButtons()
+    }
+    
+    func cropToolViewDoneButtonTapped(_ cropToolView: PhotoCropToolView) {
+        delegate?.toolViewCropDoneButtonTapped(self)
+        editOptionsView.isHidden = false
+        topCoverLayer.isHidden = false
+        cropToolView.isHidden = true
+        editOptionsView.unSelectButtons()
+    }
+    
+    func cropToolViewResetButtonTapped(_ cropToolView: PhotoCropToolView) {
+        delegate?.toolViewCropCancelButtonTapped(self)
     }
 }
 
@@ -159,7 +211,7 @@ extension PhotoToolView: ResponseTouch {
     
     @discardableResult
     func responseTouch(_ point: CGPoint) -> Bool {
-        let subViews = [editOptionsView, penToolView, mosaicToolView].filter{ !$0.isHidden }
+        let subViews = [editOptionsView, penToolView, cropToolView, mosaicToolView].filter{ !$0.isHidden }
         for subView in subViews {
             let viewPoint = point.subtraction(with: subView.frame.origin)
             if let subView = subView as? ResponseTouch, subView.responseTouch(viewPoint) {
