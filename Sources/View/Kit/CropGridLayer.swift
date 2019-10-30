@@ -8,48 +8,40 @@
 
 import UIKit
 
-final class CropGridLayer: CALayer {
+final class CropGridLayer: CAShapeLayer {
     
-    var clippingRect: CGRect = .zero
-    private let bgColor: UIColor
-    private let gridColor: UIColor
+    private let color: UIColor
     
-    init(bgColor: UIColor, gridColor: UIColor) {
-        self.bgColor = bgColor
-        self.gridColor = gridColor
+    init(frame: CGRect, color: UIColor) {
+        self.color = color
         super.init()
+        self.frame = frame
+        self.isHidden = true
+        setupView()
+        
+        /// TODO: 换掉
+        borderWidth = 1
+        borderColor = UIColor.white.cgColor
     }
     
-    required init?(coder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(in ctx: CGContext) {
-        var rect = bounds
-        ctx.setFillColor(bgColor.cgColor)
-        ctx.fill(rect)
-        
-        ctx.clear(clippingRect)
-        
-        ctx.setStrokeColor(gridColor.cgColor)
-        ctx.setLineWidth(1)
-        
-        rect = clippingRect
-        
-        ctx.beginPath()
-        var dW: CGFloat = 0
-        for _ in 0..<4 {
-            ctx.move(to: CGPoint(x: rect.origin.x + dW, y: rect.origin.y))
-            ctx.addLine(to: CGPoint(x: rect.origin.x + dW, y: rect.origin.y + rect.size.height))
-            dW += clippingRect.size.width / 3
+    private func setupView() {
+        let path = UIBezierPath()
+        let widthSpace = frame.width / 3
+        let heightSpace = frame.height / 3
+        for i in 1...2 {
+            let x = widthSpace * CGFloat(i)
+            let y = heightSpace * CGFloat(i)
+            path.move(to: CGPoint(x: x, y: 0))
+            path.addLine(to: CGPoint(x: x, y: frame.height))
+            path.move(to: CGPoint(x: 0, y: y))
+            path.addLine(to: CGPoint(x: frame.width, y: y))
         }
-        
-        dW = 0
-        for _ in 0..<4 {
-            ctx.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y + dW))
-            ctx.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + dW))
-            dW += rect.size.height / 3
-        }
-        ctx.strokePath()
+        self.path = path.cgPath
+        self.lineWidth = 1
+        self.strokeColor = color.cgColor
     }
 }

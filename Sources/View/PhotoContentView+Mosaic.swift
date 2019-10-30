@@ -31,7 +31,6 @@ extension PhotoContentView {
 // MARK: - Private function
 extension PhotoContentView {
     
-    
     /// 在子线程创建马赛克图片
     internal func setupMosaicView() {
         DispatchQueue.global().async { [weak self] in

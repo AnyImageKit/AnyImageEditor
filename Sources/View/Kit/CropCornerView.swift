@@ -17,6 +17,7 @@ final class CropCornerView: UIView {
         self.color = color
         self.position = position
         super.init(frame: frame)
+        alpha = 0
         setupView()
     }
     
@@ -26,31 +27,36 @@ final class CropCornerView: UIView {
     
     private func setupView() {
         let path = UIBezierPath()
+        let lineWidth: CGFloat = 3.0
         switch position {
         case .topLeft:
-            path.move(to: .zero)
-            path.addLine(to: CGPoint(x: bounds.width, y: 0))
-            path.move(to: .zero)
-            path.addLine(to: CGPoint(x: 0, y: bounds.height))
+            let centerP = CGPoint(x: center.x - lineWidth * 0.3, y: center.y - lineWidth * 0.3)
+            path.move(to: CGPoint(x: centerP.x - lineWidth * 0.5, y: centerP.y))
+            path.addLine(to: CGPoint(x: bounds.width, y: centerP.y))
+            path.move(to: centerP)
+            path.addLine(to: CGPoint(x: centerP.x, y: bounds.height))
         case .topRight:
-            path.move(to: CGPoint(x: bounds.width, y: 0))
-            path.addLine(to: .zero)
-            path.move(to: CGPoint(x: bounds.width, y: 0))
-            path.addLine(to: CGPoint(x: bounds.width, y: bounds.height))
+            let centerP = CGPoint(x: center.x + lineWidth * 0.3, y: center.y - lineWidth * 0.3)
+            path.move(to: CGPoint(x: centerP.x + lineWidth * 0.5, y: centerP.y))
+            path.addLine(to: CGPoint(x: 0, y: centerP.y))
+            path.move(to: centerP)
+            path.addLine(to: CGPoint(x: centerP.x, y: bounds.height))
         case .bottomLeft:
-            path.move(to: CGPoint(x: 0, y: bounds.height))
-            path.addLine(to: .zero)
-            path.move(to: CGPoint(x: 0, y: bounds.height))
-            path.addLine(to: CGPoint(x: bounds.width, y: bounds.height))
+            let centerP = CGPoint(x: center.x - lineWidth * 0.3, y: center.y + lineWidth * 0.3)
+            path.move(to: CGPoint(x: centerP.x - lineWidth * 0.5, y: centerP.y))
+            path.addLine(to: CGPoint(x: bounds.width, y: centerP.y))
+            path.move(to: centerP)
+            path.addLine(to: CGPoint(x: centerP.x, y: 0))
         case .bottomRight:
-            path.move(to: CGPoint(x: bounds.width, y: bounds.height))
-            path.addLine(to: CGPoint(x: bounds.width, y: 0))
-            path.move(to: CGPoint(x: bounds.width, y: bounds.height))
-            path.addLine(to: CGPoint(x: 0, y: bounds.height))
+            let centerP = CGPoint(x: center.x + lineWidth * 0.3, y: center.y + lineWidth * 0.3)
+            path.move(to: CGPoint(x: centerP.x + lineWidth * 0.5, y: centerP.y))
+            path.addLine(to: CGPoint(x: 0, y: centerP.y))
+            path.move(to: centerP)
+            path.addLine(to: CGPoint(x: centerP.x, y: 0))
         }
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.lineWidth = 2.0
+        shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = color.cgColor
         layer.addSublayer(shapeLayer)

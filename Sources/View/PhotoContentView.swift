@@ -48,9 +48,30 @@ final class PhotoContentView: UIView {
     }()
     /// 马赛克，延时加载
     internal var mosaic: Mosaic?
+    // MARK: - Crop
+    private let cornerFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
+    private(set) lazy var topLeftCorner: CropCornerView = {
+        let view = CropCornerView(frame: cornerFrame, color: .white, position: .topLeft)
+        return view
+    }()
+    private(set) lazy var topRightCorner: CropCornerView = {
+        let view = CropCornerView(frame: cornerFrame, color: .white, position: .topRight)
+        return view
+    }()
+    private(set) lazy var bottomLeftCorner: CropCornerView = {
+        let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomLeft)
+        return view
+    }()
+    private(set) lazy var bottomRightCorner: CropCornerView = {
+        let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomRight)
+        return view
+    }()
+    internal var gridLayer: CropGridLayer?
     
     internal let image: UIImage
     internal let config: ImageEditorController.PhotoConfig
+    internal var isCrop: Bool = false
+    internal var cropRect: CGRect = .zero
     
     /// 存储马赛克过程图片 // TODO: 改成磁盘存储
     internal var mosaicImageList: [UIImage] = []
@@ -59,6 +80,7 @@ final class PhotoContentView: UIView {
         self.image = image
         self.config = config
         super.init(frame: frame)
+        backgroundColor = .black
         setupView()
         setupMosaicView()
     }
@@ -72,26 +94,18 @@ final class PhotoContentView: UIView {
         scrollView.addSubview(imageView)
         imageView.addSubview(canvas)
         layout()
+        cropSetupView()
     }
     
     internal func layout() {
         scrollView.frame = bounds
         scrollView.maximumZoomScale = 3.0
-        scrollView.setZoomScale(1.0, animated: false)
+        scrollView.minimumZoomScale = 1.0
+        scrollView.zoomScale = 1.0
         imageView.frame = fitFrame
-        canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
-        scrollView.minimumZoomScale = scrollViewDefaultScale
-        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
-    }
-    
-    internal func layoutCrop() {
-        scrollView.frame = cropScrollViewFrame
-        scrollView.maximumZoomScale = 15.0
-        scrollView.setZoomScale(1.0, animated: false)
-        imageView.frame = cropFrame
         scrollView.contentSize = imageView.bounds.size
+        canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
     }
-
 }
 
 // MARK: - UIScrollViewDelegate
@@ -102,6 +116,8 @@ extension PhotoContentView: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        imageView.center = centerOfContentSize
+        if !isCrop {
+            imageView.center = centerOfContentSize
+        }
     }
 }
