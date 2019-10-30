@@ -52,24 +52,29 @@ final class PhotoContentView: UIView {
     private let cornerFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
     private(set) lazy var topLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topLeft)
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var topRightCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topRight)
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var bottomLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomLeft)
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var bottomRightCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomRight)
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     internal var gridLayer: CropGridLayer?
     
     internal let image: UIImage
     internal let config: ImageEditorController.PhotoConfig
+    
     internal var isCrop: Bool = false
     internal var cropRect: CGRect = .zero
     

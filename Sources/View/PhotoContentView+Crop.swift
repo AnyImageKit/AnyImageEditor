@@ -40,6 +40,53 @@ extension PhotoContentView {
 // MARK: - Target
 extension PhotoContentView {
     
+    @objc func panCropCorner(_ gr: UIPanGestureRecognizer) {
+        guard let cornerView = gr.view as? CropCornerView else { return }
+        let moveP = gr.translation(in: imageView)
+        gr.setTranslation(.zero, in: imageView)
+        
+        let limit: CGFloat = 55
+        var rect = cropRect
+        switch cornerView.position {
+        case .topLeft: // x+ y+
+            if rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > scrollView.frame.origin.x {
+                rect.origin.x += moveP.x
+                rect.size.width -= moveP.x
+            }
+            if rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y {
+                rect.origin.y += moveP.y
+                rect.size.height -= moveP.y
+            }
+        case .topRight: // x- y+
+            if rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width {
+                rect.size.width += moveP.x
+            }
+            if rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y {
+                rect.origin.y += moveP.y
+                rect.size.height -= moveP.y
+            }
+        case .bottomLeft: // x+ y-
+            if rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > scrollView.frame.origin.x {
+                rect.origin.x += moveP.x
+                rect.size.width -= moveP.x
+            }
+            if rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height {
+                rect.size.height += moveP.y
+            }
+        case .bottomRight:// x- y-
+            if rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width {
+                rect.size.width += moveP.x
+            }
+            if rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height {
+                rect.size.height += moveP.y
+            }
+        }
+        setCropRect(rect)
+        
+        if gr.state == .ended {
+            // reset
+        }
+    }
     
 }
 
@@ -65,9 +112,7 @@ extension PhotoContentView {
         
         cropFrame.origin.x += 15
         setCropRect(cropFrame)
-        
-        let bottomInset = bounds.height - cropRect.size.height + 1
-        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: 0.1)
+        gridLayer?.isHidden = true
     }
     
     private func setCropRect(_ rect: CGRect) {
@@ -82,6 +127,10 @@ extension PhotoContentView {
         gridLayer?.removeFromSuperlayer()
         gridLayer = CropGridLayer(frame: rect, color: UIColor.white.withAlphaComponent(0.5))
         layer.addSublayer(gridLayer!)
+        
+        imageView.frame.origin.y = cropRect.origin.y
+        let bottomInset = bounds.height - cropRect.size.height + 1
+        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: 0.1)
     }
     
     private func setCropHidden(_ hidden: Bool, animated: Bool) {

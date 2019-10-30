@@ -11,7 +11,7 @@ import UIKit
 final class CropCornerView: UIView {
     
     private let color: UIColor
-    private let position: CropCornerPosition
+    internal let position: CropCornerPosition
     
     init(frame: CGRect, color: UIColor, position: CropCornerPosition) {
         self.color = color

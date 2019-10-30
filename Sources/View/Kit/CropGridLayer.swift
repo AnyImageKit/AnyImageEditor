@@ -16,7 +16,6 @@ final class CropGridLayer: CAShapeLayer {
         self.color = color
         super.init()
         self.frame = frame
-        self.isHidden = true
         setupView()
         
         /// TODO: 换掉
