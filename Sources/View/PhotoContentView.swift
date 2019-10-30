@@ -70,7 +70,11 @@ final class PhotoContentView: UIView {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
-    internal var gridLayer: CropGridLayer?
+    private(set) lazy var gridLayer: CropGridLayer = {
+        let layer = CropGridLayer(frame: .zero, color: UIColor.white.withAlphaComponent(0.5))
+        layer.isHidden = true
+        return layer
+    }()
     
     internal let image: UIImage
     internal let config: ImageEditorController.PhotoConfig
@@ -107,6 +111,7 @@ final class PhotoContentView: UIView {
         scrollView.maximumZoomScale = 3.0
         scrollView.minimumZoomScale = 1.0
         scrollView.zoomScale = 1.0
+        scrollView.contentInset = .zero
         imageView.frame = fitFrame
         scrollView.contentSize = imageView.bounds.size
         canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
@@ -124,5 +129,9 @@ extension PhotoContentView: UIScrollViewDelegate {
         if !isCrop {
             imageView.center = centerOfContentSize
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset)
     }
 }

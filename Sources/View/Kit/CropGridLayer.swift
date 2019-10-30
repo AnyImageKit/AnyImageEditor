@@ -15,7 +15,6 @@ final class CropGridLayer: CAShapeLayer {
     init(frame: CGRect, color: UIColor) {
         self.color = color
         super.init()
-        self.frame = frame
         setupView()
         
         /// TODO: 换掉
@@ -28,6 +27,15 @@ final class CropGridLayer: CAShapeLayer {
     }
     
     private func setupView() {
+        self.lineWidth = 1
+        self.strokeColor = color.cgColor
+    }
+}
+
+
+extension CropGridLayer {
+    
+    func reload(_ rect: CGRect) {
         let path = UIBezierPath()
         let widthSpace = frame.width / 3
         let heightSpace = frame.height / 3
@@ -40,7 +48,6 @@ final class CropGridLayer: CAShapeLayer {
             path.addLine(to: CGPoint(x: frame.width, y: y))
         }
         self.path = path.cgPath
-        self.lineWidth = 1
-        self.strokeColor = color.cgColor
+        
     }
 }
