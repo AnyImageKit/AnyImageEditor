@@ -110,7 +110,7 @@ extension PhotoContentView {
 
             let scale = scrollView.bounds.width / cropRect.width
             let height = cropRect.height * scale
-            let y = (scrollView.bounds.height - height) / 2
+            let y = (scrollView.bounds.height - height + scrollView.frame.origin.y) / 2
             
             let offset = CGPoint(x: offsetX, y: offsetY)
             
@@ -146,7 +146,8 @@ extension PhotoContentView {
     
     private func layoutCrop() {
         let y = 15 + topMargin
-        scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y)
+        let bottom = 65 + bottomMargin
+        scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
         scrollView.maximumZoomScale = 15.0
         scrollView.minimumZoomScale = 1.0
         scrollView.zoomScale = 1.0

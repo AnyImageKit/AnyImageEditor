@@ -105,4 +105,11 @@ extension PhotoContentView {
             return 0
         }
     }
+    var bottomMargin: CGFloat {
+        if #available(iOS 11, *) {
+            return safeAreaInsets.bottom
+        } else {
+            return 0
+        }
+    }
 }
