@@ -93,6 +93,14 @@ extension PhotoContentView {
             let zoom2 = imageView.bounds.height / (cropRect.height / scrollView.zoomScale)
 //            let zoom = cropRect.height * zoom1 > imageView.bounds.height ? zoom2 : zoom1
             let zoom = zoom1
+//            let zoom: CGFloat
+//            if cropRect.height * (scrollView.bounds.width / cropRect.width) > scrollView.bounds.height {
+//                print("zoom2")
+//                zoom = zoom2
+//            } else {
+//                print("zoom1")
+//                zoom = zoom1
+//            }
             
             let zoomScale = zoom / scrollView.zoomScale
             let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - 15) * zoomScale)
@@ -108,7 +116,7 @@ extension PhotoContentView {
             
             UIView.animate(withDuration: animateDuration, animations: {
                 self.setCropRect(CGRect(x: 15, y: y, width: self.scrollView.bounds.width, height: height))
-                self.imageView.frame.origin.y = y
+                self.imageView.frame.origin.y = y - self.scrollView.frame.origin.y
 
                 self.scrollView.zoomScale = zoom
                 self.scrollView.contentOffset = offset
@@ -118,7 +126,7 @@ extension PhotoContentView {
             
             // reset
             
-            let bottomInset = bounds.height - cropRect.size.height + 1
+            let bottomInset = scrollView.bounds.height - cropRect.size.height + 0.1
             scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: 0.1)
         }
     }
@@ -137,19 +145,21 @@ extension PhotoContentView {
     }
     
     private func layoutCrop() {
-        scrollView.frame = CGRect(x: 15, y: 0, width: bounds.width-30, height: bounds.height)
+        let y = 15 + topMargin
+        scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y)
         scrollView.maximumZoomScale = 15.0
         scrollView.minimumZoomScale = 1.0
         scrollView.zoomScale = 1.0
         
         var cropFrame = cropFrame2
         imageView.frame = cropFrame
+        imageView.frame.origin.y -= y
         scrollView.contentSize = imageView.bounds.size
         
         cropFrame.origin.x += 15
         setCropRect(cropFrame)
         
-        let bottomInset = bounds.height - cropRect.size.height + 1
+        let bottomInset = scrollView.bounds.height - cropRect.size.height + 0.1
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: 0.1)
     }
     

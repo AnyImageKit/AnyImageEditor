@@ -93,14 +93,16 @@ extension PhotoContentView {
     var cropFrame2: CGRect {
         let maxSize = cropMaxSize
         let size = cropSize2
-        let offset: CGFloat
-        if #available(iOS 11, *) {
-            offset = 15 + safeAreaInsets.top
-        } else {
-            offset = 15
-        }
+        let offset = 15 + topMargin
         let x = (scrollView.bounds.width - size.width) > 0 ? (scrollView.bounds.width - size.width) * 0.5 : 0
         let y = ((maxSize.height - size.height) > 0 ? (maxSize.height - size.height) * 0.5 : 0) + offset
         return CGRect(origin: CGPoint(x: x, y: y), size: size)
+    }
+    var topMargin: CGFloat {
+        if #available(iOS 11, *) {
+            return safeAreaInsets.top
+        } else {
+            return 0
+        }
     }
 }
