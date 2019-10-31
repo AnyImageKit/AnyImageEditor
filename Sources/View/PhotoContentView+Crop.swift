@@ -45,6 +45,10 @@ extension PhotoContentView {
         let moveP = gr.translation(in: self)
         gr.setTranslation(.zero, in: self)
         
+        if gr.state == .began {
+            cropStartRect = cropRect
+        }
+        
         let limit: CGFloat = 55
         var rect = cropRect
         switch cornerView.position {
@@ -84,25 +88,35 @@ extension PhotoContentView {
         setCropRect(rect)
         
         if gr.state == .ended {
-            let tmp = cropRect
             // zoom
-            let zoom = imageView.bounds.width / (cropRect.width / scrollView.zoomScale)
-            UIView.animate(withDuration: 0.25) {
-                let offsetX = self.scrollView.contentOffset.x
-                self.scrollView.zoomScale = zoom
-                let x = (((self.cropRect.origin.x - 15) / zoom + (offsetX / zoom)) / self.imageView.bounds.width) * self.scrollView.contentSize.width
-                // TODO: 计算xy
-                self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
-            }
+            let zoom1 = imageView.bounds.width / (cropRect.width / scrollView.zoomScale)
+            let zoom2 = imageView.bounds.height / (cropRect.height / scrollView.zoomScale)
+//            let zoom = cropRect.height * zoom1 > imageView.bounds.height ? zoom2 : zoom1
+            let zoom = zoom1
             
-            // reset
+            let zoomScale = zoom / scrollView.zoomScale
+            let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - 15) * zoomScale)
+            let offsetY = (scrollView.contentOffset.y * zoomScale) + ((cropRect.origin.y - cropStartRect.origin.y) * zoomScale)
+
+            let animateDuration = 0.5
+
             let scale = scrollView.bounds.width / cropRect.width
             let height = cropRect.height * scale
             let y = (scrollView.bounds.height - height) / 2
-            UIView.animate(withDuration: 0.25) {
-                self.imageView.frame.origin.y = y
+            
+            let offset = CGPoint(x: offsetX, y: offsetY)
+            
+            UIView.animate(withDuration: animateDuration, animations: {
                 self.setCropRect(CGRect(x: 15, y: y, width: self.scrollView.bounds.width, height: height))
+                self.imageView.frame.origin.y = y
+
+                self.scrollView.zoomScale = zoom
+                self.scrollView.contentOffset = offset
+            }) { (_) in
+                
             }
+            
+            // reset
             
             let bottomInset = bounds.height - cropRect.size.height + 1
             scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: 0.1)

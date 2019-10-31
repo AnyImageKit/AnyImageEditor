@@ -81,6 +81,7 @@ final class PhotoContentView: UIView {
     
     internal var isCrop: Bool = false
     internal var cropRect: CGRect = .zero
+    internal var cropStartRect: CGRect = .zero
     
     /// 存储马赛克过程图片 // TODO: 改成磁盘存储
     internal var mosaicImageList: [UIImage] = []
@@ -131,7 +132,7 @@ extension PhotoContentView: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset)
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("scroll: \(scrollView.contentOffset)")
+//    }
 }
