@@ -51,38 +51,43 @@ extension PhotoContentView {
         }
         
         let limit: CGFloat = 55
+        
         var rect = cropRect
+        let isXUp = rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > imageView.frame.origin.x + scrollView.frame.origin.x - scrollView.contentOffset.x
+        let isXDown = rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width - scrollView.contentOffset.x
+        let isYUp = rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y + scrollView.frame.origin.y - scrollView.contentOffset.y
+        let isYDown = rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height - scrollView.contentOffset.y
         switch position {
         case .topLeft: // x+ y+
-            if rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > scrollView.frame.origin.x {
+            if isXUp {
                 rect.origin.x += moveP.x
                 rect.size.width -= moveP.x
             }
-            if rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y {
+            if isYUp  {
                 rect.origin.y += moveP.y
                 rect.size.height -= moveP.y
             }
         case .topRight: // x- y+
-            if rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width {
+            if isXDown {
                 rect.size.width += moveP.x
             }
-            if rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y {
+            if isYUp {
                 rect.origin.y += moveP.y
                 rect.size.height -= moveP.y
             }
         case .bottomLeft: // x+ y-
-            if rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > scrollView.frame.origin.x {
+            if isXUp {
                 rect.origin.x += moveP.x
                 rect.size.width -= moveP.x
             }
-            if rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height {
+            if isYDown {
                 rect.size.height += moveP.y
             }
         case .bottomRight:// x- y-
-            if rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width {
+            if isXDown {
                 rect.size.width += moveP.x
             }
-            if rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height {
+            if isYDown {
                 rect.size.height += moveP.y
             }
         }
@@ -122,7 +127,7 @@ extension PhotoContentView {
             if (zoom == maxZoom && !isVertical) || zoom == zoom1 {
                 let scale = scrollView.bounds.width / cropRect.width
                 let height = cropRect.height * scale
-                let y = (scrollView.bounds.height - height + scrollView.frame.origin.y) / 2
+                let y = (scrollView.bounds.height - height) / 2 + scrollView.frame.origin.y
                 newCropRect = CGRect(x: scrollView.frame.origin.x, y: y, width: scrollView.bounds.width, height: height)
             } else {
                 let scale = scrollView.bounds.height / cropRect.height
@@ -160,8 +165,9 @@ extension PhotoContentView {
     }
     
     private func layoutCrop() {
+        scrollView.backgroundColor = .lightGray
         let y = 15 + topMargin
-        let bottom = 65 + bottomMargin
+        let bottom = 65 + bottomMargin + 50
         scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
         scrollView.maximumZoomScale = 15.0
         scrollView.minimumZoomScale = 1.0
@@ -201,6 +207,4 @@ extension PhotoContentView {
             self.gridLayer.isHidden = hidden
         }
     }
-    
-    
 }
