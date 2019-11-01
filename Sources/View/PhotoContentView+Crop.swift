@@ -200,6 +200,16 @@ extension PhotoContentView {
             newCropRect = CGRect(x: x, y: scrollView.frame.origin.y, width: width, height: scrollView.frame.height)
         }
         
+        // minimumZoomScale
+        let mZoom1 = scrollView.bounds.width / imageView.bounds.width
+        let mZoom2 = scrollView.bounds.height / imageView.bounds.height
+        let mZoom: CGFloat
+        if !isVertical {
+            mZoom = (imageView.bounds.height < newCropRect.height) ? (newCropRect.height / imageView.bounds.height) : mZoom1
+        } else {
+            mZoom = (imageView.bounds.width < newCropRect.width) ? (newCropRect.width / imageView.bounds.width) : mZoom2
+        }
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.setCropRect(newCropRect)
             self.imageView.frame.origin.x = newCropRect.origin.x - self.scrollView.frame.origin.x
@@ -208,9 +218,10 @@ extension PhotoContentView {
             self.scrollView.contentOffset = offset
         })
         
-        // contentInset
+        // set
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+        scrollView.minimumZoomScale = mZoom
     }
 }
