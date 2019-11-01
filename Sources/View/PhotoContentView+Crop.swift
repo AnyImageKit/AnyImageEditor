@@ -63,7 +63,7 @@ extension PhotoContentView {
 extension PhotoContentView {
     
     internal func cropSetupView() {
-//        layer.addSublayer(gridLayer)
+        addSubview(gridView)
         addSubview(topLeftCorner)
         addSubview(topRightCorner)
         addSubview(bottomLeftCorner)
@@ -91,7 +91,7 @@ extension PhotoContentView {
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
     }
     
-    private func setCropRect(_ rect: CGRect) {
+    private func setCropRect(_ rect: CGRect, animated: Bool = false) {
         cropRect = rect
         let origin = rect.origin
         let size = rect.size
@@ -99,17 +99,16 @@ extension PhotoContentView {
         topRightCorner.center = CGPoint(x: origin.x + size.width, y: origin.y)
         bottomLeftCorner.center = CGPoint(x: origin.x, y: origin.y + size.height)
         bottomRightCorner.center = CGPoint(x: origin.x + size.width, y: origin.y + size.height)
-//        gridLayer.frame = rect
-//        gridLayer.reload(rect)
+        gridView.setRect(rect, animated: animated)
     }
     
     private func setCropHidden(_ hidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? 0.25 : 0) {
+            self.gridView.alpha = hidden ? 0 : 1
             self.topLeftCorner.alpha = hidden ? 0 : 1
             self.topRightCorner.alpha = hidden ? 0 : 1
             self.bottomLeftCorner.alpha = hidden ? 0 : 1
             self.bottomRightCorner.alpha = hidden ? 0 : 1
-            self.gridLayer.isHidden = hidden
         }
     }
     
@@ -211,7 +210,7 @@ extension PhotoContentView {
         }
         
         UIView.animate(withDuration: 0.5, animations: {
-            self.setCropRect(newCropRect)
+            self.setCropRect(newCropRect, animated: true)
             self.imageView.frame.origin.x = newCropRect.origin.x - self.scrollView.frame.origin.x
             self.imageView.frame.origin.y = newCropRect.origin.y - self.scrollView.frame.origin.y
             self.scrollView.zoomScale = zoom

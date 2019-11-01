@@ -52,28 +52,32 @@ final class PhotoContentView: UIView {
     private let cornerFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
     private(set) lazy var topLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topLeft)
+        view.alpha = 0
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var topRightCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topRight)
+        view.alpha = 0
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var bottomLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomLeft)
+        view.alpha = 0
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
     private(set) lazy var bottomRightCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .bottomRight)
+        view.alpha = 0
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
-    private(set) lazy var gridLayer: CropGridLayer = {
-        let layer = CropGridLayer(frame: .zero, color: UIColor.white.withAlphaComponent(0.5))
-        layer.isHidden = true
-        return layer
+    private(set) lazy var gridView: CropGridView = {
+        let view = CropGridView(frame: UIScreen.main.bounds)
+        view.alpha = 0
+        return view
     }()
     
     internal let image: UIImage
@@ -131,8 +135,4 @@ extension PhotoContentView: UIScrollViewDelegate {
             imageView.center = centerOfContentSize
         }
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scroll: \(scrollView.contentOffset)")
-//    }
 }

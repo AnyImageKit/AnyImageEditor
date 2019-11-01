@@ -17,7 +17,6 @@ final class CropCornerView: UIView {
         self.color = color
         self.position = position
         super.init(frame: frame)
-        alpha = 0
         setupView()
     }
     

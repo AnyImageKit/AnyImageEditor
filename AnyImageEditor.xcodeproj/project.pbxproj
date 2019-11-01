@@ -12,6 +12,7 @@
 		A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411EE236286FC0089E136 /* Ex+UIImage.swift */; };
 		A50411F12362899C0089E136 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F02362899C0089E136 /* Mosaic.swift */; };
 		A50411F32362C3630089E136 /* TouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F22362C3630089E136 /* TouchState.swift */; };
+		A51800C1236C0A4A009E04C3 /* CropGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51800C0236C0A4A009E04C3 /* CropGridView.swift */; };
 		A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* PhotoContentView.swift */; };
 		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
 		A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */; };
@@ -21,7 +22,6 @@
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
 		A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240352368048000C6DB3D /* PhotoCropToolView.swift */; };
-		A582403B2368148B00C6DB3D /* CropGridLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403A2368148B00C6DB3D /* CropGridLayer.swift */; };
 		A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403C236814CE00C6DB3D /* CropCornerView.swift */; };
 		A58240412368224D00C6DB3D /* PhotoContentView+Pen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */; };
 		A5824043236822C600C6DB3D /* PhotoContentView+Getter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */; };
@@ -85,6 +85,7 @@
 		A50411EE236286FC0089E136 /* Ex+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIImage.swift"; sourceTree = "<group>"; };
 		A50411F02362899C0089E136 /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		A50411F22362C3630089E136 /* TouchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchState.swift; sourceTree = "<group>"; };
+		A51800C0236C0A4A009E04C3 /* CropGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGridView.swift; sourceTree = "<group>"; };
 		A550F0C823613D600089D584 /* PhotoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentView.swift; sourceTree = "<group>"; };
 		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
 		A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHelper.swift; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		A58240352368048000C6DB3D /* PhotoCropToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropToolView.swift; sourceTree = "<group>"; };
-		A582403A2368148B00C6DB3D /* CropGridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGridLayer.swift; sourceTree = "<group>"; };
 		A582403C236814CE00C6DB3D /* CropCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropCornerView.swift; sourceTree = "<group>"; };
 		A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Pen.swift"; sourceTree = "<group>"; };
 		A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Getter.swift"; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				A582403C236814CE00C6DB3D /* CropCornerView.swift */,
-				A582403A2368148B00C6DB3D /* CropGridLayer.swift */,
+				A51800C0236C0A4A009E04C3 /* CropGridView.swift */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -494,6 +494,7 @@
 			files = (
 				A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */,
 				A5AC6F2E2360269600DED461 /* ImageEditorController.swift in Sources */,
+				A51800C1236C0A4A009E04C3 /* CropGridView.swift in Sources */,
 				A58240452368237A00C6DB3D /* PhotoContentView+Mosaic.swift in Sources */,
 				A5824043236822C600C6DB3D /* PhotoContentView+Getter.swift in Sources */,
 				A50411F32362C3630089E136 /* TouchState.swift in Sources */,
@@ -509,7 +510,6 @@
 				A5B59F722360476B00ADF268 /* Brush.swift in Sources */,
 				A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */,
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
-				A582403B2368148B00C6DB3D /* CropGridLayer.swift in Sources */,
 				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
 				A50411F12362899C0089E136 /* Mosaic.swift in Sources */,
 				A5B59F782360536500ADF268 /* CanvasData.swift in Sources */,
