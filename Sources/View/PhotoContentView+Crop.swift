@@ -172,7 +172,7 @@ extension PhotoContentView {
         
         // offset
         let zoomScale = zoom / scrollView.zoomScale
-        let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - 15) * zoomScale)
+        let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - cropStartRect.origin.x) * zoomScale)
         let offsetY = (scrollView.contentOffset.y * zoomScale) + ((cropRect.origin.y - cropStartRect.origin.y) * zoomScale)
         let offset: CGPoint
         switch position {
