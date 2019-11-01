@@ -33,7 +33,9 @@ extension PhotoContentView {
     }
     
     func cropReset() {
-        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.layoutCrop(animated: true)
+        })
     }
 }
 
@@ -70,7 +72,7 @@ extension PhotoContentView {
         addSubview(bottomRightCorner)
     }
     
-    private func layoutCrop() {
+    private func layoutCrop(animated: Bool = false) {
         let y = 15 + topMargin
         let bottom = 65 + bottomMargin + 50
         scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
@@ -84,7 +86,7 @@ extension PhotoContentView {
         scrollView.contentSize = imageView.bounds.size
         
         cropFrame.origin.x += 15
-        setCropRect(cropFrame)
+        setCropRect(cropFrame, animated: animated)
         
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1

@@ -33,7 +33,7 @@ final class PhotoCropToolView: UIView {
         let view = UIButton(type: .custom)
         view.setTitle("还原", for: .normal)
         view.setTitleColor(UIColor.white, for: .normal)
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         return view
     }()
     private lazy var line: UIView = {

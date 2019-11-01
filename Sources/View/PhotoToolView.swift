@@ -190,7 +190,7 @@ extension PhotoToolView: PhotoCropToolViewDelegate {
     }
     
     func cropToolViewResetButtonTapped(_ cropToolView: PhotoCropToolView) {
-        delegate?.toolViewCropCancelButtonTapped(self)
+        delegate?.toolViewCropResetButtonTapped(self)
     }
 }
 
