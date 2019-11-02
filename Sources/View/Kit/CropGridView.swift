@@ -10,6 +10,13 @@ import UIKit
 
 final class CropGridView: UIView {
 
+    private lazy var bgLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.frame = bounds
+        layer.fillRule = .evenOdd
+        layer.fillColor = UIColor.black.withAlphaComponent(0.3).cgColor
+        return layer
+    }()
     private lazy var rectLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.lineWidth = 1
@@ -40,17 +47,15 @@ final class CropGridView: UIView {
     }
     
     private func setupView() {
+        layer.addSublayer(bgLayer)
         layer.addSublayer(rectLayer)
         layer.addSublayer(lineLayer)
     }
     
     override func draw(_ rect: CGRect) {
-        let rectPath = UIBezierPath()
-        rectPath.move(to: cropRect.origin)
-        rectPath.addLine(to: CGPoint(x: cropRect.origin.x + cropRect.width, y: cropRect.origin.y))
-        rectPath.addLine(to: CGPoint(x: cropRect.origin.x + cropRect.width, y: cropRect.origin.y + cropRect.height))
-        rectPath.addLine(to: CGPoint(x: cropRect.origin.x, y: cropRect.origin.y + cropRect.height))
-        rectPath.addLine(to: cropRect.origin)
+        let bgPath = UIBezierPath(rect: rect)
+        let rectPath = UIBezierPath(rect: cropRect)
+        bgPath.append(rectPath)
         
         let linePath = UIBezierPath()
         let widthSpace = cropRect.width / 3
@@ -68,17 +73,20 @@ final class CropGridView: UIView {
         
         if animated {
             animated = false
-            let rectAnimation = createAnimation(name: "path", fromValue: rectLayer.path, toValue: rectPath.cgPath)
+            let rectAnimation = createAnimation(keyPath: "path", fromValue: rectLayer.path, toValue: rectPath.cgPath)
             rectLayer.add(rectAnimation, forKey: "path")
-            let lineAnimation = createAnimation(name: "path", fromValue: lineLayer.path, toValue: linePath.cgPath)
+            let lineAnimation = createAnimation(keyPath: "path", fromValue: lineLayer.path, toValue: linePath.cgPath)
             lineLayer.add(lineAnimation, forKey: "path")
+            let bgAnimation = createAnimation(keyPath: "path", fromValue: bgLayer.path, toValue: bgPath.cgPath)
+            bgLayer.add(bgAnimation, forKey: "path")
         }
         lineLayer.path = linePath.cgPath
         rectLayer.path = rectPath.cgPath
+        bgLayer.path = bgPath.cgPath
     }
     
-    func createAnimation(name: String, fromValue: CGPath?, toValue: CGPath?) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: name)
+    func createAnimation(keyPath: String, fromValue: CGPath?, toValue: CGPath?) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: keyPath)
         animation.duration = 0.5
         animation.fromValue = fromValue
         animation.toValue = toValue
