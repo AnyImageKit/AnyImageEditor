@@ -14,7 +14,7 @@ final class CropGridView: UIView {
         let layer = CAShapeLayer()
         layer.frame = bounds
         layer.fillRule = .evenOdd
-        layer.fillColor = UIColor.black.withAlphaComponent(0.3).cgColor
+        layer.fillColor = UIColor.black.withAlphaComponent(0.8).cgColor
         return layer
     }()
     private lazy var rectLayer: CAShapeLayer = {

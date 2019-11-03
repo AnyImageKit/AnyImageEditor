@@ -154,6 +154,7 @@ extension PhotoToolView: PhotoEditOptionsViewDelegate {
         
         if option == .crop {
             editOptionsView.isHidden = true
+            topCoverLayer.isHidden = true
         }
     }
 }
