@@ -72,10 +72,10 @@ extension PhotoContentView {
         let height: CGFloat
         if #available(iOS 11, *) {
             y = 15 + safeAreaInsets.top
-            height = bounds.height - y - 125 - safeAreaInsets.bottom
+            height = bounds.height - y - 65 - 50 - safeAreaInsets.bottom
         } else {
             y = 15
-            height = bounds.height - y - 125
+            height = bounds.height - y - 65 - 50
         }
         return CGSize(width: bounds.width-30, height: height)
     }
