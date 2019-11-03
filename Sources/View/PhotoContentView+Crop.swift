@@ -14,7 +14,7 @@ extension PhotoContentView {
     func cropStart() {
         isCrop = true
         UIView.animate(withDuration: 0.25, animations: {
-            self.layoutCrop()
+            self.layoutStartCrop()
         }) { (_) in
             self.setCropHidden(false, animated: true)
         }
@@ -30,11 +30,15 @@ extension PhotoContentView {
     
     func cropDone() {
         isCrop = false
+        setCropHidden(true, animated: false)
+        UIView.animate(withDuration: 0.25) {
+            self.layouEndCrop()
+        }
     }
     
     func cropReset() {
         UIView.animate(withDuration: 0.5, animations: {
-            self.layoutCrop(animated: true)
+            self.layoutStartCrop(animated: true)
         })
     }
 }
@@ -72,7 +76,7 @@ extension PhotoContentView {
         addSubview(bottomRightCorner)
     }
     
-    private func layoutCrop(animated: Bool = false) {
+    private func layoutStartCrop(animated: Bool = false) {
         let y = 15 + topMargin
         let bottom = 65 + bottomMargin + 50
         scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
@@ -91,6 +95,14 @@ extension PhotoContentView {
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+    }
+    
+    private func layouEndCrop() {
+        print(scrollView.zoomScale)
+        scrollView.maximumZoomScale = scrollView.zoomScale > 3.0 ? scrollView.zoomScale : 3.0
+        scrollView.minimumZoomScale = scrollView.zoomScale
+        scrollView.zoomScale = scrollView.minimumZoomScale
+        
     }
     
     private func setCropRect(_ rect: CGRect, animated: Bool = false) {
@@ -161,7 +173,7 @@ extension PhotoContentView {
     private func updateScrollViewAndCropRect(_ position: CropCornerPosition) {
         // zoom
         let maxZoom = scrollView.maximumZoomScale
-        let zoom1 = imageView.bounds.width / (cropRect.width / scrollView.zoomScale)
+        let zoom1 = scrollView.bounds.width / (cropRect.width / scrollView.zoomScale)
         let zoom2 = scrollView.bounds.height / (cropRect.height / scrollView.zoomScale)
         let isVertical = cropRect.height * (scrollView.bounds.width / cropRect.width) > scrollView.bounds.height
         let zoom: CGFloat
