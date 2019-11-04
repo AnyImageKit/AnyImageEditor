@@ -79,6 +79,13 @@ final class PhotoContentView: UIView {
         view.alpha = 0
         return view
     }()
+    private(set) lazy var cropLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.frame = bounds
+        layer.fillRule = .evenOdd
+        layer.fillColor = UIColor.black.cgColor
+        return layer
+    }()
     
     internal let image: UIImage
     internal let config: ImageEditorController.PhotoConfig

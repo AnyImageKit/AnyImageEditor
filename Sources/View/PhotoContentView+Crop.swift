@@ -31,9 +31,7 @@ extension PhotoContentView {
     func cropDone() {
         isCrop = false
         setCropHidden(true, animated: false)
-        UIView.animate(withDuration: 0.25) {
-            self.layouEndCrop()
-        }
+        layouEndCrop()
     }
     
     func cropReset() {
@@ -95,14 +93,51 @@ extension PhotoContentView {
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+        
+        cropLayer.removeFromSuperlayer()
     }
     
     private func layouEndCrop() {
-        print(scrollView.zoomScale)
-        scrollView.maximumZoomScale = scrollView.zoomScale > 3.0 ? scrollView.zoomScale : 3.0
-        scrollView.minimumZoomScale = scrollView.zoomScale
-        scrollView.zoomScale = scrollView.minimumZoomScale
+        let contentOffset = scrollView.contentOffset
         
+        var contentSize: CGSize = .zero
+        contentSize.width = bounds.width
+        contentSize.height = bounds.width * cropRect.height / cropRect.width
+        
+        var imageSize: CGSize = .zero
+        imageSize.width = bounds.width * (imageView.bounds.width * scrollView.zoomScale) / cropRect.width
+        imageSize.height = contentSize.height * (imageView.bounds.height * scrollView.zoomScale) / cropRect.height
+        
+        let x = (bounds.width - contentSize.width) > 0 ? (bounds.width - contentSize.width) * 0.5 : 0
+        let y = (bounds.height - contentSize.height) > 0 ? (bounds.height - contentSize.height) * 0.5 : 0
+        let offsetX = contentOffset.x * imageSize.width / (imageView.bounds.width * scrollView.zoomScale)
+        let offsetY = contentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
+        
+        // Set
+        UIView.animate(withDuration: 0.3, animations: {
+            self.scrollView.frame = self.bounds
+            self.scrollView.minimumZoomScale = self.scrollView.zoomScale
+            self.scrollView.maximumZoomScale = self.scrollView.zoomScale
+            self.scrollView.contentInset = .zero
+            
+            self.imageView.frame.origin = CGPoint(x: x - offsetX, y: y - offsetY)
+            self.imageView.frame.size = imageSize
+            self.scrollView.contentSize = contentSize
+        })
+        
+        // CropLayer
+        layer.addSublayer(cropLayer)
+        let cropPath = UIBezierPath(rect: bounds)
+        let rectPath = UIBezierPath(rect: cropRect)
+        cropPath.append(rectPath)
+        cropLayer.path = cropPath.cgPath
+        
+        let newCropPath = UIBezierPath(rect: bounds)
+        let newRectPath = UIBezierPath(rect: CGRect(origin: CGPoint(x: x, y: y), size: contentSize))
+        newCropPath.append(newRectPath)
+        let cropAnimation = CABasicAnimation.create(duration: 0.3, fromValue: cropLayer.path, toValue: newCropPath.cgPath)
+        cropLayer.add(cropAnimation, forKey: "path")
+        cropLayer.path = newCropPath.cgPath
     }
     
     private func setCropRect(_ rect: CGRect, animated: Bool = false) {

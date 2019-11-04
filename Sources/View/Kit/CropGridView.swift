@@ -73,25 +73,16 @@ final class CropGridView: UIView {
         
         if animated {
             animated = false
-            let rectAnimation = createAnimation(keyPath: "path", fromValue: rectLayer.path, toValue: rectPath.cgPath)
+            let rectAnimation = CABasicAnimation.create(duration: 0.5, fromValue: rectLayer.path, toValue: rectPath.cgPath)
             rectLayer.add(rectAnimation, forKey: "path")
-            let lineAnimation = createAnimation(keyPath: "path", fromValue: lineLayer.path, toValue: linePath.cgPath)
+            let lineAnimation = CABasicAnimation.create(duration: 0.5, fromValue: lineLayer.path, toValue: linePath.cgPath)
             lineLayer.add(lineAnimation, forKey: "path")
-            let bgAnimation = createAnimation(keyPath: "path", fromValue: bgLayer.path, toValue: bgPath.cgPath)
+            let bgAnimation = CABasicAnimation.create(duration: 0.5, fromValue: bgLayer.path, toValue: bgPath.cgPath)
             bgLayer.add(bgAnimation, forKey: "path")
         }
         lineLayer.path = linePath.cgPath
         rectLayer.path = rectPath.cgPath
         bgLayer.path = bgPath.cgPath
-    }
-    
-    func createAnimation(keyPath: String, fromValue: CGPath?, toValue: CGPath?) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: keyPath)
-        animation.duration = 0.5
-        animation.fromValue = fromValue
-        animation.toValue = toValue
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        return animation
     }
 }
 
