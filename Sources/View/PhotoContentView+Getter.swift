@@ -33,6 +33,24 @@ extension PhotoContentView {
         let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
         return CGRect(x: x, y: y, width: size.width, height: size.height)
     }
+    var topMargin: CGFloat {
+        if #available(iOS 11, *) {
+            return safeAreaInsets.top
+        } else {
+            return 0
+        }
+    }
+    var bottomMargin: CGFloat {
+        if #available(iOS 11, *) {
+            return safeAreaInsets.bottom
+        } else {
+            return 0
+        }
+    }
+}
+
+// MARK: - Crop
+extension PhotoContentView {
     /// 裁剪的图片size
     var cropSize: CGSize {
         guard let image = imageView.image else { return CGSize.zero }
@@ -98,18 +116,15 @@ extension PhotoContentView {
         let y = ((maxSize.height - size.height) > 0 ? (maxSize.height - size.height) * 0.5 : 0) + offset
         return CGRect(origin: CGPoint(x: x, y: y), size: size)
     }
-    var topMargin: CGFloat {
-        if #available(iOS 11, *) {
-            return safeAreaInsets.top
+    var cropMaximumZoomScale: CGFloat {
+        let maxSize = cropMaxSize
+        let size = cropSize2
+        var zoom: CGFloat = 1.0
+        if size.width > size.height {
+            zoom = maxSize.height / size.height
         } else {
-            return 0
+            zoom = maxSize.width / size.width
         }
-    }
-    var bottomMargin: CGFloat {
-        if #available(iOS 11, *) {
-            return safeAreaInsets.bottom
-        } else {
-            return 0
-        }
+        return zoom * 6.0
     }
 }

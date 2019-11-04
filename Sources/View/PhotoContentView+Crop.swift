@@ -80,7 +80,7 @@ extension PhotoContentView {
         let y = 15 + topMargin
         let bottom = 65 + bottomMargin + 50
         scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
-        scrollView.maximumZoomScale = 15.0
+        scrollView.maximumZoomScale = cropMaximumZoomScale
         scrollView.minimumZoomScale = 1.0
         scrollView.zoomScale = 1.0
         
@@ -126,6 +126,7 @@ extension PhotoContentView {
         }
     }
     
+    // MARK: - Calculate
     private func updateCropRect(_ moveP: CGPoint, _ position: CropCornerPosition) {
         let limit: CGFloat = 55
         var rect = cropRect
