@@ -13,8 +13,13 @@ extension PhotoContentView {
 
     func cropStart() {
         isCrop = true
+        cropLayer.removeFromSuperlayer()
         UIView.animate(withDuration: 0.25, animations: {
-            self.layoutStartCrop()
+            if !self.didCrop {
+                self.layoutStartCrop()
+            } else {
+                self.layoutStartCroped()
+            }
         }) { (_) in
             self.setCropHidden(false, animated: true)
         }
@@ -30,6 +35,7 @@ extension PhotoContentView {
     
     func cropDone() {
         isCrop = false
+        didCrop = cropRect.size != scrollView.contentSize
         setCropHidden(true, animated: false)
         layouEndCrop()
     }
@@ -75,30 +81,49 @@ extension PhotoContentView {
     }
     
     private func layoutStartCrop(animated: Bool = false) {
-        let y = 15 + topMargin
-        let bottom = 65 + bottomMargin + 50
-        scrollView.frame = CGRect(x: 15, y: y, width: bounds.width-30, height: bounds.height-y-bottom)
-        scrollView.maximumZoomScale = cropMaximumZoomScale
+        let top = 15 + topMargin
+        let bottom = 65 + 50 + bottomMargin
+        scrollView.frame = CGRect(x: 15, y: top, width: bounds.width-30, height: bounds.height-top-bottom)
         scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = cropMaximumZoomScale
         scrollView.zoomScale = 1.0
         
         var cropFrame = cropFrame2
         imageView.frame = cropFrame
-        imageView.frame.origin.y -= y
+        imageView.frame.origin.y -= top
         scrollView.contentSize = imageView.bounds.size
         
-        cropFrame.origin.x += 15
+        cropFrame.origin.x += scrollView.frame.origin.x
         setCropRect(cropFrame, animated: animated)
         
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
         scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+    }
+    
+    private func layoutStartCroped() {
+        let top = 15 + topMargin
+        let bottom = 65 + 50 + bottomMargin
+        scrollView.frame = CGRect(x: 15, y: top, width: bounds.width-30, height: bounds.height-top-bottom)
+        let minZoomScale = scrollView.minimumZoomScale
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = cropMaximumZoomScale
+  
+        scrollView.zoomScale = minZoomScale
+        scrollView.contentSize = cropContentSize
+        imageView.frame = cropImageViewFrame
+        scrollView.contentOffset = cropContentOffset
+        setCropRect(cropRect, animated: true)
         
-        cropLayer.removeFromSuperlayer()
+        let rightInset = scrollView.bounds.width - cropRect.width + 0.1
+        let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
+        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
     }
     
     private func layouEndCrop() {
-        let contentOffset = scrollView.contentOffset
+        cropContentSize = scrollView.contentSize
+        cropContentOffset = scrollView.contentOffset
+        cropImageViewFrame = imageView.frame
         
         var contentSize: CGSize = .zero
         contentSize.width = bounds.width
@@ -110,8 +135,8 @@ extension PhotoContentView {
         
         let x = (bounds.width - contentSize.width) > 0 ? (bounds.width - contentSize.width) * 0.5 : 0
         let y = (bounds.height - contentSize.height) > 0 ? (bounds.height - contentSize.height) * 0.5 : 0
-        let offsetX = contentOffset.x * imageSize.width / (imageView.bounds.width * scrollView.zoomScale)
-        let offsetY = contentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
+        let offsetX = cropContentOffset.x * imageSize.width / (imageView.bounds.width * scrollView.zoomScale)
+        let offsetY = cropContentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
         
         // Set
         UIView.animate(withDuration: 0.3, animations: {

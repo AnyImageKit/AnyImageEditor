@@ -48,7 +48,7 @@ final class PhotoContentView: UIView {
     }()
     /// 马赛克，延时加载
     internal var mosaic: Mosaic?
-    // MARK: - Crop
+    /// 裁剪 - Crop
     private let cornerFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
     private(set) lazy var topLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topLeft)
@@ -87,12 +87,17 @@ final class PhotoContentView: UIView {
         return layer
     }()
     
+    
     internal let image: UIImage
     internal let config: ImageEditorController.PhotoConfig
     
     internal var isCrop: Bool = false
+    internal var didCrop: Bool = false
     internal var cropRect: CGRect = .zero
     internal var cropStartRect: CGRect = .zero
+    internal var cropContentSize: CGSize = .zero
+    internal var cropContentOffset: CGPoint = .zero
+    internal var cropImageViewFrame: CGRect = .zero
     
     /// 存储马赛克过程图片 // TODO: 改成磁盘存储
     internal var mosaicImageList: [UIImage] = []
@@ -138,7 +143,7 @@ extension PhotoContentView: UIScrollViewDelegate {
     }
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        if !isCrop {
+        if !isCrop && !didCrop {
             imageView.center = centerOfContentSize
         }
     }
