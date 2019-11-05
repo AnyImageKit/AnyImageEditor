@@ -122,14 +122,26 @@ extension PhotoContentView {
         let top = cropY
         let bottom = cropBottomOffset
         scrollView.frame = CGRect(x: cropX, y: top, width: bounds.width-cropX*2, height: bounds.height-top-bottom)
-        scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = cropMaximumZoomScale
   
+        // 加载上次裁剪数据
         scrollView.zoomScale = lastCropData.zoomScale
         scrollView.contentSize = lastCropData.contentSize
         imageView.frame = lastCropData.imageViewFrame
         scrollView.contentOffset = lastCropData.contentOffset
         setCropRect(lastCropData.rect, animated: true)
+        
+        // minimumZoomScale
+        let isVertical = cropRect.height * (scrollView.bounds.width / cropRect.width) > scrollView.bounds.height
+        let mZoom1 = scrollView.bounds.width / imageView.bounds.width
+        let mZoom2 = scrollView.bounds.height / imageView.bounds.height
+        let mZoom: CGFloat
+        if !isVertical {
+            mZoom = (imageView.bounds.height < cropRect.height) ? (cropRect.height / imageView.bounds.height) : mZoom1
+        } else {
+            mZoom = (imageView.bounds.width < cropRect.width) ? (cropRect.width / imageView.bounds.width) : mZoom2
+        }
+        scrollView.minimumZoomScale = mZoom
         
         setupContentInset()
     }
