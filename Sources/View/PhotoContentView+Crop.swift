@@ -11,6 +11,7 @@ import UIKit
 // MARK: - Public function
 extension PhotoContentView {
 
+    /// 开始裁剪
     func cropStart() {
         isCrop = true
         cropLayer.removeFromSuperlayer()
@@ -25,6 +26,7 @@ extension PhotoContentView {
         }
     }
     
+    /// 取消裁剪
     func cropCancel() {
         isCrop = false
         setCropHidden(true, animated: false)
@@ -44,6 +46,7 @@ extension PhotoContentView {
         }
     }
     
+    /// 裁剪完成
     func cropDone() {
         isCrop = false
         didCrop = cropRect.size != scrollView.contentSize
@@ -51,6 +54,7 @@ extension PhotoContentView {
         layouEndCrop()
     }
     
+    /// 重置裁剪
     func cropReset() {
         UIView.animate(withDuration: 0.5, animations: {
             self.layoutStartCrop(animated: true)
@@ -61,6 +65,7 @@ extension PhotoContentView {
 // MARK: - Target
 extension PhotoContentView {
     
+    /// 白色裁剪框4个角的pan手势
     @objc func panCropCorner(_ gr: UIPanGestureRecognizer) {
         guard let cornerView = gr.view as? CropCornerView else { return }
         let position = cornerView.position
@@ -83,6 +88,7 @@ extension PhotoContentView {
 // MARK: - Private function
 extension PhotoContentView {
     
+    /// 设置裁剪相关控件
     internal func cropSetupView() {
         addSubview(gridView)
         addSubview(topLeftCorner)
@@ -91,15 +97,16 @@ extension PhotoContentView {
         addSubview(bottomRightCorner)
     }
     
+    /// 布局开始裁剪 - 未裁剪过
     private func layoutStartCrop(animated: Bool = false) {
-        let top = 15 + topMargin
-        let bottom = 65 + 50 + bottomMargin
-        scrollView.frame = CGRect(x: 15, y: top, width: bounds.width-30, height: bounds.height-top-bottom)
+        let top = cropY
+        let bottom = cropBottomOffset
+        scrollView.frame = CGRect(x: cropX, y: top, width: bounds.width-cropX*2, height: bounds.height-top-bottom)
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = cropMaximumZoomScale
         scrollView.zoomScale = 1.0
         
-        var cropFrame = cropFrame2
+        var cropFrame = self.cropFrame
         imageView.frame = cropFrame
         imageView.frame.origin.y -= top
         scrollView.contentSize = imageView.bounds.size
@@ -107,15 +114,14 @@ extension PhotoContentView {
         cropFrame.origin.x += scrollView.frame.origin.x
         setCropRect(cropFrame, animated: animated)
         
-        let rightInset = scrollView.bounds.width - cropRect.width + 0.1
-        let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
-        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+        setupContentInset()
     }
     
+    /// 布局开始裁剪 - 已裁剪过
     private func layoutStartCroped() {
-        let top = 15 + topMargin
-        let bottom = 65 + 50 + bottomMargin
-        scrollView.frame = CGRect(x: 15, y: top, width: bounds.width-30, height: bounds.height-top-bottom)
+        let top = cropY
+        let bottom = cropBottomOffset
+        scrollView.frame = CGRect(x: cropX, y: top, width: bounds.width-cropX*2, height: bounds.height-top-bottom)
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = cropMaximumZoomScale
   
@@ -125,11 +131,10 @@ extension PhotoContentView {
         scrollView.contentOffset = lastCropData.contentOffset
         setCropRect(lastCropData.rect, animated: true)
         
-        let rightInset = scrollView.bounds.width - cropRect.width + 0.1
-        let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
-        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+        setupContentInset()
     }
     
+    /// 布局裁剪结束
     private func layouEndCrop() {
         lastCropData.rect = cropRect
         lastCropData.zoomScale = scrollView.zoomScale
@@ -178,6 +183,7 @@ extension PhotoContentView {
         cropLayer.path = newCropPath.cgPath
     }
     
+    /// 设置白色裁剪框的frame
     private func setCropRect(_ rect: CGRect, animated: Bool = false) {
         cropRect = rect
         let origin = rect.origin
@@ -189,6 +195,7 @@ extension PhotoContentView {
         gridView.setRect(rect, animated: animated)
     }
     
+    /// 显示/隐藏白色裁剪框
     private func setCropHidden(_ hidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? 0.25 : 0) {
             self.gridView.alpha = hidden ? 0 : 1
@@ -199,7 +206,15 @@ extension PhotoContentView {
         }
     }
     
+    /// 设置contentInset
+    private func setupContentInset() {
+        let rightInset = scrollView.bounds.width - cropRect.width + 0.1
+        let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
+        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+    }
+    
     // MARK: - Calculate
+    /// pan手势移动中，计算新的裁剪框的位置
     private func updateCropRect(_ moveP: CGPoint, _ position: CropCornerPosition) {
         let limit: CGFloat = 55
         var rect = cropRect
@@ -244,8 +259,9 @@ extension PhotoContentView {
         setCropRect(rect)
     }
     
+    /// pan手势移动结束，根据裁剪框位置，计算scrollView的zoomScale、minimumZoomScale、contentOffset，以及新的裁剪框的位置
     private func updateScrollViewAndCropRect(_ position: CropCornerPosition) {
-        // zoom
+        // zoomScale
         let maxZoom = scrollView.maximumZoomScale
         let zoom1 = scrollView.bounds.width / (cropRect.width / scrollView.zoomScale)
         let zoom2 = scrollView.bounds.height / (cropRect.height / scrollView.zoomScale)
@@ -257,7 +273,7 @@ extension PhotoContentView {
             zoom = zoom2 > maxZoom ? maxZoom : zoom2
         }
         
-        // offset
+        // contentOffset
         let zoomScale = zoom / scrollView.zoomScale
         let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - cropStartPanRect.origin.x) * zoomScale)
         let offsetY = (scrollView.contentOffset.y * zoomScale) + ((cropRect.origin.y - cropStartPanRect.origin.y) * zoomScale)
@@ -297,6 +313,7 @@ extension PhotoContentView {
             mZoom = (imageView.bounds.width < newCropRect.width) ? (newCropRect.width / imageView.bounds.width) : mZoom2
         }
         
+        // set
         UIView.animate(withDuration: 0.5, animations: {
             self.setCropRect(newCropRect, animated: true)
             self.imageView.frame.origin.x = newCropRect.origin.x - self.scrollView.frame.origin.x
@@ -306,9 +323,7 @@ extension PhotoContentView {
         })
         
         // set
-        let rightInset = scrollView.bounds.width - cropRect.width + 0.1
-        let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
-        scrollView.contentInset = UIEdgeInsets(top: 0.1, left: 0.1, bottom: bottomInset, right: rightInset)
+        setupContentInset()
         scrollView.minimumZoomScale = mZoom
     }
 }

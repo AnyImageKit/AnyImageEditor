@@ -33,6 +33,7 @@ extension PhotoContentView {
         let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
         return CGRect(x: x, y: y, width: size.width, height: size.height)
     }
+    /// 全面屏的顶部边距
     var topMargin: CGFloat {
         if #available(iOS 11, *) {
             return safeAreaInsets.top
@@ -40,6 +41,7 @@ extension PhotoContentView {
             return 0
         }
     }
+    /// 全面屏的底部边距
     var bottomMargin: CGFloat {
         if #available(iOS 11, *) {
             return safeAreaInsets.bottom
@@ -51,53 +53,32 @@ extension PhotoContentView {
 
 // MARK: - Crop
 extension PhotoContentView {
-    /// 裁剪的图片size
-    var cropSize: CGSize {
-        guard let image = imageView.image else { return CGSize.zero }
-        let width = scrollView.bounds.width
-        let scale = image.size.height / image.size.width
-        let size = CGSize(width: width, height: scale * width)
-        let screenSize = scrollView.bounds.size //UIScreen.main.bounds.size
-        if size.height > screenSize.height {
-            let scale2 = screenSize.height / size.height
-            return CGSize(width: size.width * scale2, height: screenSize.height)
-        }
-        return size
+    /// 裁剪 X 的偏移量
+    var cropX: CGFloat {
+        return 15
     }
-    /// 裁剪的图片frame
-    var cropFrame: CGRect {
-        let size = cropSize
-        let x = (scrollView.bounds.width - size.width) > 0 ? (scrollView.bounds.width - size.width) * 0.5 : 0
-        let y = (scrollView.bounds.height - size.height) > 0 ? (scrollView.bounds.height - size.height) * 0.5 : 0
-        return CGRect(origin: CGPoint(x: x, y: y), size: size)
+    /// 裁剪 Y 的偏移量
+    var cropY: CGFloat {
+        return topMargin + 15
+    }
+    /// 裁剪底部的偏移量
+    var cropBottomOffset: CGFloat {
+        return bottomMargin + 65 + 50
     }
     /// 裁剪的scrollView frame
     var cropScrollViewFrame: CGRect {
-        let y: CGFloat
-        let height: CGFloat
-        if #available(iOS 11, *) {
-            y = 15 + safeAreaInsets.top
-            height = bounds.height - y - 125 - safeAreaInsets.bottom
-        } else {
-            y = 15
-            height = bounds.height - y - 125
-        }
-        return CGRect(x: 15, y: y, width: bounds.width-30, height: height)
+        let y = cropY
+        let height = bounds.height - y - cropBottomOffset
+        return CGRect(x: cropX, y: y, width: bounds.width-cropX*2, height: height)
     }
-    
+    /// 裁剪区最大的Size
     var cropMaxSize: CGSize {
-        let y: CGFloat
-        let height: CGFloat
-        if #available(iOS 11, *) {
-            y = 15 + safeAreaInsets.top
-            height = bounds.height - y - 65 - 50 - safeAreaInsets.bottom
-        } else {
-            y = 15
-            height = bounds.height - y - 65 - 50
-        }
-        return CGSize(width: bounds.width-30, height: height)
+        let y = cropY
+        let height = bounds.height - y - cropBottomOffset
+        return CGSize(width: bounds.width-cropX*2, height: height)
     }
-    var cropSize2: CGSize {
+    /// 裁剪的图片size
+    var cropSize: CGSize {
         guard let image = imageView.image else { return CGSize.zero }
         let maxSize = cropMaxSize
         let scale = image.size.height / image.size.width
@@ -108,17 +89,19 @@ extension PhotoContentView {
         }
         return size
     }
-    var cropFrame2: CGRect {
+    /// 裁剪的图片frame
+    var cropFrame: CGRect {
         let maxSize = cropMaxSize
-        let size = cropSize2
-        let offset = 15 + topMargin
+        let size = cropSize
+        let top = cropY
         let x = (scrollView.bounds.width - size.width) > 0 ? (scrollView.bounds.width - size.width) * 0.5 : 0
-        let y = ((maxSize.height - size.height) > 0 ? (maxSize.height - size.height) * 0.5 : 0) + offset
+        let y = ((maxSize.height - size.height) > 0 ? (maxSize.height - size.height) * 0.5 : 0) + top
         return CGRect(origin: CGPoint(x: x, y: y), size: size)
     }
+    /// 裁剪时最大的缩放比例
     var cropMaximumZoomScale: CGFloat {
         let maxSize = cropMaxSize
-        let size = cropSize2
+        let size = cropSize
         var zoom: CGFloat = 1.0
         if size.width > size.height {
             zoom = maxSize.height / size.height
