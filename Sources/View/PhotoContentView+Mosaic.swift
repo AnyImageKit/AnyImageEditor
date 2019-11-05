@@ -33,6 +33,7 @@ extension PhotoContentView {
     
     /// 在子线程创建马赛克图片
     internal func setupMosaicView() {
+        let idx = mosaic?.currentIdx ?? 0
         mosaic = nil
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
@@ -41,6 +42,7 @@ extension PhotoContentView {
                 guard let self = self else { return }
                 print("Mosaic created")
                 self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), originalMosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
+                self.mosaic?.setMosaicCoverImage(idx)
                 self.mosaic?.delegate = self
                 self.mosaic?.dataSource = self
                 self.mosaic?.isUserInteractionEnabled = false

@@ -41,6 +41,10 @@ final class Mosaic: UIView {
     private var lastPoint: CGPoint = .zero
     /// 步长
     private var lenth = 0
+    /// 当前马赛克的下标
+    var currentIdx: Int {
+        return mosaicCoverImage.firstIndex(of: mosaicImage) ?? 0
+    }
     
     
     init(frame: CGRect, originalMosaicImage: UIImage, mosaicOptions: [ImageEditorController.PhotoMosaicOption]) {
