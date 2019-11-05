@@ -52,6 +52,7 @@ extension PhotoContentView {
         didCrop = cropRect.size != scrollView.contentSize
         setCropHidden(true, animated: false)
         layouEndCrop()
+        setupMosaicView()
     }
     
     /// 重置裁剪
@@ -169,10 +170,10 @@ extension PhotoContentView {
         let offsetY = contentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
         
         // Set
+        scrollView.minimumZoomScale = didCrop ? scrollView.zoomScale : 1.0
+        scrollView.maximumZoomScale = didCrop ? scrollView.zoomScale : 3.0
         UIView.animate(withDuration: 0.3, animations: {
             self.scrollView.frame = self.bounds
-            self.scrollView.minimumZoomScale = self.scrollView.zoomScale
-            self.scrollView.maximumZoomScale = self.scrollView.zoomScale
             self.scrollView.contentInset = .zero
             
             self.imageView.frame.origin = CGPoint(x: x - offsetX, y: y - offsetY)
@@ -181,6 +182,7 @@ extension PhotoContentView {
         })
         
         // CropLayer
+        guard didCrop else { return }
         layer.addSublayer(cropLayer)
         let cropPath = UIBezierPath(rect: bounds)
         let rectPath = UIBezierPath(rect: cropRect)
