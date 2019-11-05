@@ -43,7 +43,6 @@
 		A5B59F722360476B00ADF268 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F712360476B00ADF268 /* Brush.swift */; };
 		A5B59F74236047BD00ADF268 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F73236047BD00ADF268 /* Canvas.swift */; };
 		A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */; };
-		A5B59F782360536500ADF268 /* CanvasData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B59F772360536500ADF268 /* CanvasData.swift */; };
 		A5B748F023710A7800739681 /* CropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B748EF23710A7800739681 /* CropData.swift */; };
 		A5DB047B236023D7008D57A1 /* AnyImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = A5DB0479236023D7008D57A1 /* AnyImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048C23602467008D57A1 /* AppDelegate.swift */; };
@@ -117,7 +116,6 @@
 		A5B59F712360476B00ADF268 /* Brush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
 		A5B59F73236047BD00ADF268 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		A5B59F7523604EA400ADF268 /* Ex+UIBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIBezierPath.swift"; sourceTree = "<group>"; };
-		A5B59F772360536500ADF268 /* CanvasData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasData.swift; sourceTree = "<group>"; };
 		A5B748EF23710A7800739681 /* CropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropData.swift; sourceTree = "<group>"; };
 		A5DB0476236023D7008D57A1 /* AnyImageEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnyImageEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5DB0479236023D7008D57A1 /* AnyImageEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnyImageEditor.h; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 				A5B59F712360476B00ADF268 /* Brush.swift */,
 				A5B59F6C2360413A00ADF268 /* BezierGenerator.swift */,
 				A50411F22362C3630089E136 /* TouchState.swift */,
-				A5B59F772360536500ADF268 /* CanvasData.swift */,
 				A5B748EF23710A7800739681 /* CropData.swift */,
 			);
 			path = Model;
@@ -263,8 +260,8 @@
 				A550F0C823613D600089D584 /* PhotoContentView.swift */,
 				A5824042236822C600C6DB3D /* PhotoContentView+Getter.swift */,
 				A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */,
-				A58240462368238400C6DB3D /* PhotoContentView+Crop.swift */,
 				A58240442368237A00C6DB3D /* PhotoContentView+Mosaic.swift */,
+				A58240462368238400C6DB3D /* PhotoContentView+Crop.swift */,
 				A5B59F73236047BD00ADF268 /* Canvas.swift */,
 				A50411F02362899C0089E136 /* Mosaic.swift */,
 				A550F0CA23613E0D0089D584 /* PhotoToolView.swift */,
@@ -523,7 +520,6 @@
 				A5B59F6D2360413A00ADF268 /* BezierGenerator.swift in Sources */,
 				A5B59F7623604EA400ADF268 /* Ex+UIBezierPath.swift in Sources */,
 				A50411F12362899C0089E136 /* Mosaic.swift in Sources */,
-				A5B59F782360536500ADF268 /* CanvasData.swift in Sources */,
 				A58240472368238400C6DB3D /* PhotoContentView+Crop.swift in Sources */,
 				A550F0D1236141B00089D584 /* ImageEditorController+Config.swift in Sources */,
 				A5AC6F322360272000DED461 /* BundleHelper.swift in Sources */,

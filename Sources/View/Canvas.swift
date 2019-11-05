@@ -26,10 +26,11 @@ class Canvas: UIView {
     
     var brush = Brush()
     
-    let data = CanvasData()
-    let bezierGenerator = BezierGenerator()
-    var lastPoint: CGPoint = .zero
-    private(set) lazy var lastPenImage: UIImageView = {
+    private let bezierGenerator = BezierGenerator()
+    private var layerList: [CAShapeLayer] = []
+    private var lastPoint: CGPoint = .zero
+    
+    private(set) lazy var lastPenImageView: UIImageView = {
         let view = UIImageView()
         return view
     }()
@@ -46,12 +47,12 @@ class Canvas: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         UIView.animate(withDuration: 0.25) {
-            self.lastPenImage.frame = self.bounds
+            self.lastPenImageView.frame = self.bounds
         }
     }
     
     private func setupView() {
-        addSubview(lastPenImage)
+        addSubview(lastPenImageView)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -86,33 +87,23 @@ class Canvas: UIView {
 // MARK: - Public function
 extension Canvas {
     
-    func canUndo() -> Bool {
-        data.canUndo()
-    }
-    
-    func undo() {
-        data.undo()
-    }
-    
     func reset() {
-        for element in data.elements {
-            for layer in element.layerList {
-                layer.removeFromSuperlayer()
-            }
+        for layer in layerList {
+            layer.removeFromSuperlayer()
         }
-        data.elements.removeAll()
+        layerList.removeAll()
     }
 }
 
+// MARK: - Private function
 extension Canvas {
     
     private func pushPoint(_ point: CGPoint, to bezier: BezierGenerator, state: TouchState) {
         if state == .begin {
-            data.currentElement = CanvasDataElement()
-            data.elements.append(data.currentElement)
+            reset()
         }
         defer {
-            if state == .end && data.currentElement.layerList.count > 3 {
+            if state == .end && layerList.count > 3 {
                 delegate?.canvasDidEndPen()
             }
         }
@@ -122,9 +113,21 @@ extension Canvas {
         delegate?.canvasDidBeginPen()
         
         let scale = dataSource?.canvasGetScale(self) ?? 1.0
-        let shapeLayer = data.layer(of: points, brush: brush, scale: scale)
-        data.currentElement.layerList.append(shapeLayer)
+        let shapeLayer = layer(of: points, brush: brush, scale: scale)
+        layerList.append(shapeLayer)
         self.layer.addSublayer(shapeLayer)
     }
     
+    private func layer(of points: [CGPoint], brush: Brush, scale: CGFloat) -> CAShapeLayer {
+        let path = UIBezierPath.create(with: points)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.lineCap = .round
+        shapeLayer.lineJoin = .round
+        shapeLayer.lineWidth = 5.0 / scale
+        // Brush
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = brush.color.cgColor
+        return shapeLayer
+    }
 }
