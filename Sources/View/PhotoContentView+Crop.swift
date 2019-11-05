@@ -21,6 +21,7 @@ extension PhotoContentView {
             } else {
                 self.layoutStartCroped()
             }
+            self.updateCanvasFrame()
         }) { (_) in
             self.setCropHidden(false, animated: true)
         }
@@ -43,6 +44,7 @@ extension PhotoContentView {
             } else {
                 self.layout()
             }
+            self.updateCanvasFrame()
         }
     }
     
@@ -53,12 +55,14 @@ extension PhotoContentView {
         setCropHidden(true, animated: false)
         layouEndCrop()
         setupMosaicView()
+        updateCanvasFrame()
     }
     
     /// 重置裁剪
     func cropReset() {
         UIView.animate(withDuration: 0.5, animations: {
             self.layoutStartCrop(animated: true)
+            self.updateCanvasFrame()
         })
     }
 }
@@ -172,7 +176,7 @@ extension PhotoContentView {
         // Set
         scrollView.minimumZoomScale = didCrop ? scrollView.zoomScale : 1.0
         scrollView.maximumZoomScale = didCrop ? scrollView.zoomScale : 3.0
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.scrollView.frame = self.bounds
             self.scrollView.contentInset = .zero
             
@@ -192,7 +196,7 @@ extension PhotoContentView {
         let newCropPath = UIBezierPath(rect: bounds)
         let newRectPath = UIBezierPath(rect: CGRect(origin: CGPoint(x: x, y: y), size: contentSize))
         newCropPath.append(newRectPath)
-        let cropAnimation = CABasicAnimation.create(duration: 0.3, fromValue: cropLayer.path, toValue: newCropPath.cgPath)
+        let cropAnimation = CABasicAnimation.create(duration: 0.25, fromValue: cropLayer.path, toValue: newCropPath.cgPath)
         cropLayer.add(cropAnimation, forKey: "path")
         cropLayer.path = newCropPath.cgPath
     }

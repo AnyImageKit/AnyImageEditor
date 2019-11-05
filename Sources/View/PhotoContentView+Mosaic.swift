@@ -28,7 +28,7 @@ extension PhotoContentView {
     }
 }
 
-// MARK: - Private function
+// MARK: - Internal function
 extension PhotoContentView {
     
     /// 在子线程创建马赛克图片
@@ -51,15 +51,6 @@ extension PhotoContentView {
             }
         }
     }
-    
-    /// 生成截图
-    private func getScreenshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, true, UIScreen.main.scale)
-        imageView.drawHierarchy(in: imageView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
 }
 
 // MARK: - MosaicDelegate
@@ -71,7 +62,7 @@ extension PhotoContentView: MosaicDelegate {
     
     func mosaicDidEndPen() {
         delegate?.photoDidEndPen()
-        guard let screenshot = getScreenshot() else { return }
+        guard let screenshot = imageView.screenshot else { return }
         mosaicImageList.append(screenshot)
         imageView.image = screenshot
         mosaic?.reset()

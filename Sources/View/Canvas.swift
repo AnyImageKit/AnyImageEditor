@@ -29,6 +29,30 @@ class Canvas: UIView {
     let data = CanvasData()
     let bezierGenerator = BezierGenerator()
     var lastPoint: CGPoint = .zero
+    private(set) lazy var lastPenImage: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        UIView.animate(withDuration: 0.25) {
+            self.lastPenImage.frame = self.bounds
+        }
+    }
+    
+    private func setupView() {
+        addSubview(lastPenImage)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
@@ -68,6 +92,15 @@ extension Canvas {
     
     func undo() {
         data.undo()
+    }
+    
+    func reset() {
+        for element in data.elements {
+            for layer in element.layerList {
+                layer.removeFromSuperlayer()
+            }
+        }
+        data.elements.removeAll()
     }
 }
 

@@ -12,11 +12,24 @@ import UIKit
 extension PhotoContentView {
     
     func canvasUndo() {
-        canvas.undo()
+//        canvas.undo()
+        if penImageList.isEmpty { return }
+        penImageList.removeLast()
+        canvas.lastPenImage.image = penImageList.last
+        canvas.reset()
     }
     
     func canvasCanUndo() -> Bool {
-        return canvas.canUndo()
+//        return canvas.canUndo()
+        return !penImageList.isEmpty
+    }
+}
+
+// MARK: - Internal function
+extension PhotoContentView {
+    
+    func updateCanvasFrame() {
+        canvas.frame = CGRect(origin: .zero, size: imageView.bounds.size)
     }
 }
 
@@ -29,6 +42,12 @@ extension PhotoContentView: CanvasDelegate {
     
     func canvasDidEndPen() {
         delegate?.photoDidEndPen()
+        
+        guard let screenshot = canvas.screenshot else { return }
+        print("Pen take screenshot")
+        penImageList.append(screenshot)
+        canvas.lastPenImage.image = screenshot
+        canvas.reset()
     }
 }
 

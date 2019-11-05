@@ -14,6 +14,7 @@
 		A50411F32362C3630089E136 /* TouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F22362C3630089E136 /* TouchState.swift */; };
 		A50C4A9C236FF5F6002E5AEA /* Ex+CABasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50C4A9B236FF5F6002E5AEA /* Ex+CABasicAnimation.swift */; };
 		A51800C1236C0A4A009E04C3 /* CropGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51800C0236C0A4A009E04C3 /* CropGridView.swift */; };
+		A53436BF2371531100C6B3F5 /* Ex+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53436BE2371531100C6B3F5 /* Ex+UIView.swift */; };
 		A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* PhotoContentView.swift */; };
 		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
 		A550F0CD23613E4B0089D584 /* StatusBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */; };
@@ -89,6 +90,7 @@
 		A50411F22362C3630089E136 /* TouchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchState.swift; sourceTree = "<group>"; };
 		A50C4A9B236FF5F6002E5AEA /* Ex+CABasicAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CABasicAnimation.swift"; sourceTree = "<group>"; };
 		A51800C0236C0A4A009E04C3 /* CropGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGridView.swift; sourceTree = "<group>"; };
+		A53436BE2371531100C6B3F5 /* Ex+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIView.swift"; sourceTree = "<group>"; };
 		A550F0C823613D600089D584 /* PhotoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentView.swift; sourceTree = "<group>"; };
 		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
 		A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarHelper.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				A550F0CE23613E5F0089D584 /* Ex+UIDevice.swift */,
 				A50411EE236286FC0089E136 /* Ex+UIImage.swift */,
 				A50C4A9B236FF5F6002E5AEA /* Ex+CABasicAnimation.swift */,
+				A53436BE2371531100C6B3F5 /* Ex+UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */,
 				A550F0CF23613E5F0089D584 /* Ex+UIDevice.swift in Sources */,
 				A5AC6F302360270700DED461 /* PhotoEditorController.swift in Sources */,
+				A53436BF2371531100C6B3F5 /* Ex+UIView.swift in Sources */,
 				A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */,
 				A5B59F702360422F00ADF268 /* Ex+CGPoint.swift in Sources */,
 			);
