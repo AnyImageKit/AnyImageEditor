@@ -94,10 +94,8 @@ final class PhotoContentView: UIView {
     internal var isCrop: Bool = false
     internal var didCrop: Bool = false
     internal var cropRect: CGRect = .zero
-    internal var cropStartRect: CGRect = .zero
-    internal var cropContentSize: CGSize = .zero
-    internal var cropContentOffset: CGPoint = .zero
-    internal var cropImageViewFrame: CGRect = .zero
+    internal var cropStartPanRect: CGRect = .zero
+    internal var lastCropData: CropData = CropData()
     
     /// 存储马赛克过程图片 // TODO: 改成磁盘存储
     internal var mosaicImageList: [UIImage] = []

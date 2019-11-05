@@ -28,8 +28,19 @@ extension PhotoContentView {
     func cropCancel() {
         isCrop = false
         setCropHidden(true, animated: false)
+        if didCrop {
+            scrollView.zoomScale = lastCropData.zoomScale
+            scrollView.contentSize = lastCropData.contentSize
+            imageView.frame = lastCropData.imageViewFrame
+            scrollView.contentOffset = lastCropData.contentOffset
+            setCropRect(lastCropData.rect, animated: true)
+        }
         UIView.animate(withDuration: 0.25) {
-            self.layout()
+            if self.didCrop {
+                self.layouEndCrop()
+            } else {
+                self.layout()
+            }
         }
     }
     
@@ -57,7 +68,7 @@ extension PhotoContentView {
         gr.setTranslation(.zero, in: self)
         
         if gr.state == .began {
-            cropStartRect = cropRect
+            cropStartPanRect = cropRect
         }
         
         updateCropRect(moveP, position)
@@ -105,15 +116,14 @@ extension PhotoContentView {
         let top = 15 + topMargin
         let bottom = 65 + 50 + bottomMargin
         scrollView.frame = CGRect(x: 15, y: top, width: bounds.width-30, height: bounds.height-top-bottom)
-        let minZoomScale = scrollView.minimumZoomScale
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = cropMaximumZoomScale
   
-        scrollView.zoomScale = minZoomScale
-        scrollView.contentSize = cropContentSize
-        imageView.frame = cropImageViewFrame
-        scrollView.contentOffset = cropContentOffset
-        setCropRect(cropRect, animated: true)
+        scrollView.zoomScale = lastCropData.zoomScale
+        scrollView.contentSize = lastCropData.contentSize
+        imageView.frame = lastCropData.imageViewFrame
+        scrollView.contentOffset = lastCropData.contentOffset
+        setCropRect(lastCropData.rect, animated: true)
         
         let rightInset = scrollView.bounds.width - cropRect.width + 0.1
         let bottomInset = scrollView.bounds.height - cropRect.height + 0.1
@@ -121,10 +131,13 @@ extension PhotoContentView {
     }
     
     private func layouEndCrop() {
-        cropContentSize = scrollView.contentSize
-        cropContentOffset = scrollView.contentOffset
-        cropImageViewFrame = imageView.frame
+        lastCropData.rect = cropRect
+        lastCropData.zoomScale = scrollView.zoomScale
+        lastCropData.contentSize = scrollView.contentSize
+        lastCropData.contentOffset = scrollView.contentOffset
+        lastCropData.imageViewFrame = imageView.frame
         
+        let contentOffset = scrollView.contentOffset
         var contentSize: CGSize = .zero
         contentSize.width = bounds.width
         contentSize.height = bounds.width * cropRect.height / cropRect.width
@@ -135,8 +148,8 @@ extension PhotoContentView {
         
         let x = (bounds.width - contentSize.width) > 0 ? (bounds.width - contentSize.width) * 0.5 : 0
         let y = (bounds.height - contentSize.height) > 0 ? (bounds.height - contentSize.height) * 0.5 : 0
-        let offsetX = cropContentOffset.x * imageSize.width / (imageView.bounds.width * scrollView.zoomScale)
-        let offsetY = cropContentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
+        let offsetX = contentOffset.x * imageSize.width / (imageView.bounds.width * scrollView.zoomScale)
+        let offsetY = contentOffset.y * imageSize.height / (imageView.bounds.height * scrollView.zoomScale)
         
         // Set
         UIView.animate(withDuration: 0.3, animations: {
@@ -246,8 +259,8 @@ extension PhotoContentView {
         
         // offset
         let zoomScale = zoom / scrollView.zoomScale
-        let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - cropStartRect.origin.x) * zoomScale)
-        let offsetY = (scrollView.contentOffset.y * zoomScale) + ((cropRect.origin.y - cropStartRect.origin.y) * zoomScale)
+        let offsetX = (scrollView.contentOffset.x * zoomScale) + ((cropRect.origin.x - cropStartPanRect.origin.x) * zoomScale)
+        let offsetY = (scrollView.contentOffset.y * zoomScale) + ((cropRect.origin.y - cropStartPanRect.origin.y) * zoomScale)
         let offset: CGPoint
         switch position {
         case .topLeft:
