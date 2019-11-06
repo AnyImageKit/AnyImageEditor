@@ -31,11 +31,11 @@ extension PhotoContentView {
     
     /// 在子线程创建马赛克图片
     internal func setupMosaicView() {
-        let idx = mosaic?.currentIdx ?? 0
+        let idx = mosaic?.currentIdx ?? config.defaultMosaicIdx
         mosaic = nil
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            guard let mosaicImage = UIImage.createMosaicImage(from: self.image, level: 20) else { return }
+            guard let mosaicImage = UIImage.createMosaicImage(from: self.image, level: self.config.mosaicLevel) else { return }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 print("Mosaic created")

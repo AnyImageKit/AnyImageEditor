@@ -79,7 +79,7 @@ final class PhotoToolView: UIView {
         return view
     }()
     private(set) lazy var mosaicToolView: PhotoMosaicToolView = {
-        let view = PhotoMosaicToolView(frame: .zero, mosaicOptions: config.mosaicOptions)
+        let view = PhotoMosaicToolView(frame: .zero, mosaicOptions: config.mosaicOptions, defaultIdx: config.defaultMosaicIdx)
         view.delegate = self
         view.isHidden = true
         return view

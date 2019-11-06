@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CropData {
+final class CropData {
     
     var rect: CGRect = .zero
     var zoomScale: CGFloat = 1.0

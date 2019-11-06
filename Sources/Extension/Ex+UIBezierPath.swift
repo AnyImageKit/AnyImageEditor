@@ -18,5 +18,4 @@ extension UIBezierPath {
         }
         return path
     }
-    
 }

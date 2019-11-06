@@ -13,9 +13,4 @@ extension CGRect {
     func bigger(_ edge: UIEdgeInsets) -> CGRect {
         return CGRect(x: origin.x-edge.left, y: origin.y-edge.top, width: width+edge.left+edge.right, height: height+edge.top+edge.bottom)
     }
-    
-//    func contains(_ point: CGPoint) -> Bool {
-//        return 
-//    }
- 
 }

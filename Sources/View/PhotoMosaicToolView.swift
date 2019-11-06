@@ -32,8 +32,9 @@ final class PhotoMosaicToolView: UIView {
     private var mosaicIcon: [UIImageView] = []
     private let spacing: CGFloat = 50
     
-    init(frame: CGRect, mosaicOptions: [ImageEditorController.PhotoMosaicOption]) {
+    init(frame: CGRect, mosaicOptions: [ImageEditorController.PhotoMosaicOption], defaultIdx: Int) {
         self.mosaicOptions = mosaicOptions
+        self.currentIdx = defaultIdx
         super.init(frame: frame)
         setupView()
     }

@@ -16,21 +16,49 @@ extension ImageEditorController {
     
     public struct PhotoConfig {
         
-        public var editOptions: [PhotoEditOption] = [.pen, .text, .crop, .mosaic]
+        /// 编辑功能，会按顺序排布
+        /// 默认：[.pen, .crop, .mosaic]
+        public var editOptions: [PhotoEditOption]
         
-        public var penColors: [UIColor] = [.penWhite, .penBlack, .penRed, .penYellow, .penGreen, .penBlue, .penPurple]
+        /// 画笔颜色，会按顺序排布
+        /// 默认：[white, black, red, yellow, green, blue, purple]
+        public var penColors: [UIColor]
         
-        public var defaultPenIdx: Int = 2
+        /// 默认选中画笔的下标
+        /// 默认：2
+        public var defaultPenIdx: Int
         
-        public var mosaicOptions: [PhotoMosaicOption] = [.default, .colorful]
+        /// 马赛克的种类，会按顺序排布
+        /// 默认：[.default, .colorful]
+        public var mosaicOptions: [PhotoMosaicOption]
         
-        public init() { }
+        /// 默认选中马赛克的下标
+        /// 默认：0
+        public var defaultMosaicIdx: Int
+        
+        /// 马赛克模糊度，仅用于默认马赛克样式
+        /// 默认：30
+        public var mosaicLevel: Int
+        
+        public init(editOptions: [PhotoEditOption] = [.pen, .crop, .mosaic],
+                    penColors: [UIColor] = Palette.all,
+                    defaultPenIdx: Int = 2,
+                    mosaicOptions: [PhotoMosaicOption] = [.default, .colorful],
+                    defaultMosaicIdx: Int = 0,
+                    mosaicLevel: Int = 30) {
+            self.editOptions = editOptions
+            self.penColors = penColors
+            self.defaultPenIdx = defaultPenIdx
+            self.mosaicOptions = mosaicOptions
+            self.defaultMosaicIdx = defaultMosaicIdx
+            self.mosaicLevel = mosaicLevel
+        }
     }
     
     public enum PhotoEditOption {
         /// 画笔
         case pen
-        /// 文字
+        /// 文字 未完成
         case text
         /// 裁剪
         case crop
@@ -41,9 +69,9 @@ extension ImageEditorController {
     public enum PhotoMosaicOption {
         /// 默认马赛克
         case `default`
-        ///
+        /// 彩色图片马赛克
         case colorful
-        ///
+        /// 自定义马赛克
         case custom(icon: UIImage, mosaic: UIImage)
     }
     
