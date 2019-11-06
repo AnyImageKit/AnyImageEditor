@@ -49,6 +49,7 @@ final class PhotoContentView: UIView {
     /// 马赛克，延时加载
     internal var mosaic: Mosaic?
     /// 裁剪 - Crop
+    /// 裁剪框的四个角
     private let cornerFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
     private(set) lazy var topLeftCorner: CropCornerView = {
         let view = CropCornerView(frame: cornerFrame, color: .white, position: .topLeft)
@@ -74,11 +75,13 @@ final class PhotoContentView: UIView {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panCropCorner(_:))))
         return view
     }()
+    /// 裁剪框的矩形
     private(set) lazy var gridView: CropGridView = {
         let view = CropGridView(frame: UIScreen.main.bounds)
         view.alpha = 0
         return view
     }()
+    /// 用于裁剪后把其他区域以黑色layer盖住
     private(set) lazy var cropLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.frame = bounds
@@ -87,14 +90,20 @@ final class PhotoContentView: UIView {
         return layer
     }()
     
-    
+    /// 原始图片
     internal let image: UIImage
+    /// 配置项
     internal let config: ImageEditorController.PhotoConfig
     
+    /// 正在裁剪
     internal var isCrop: Bool = false
+    /// 图片已经裁剪
     internal var didCrop: Bool = false
+    /// 裁剪框的位置
     internal var cropRect: CGRect = .zero
+    /// pan手势开始时裁剪框的位置
     internal var cropStartPanRect: CGRect = .zero
+    /// 上次裁剪的数据，用于再次进入裁剪
     internal var lastCropData: CropData = CropData()
     
     /// 存储画笔过程的图片
