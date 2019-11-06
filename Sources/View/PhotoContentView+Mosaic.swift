@@ -13,18 +13,16 @@ extension PhotoContentView {
     
     func setMosaicImage(_ idx: Int) {
         mosaic?.setMosaicCoverImage(idx)
-        imageView.image = mosaicImageList.last ?? image
+        imageView.image = mosaicCache.read(delete: false) ?? image
     }
     
     func mosaicUndo() {
-        if mosaicImageList.isEmpty { return }
-        mosaicImageList.removeLast()
-        imageView.image = mosaicImageList.last ?? image
+        imageView.image = mosaicCache.read() ?? image
         mosaic?.reset()
     }
     
     func mosaicCanUndo() -> Bool {
-        return !mosaicImageList.isEmpty
+        return mosaicCache.hasCache()
     }
 }
 
@@ -62,10 +60,15 @@ extension PhotoContentView: MosaicDelegate {
     
     func mosaicDidEndPen() {
         delegate?.photoDidEndPen()
-        guard let screenshot = imageView.screenshot else { return }
-        mosaicImageList.append(screenshot)
+        canvas.isHidden = true // 不能把画笔部分截进去
+        guard let screenshot = imageView.screenshot else {
+            canvas.isHidden = false
+            return
+        }
+        canvas.isHidden = false
         imageView.image = screenshot
         mosaic?.reset()
+        mosaicCache.write(screenshot)
     }
 }
 

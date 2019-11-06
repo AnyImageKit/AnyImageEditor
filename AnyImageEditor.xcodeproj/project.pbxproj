@@ -14,6 +14,7 @@
 		A50411F32362C3630089E136 /* TouchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50411F22362C3630089E136 /* TouchState.swift */; };
 		A50C4A9C236FF5F6002E5AEA /* Ex+CABasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50C4A9B236FF5F6002E5AEA /* Ex+CABasicAnimation.swift */; };
 		A51800C1236C0A4A009E04C3 /* CropGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51800C0236C0A4A009E04C3 /* CropGridView.swift */; };
+		A521BE7623725F680042F919 /* CacheTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A521BE7523725F680042F919 /* CacheTool.swift */; };
 		A53436BF2371531100C6B3F5 /* Ex+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53436BE2371531100C6B3F5 /* Ex+UIView.swift */; };
 		A550F0C923613D600089D584 /* PhotoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0C823613D600089D584 /* PhotoContentView.swift */; };
 		A550F0CB23613E0D0089D584 /* PhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0CA23613E0D0089D584 /* PhotoToolView.swift */; };
@@ -89,6 +90,7 @@
 		A50411F22362C3630089E136 /* TouchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchState.swift; sourceTree = "<group>"; };
 		A50C4A9B236FF5F6002E5AEA /* Ex+CABasicAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+CABasicAnimation.swift"; sourceTree = "<group>"; };
 		A51800C0236C0A4A009E04C3 /* CropGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropGridView.swift; sourceTree = "<group>"; };
+		A521BE7523725F680042F919 /* CacheTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTool.swift; sourceTree = "<group>"; };
 		A53436BE2371531100C6B3F5 /* Ex+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIView.swift"; sourceTree = "<group>"; };
 		A550F0C823613D600089D584 /* PhotoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentView.swift; sourceTree = "<group>"; };
 		A550F0CA23613E0D0089D584 /* PhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoToolView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				A57853B4236168B6005DE7F4 /* PhotoManager.swift */,
+				A521BE7523725F680042F919 /* CacheTool.swift */,
 				A5AC6F312360272000DED461 /* BundleHelper.swift */,
 				A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */,
 			);
@@ -510,6 +513,7 @@
 				A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */,
 				A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */,
 				A5B748F023710A7800739681 /* CropData.swift in Sources */,
+				A521BE7623725F680042F919 /* CacheTool.swift in Sources */,
 				A550F0D3236143800089D584 /* Ex+UIColor.swift in Sources */,
 				A5874F6323617AC400710C16 /* ResponseTouch.swift in Sources */,
 				A50411EF236286FC0089E136 /* Ex+UIImage.swift in Sources */,
