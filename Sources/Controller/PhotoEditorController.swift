@@ -104,7 +104,7 @@ extension PhotoEditorController: PhotoContentViewDelegate {
     }
     
     func mosaicDidCreated() {
-        // TODO: hide hud
+        hideHUD()
         guard let option = toolView.currentOption else { return }
         if option == .mosaic {
             contentView.mosaic?.isUserInteractionEnabled = true
@@ -122,6 +122,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
         guard let option = option else { return }
         switch option {
         case .pen:
+            showWaitHUD()
             contentView.canvas.isUserInteractionEnabled = true
         case .text:
             break
@@ -131,7 +132,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
             contentView.cropStart()
         case .mosaic:
             if contentView.mosaic == nil {
-                // TODO: show hud
+                showWaitHUD()
             }
             contentView.mosaic?.isUserInteractionEnabled = true
         }

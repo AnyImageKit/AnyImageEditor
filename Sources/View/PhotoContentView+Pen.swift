@@ -40,7 +40,6 @@ extension PhotoContentView: CanvasDelegate {
         delegate?.photoDidEndPen()
         
         guard let screenshot = canvas.screenshot else { return }
-        print("Pen take screenshot")
         canvas.lastPenImageView.image = screenshot
         canvas.reset()
         penCache.write(screenshot)

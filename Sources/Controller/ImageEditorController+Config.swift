@@ -36,18 +36,24 @@ extension ImageEditorController {
         /// 默认：30
         public var mosaicLevel: Int
         
+        /// 启用调试日志
+        /// 默认：false
+        public var enableDebugLog: Bool
+        
         public init(editOptions: [PhotoEditOption] = [.pen, .crop, .mosaic],
                     penColors: [UIColor] = Palette.all,
                     defaultPenIdx: Int = 2,
                     mosaicOptions: [PhotoMosaicOption] = [.default, .colorful],
                     defaultMosaicIdx: Int = 0,
-                    mosaicLevel: Int = 30) {
+                    mosaicLevel: Int = 30,
+                    enableDebugLog: Bool = false) {
             self.editOptions = editOptions
             self.penColors = penColors
             self.defaultPenIdx = defaultPenIdx
             self.mosaicOptions = mosaicOptions
             self.defaultMosaicIdx = defaultMosaicIdx
             self.mosaicLevel = mosaicLevel
+            self.enableDebugLog = enableDebugLog
         }
     }
     

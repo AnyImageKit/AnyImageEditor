@@ -63,7 +63,7 @@ extension CacheTool {
         do {
             try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            print(error.localizedDescription)
+            _print(error.localizedDescription)
         }
     }
     
@@ -72,7 +72,7 @@ extension CacheTool {
         do {
             try FileManager.default.removeItem(at: url)
         } catch {
-            print(error.localizedDescription)
+            _print(error.localizedDescription)
         }
     }
     
@@ -90,7 +90,7 @@ extension CacheTool {
             do {
                 try data.write(to: url)
             } catch {
-                print(error.localizedDescription)
+                _print(error.localizedDescription)
             }
         }
     }
@@ -101,7 +101,7 @@ extension CacheTool {
             let data = try Data(contentsOf: url)
             return UIImage(data: data)
         } catch {
-            print(error.localizedDescription)
+            _print(error.localizedDescription)
         }
         return nil
     }

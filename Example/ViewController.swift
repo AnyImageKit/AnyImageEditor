@@ -18,7 +18,7 @@ final class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presentController()
+//        presentController()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -27,7 +27,8 @@ final class ViewController: UIViewController {
     
     private func presentController() {
         guard let image = UIImage(named: "test-image") else { return }
-        let config = ImageEditorController.PhotoConfig()
+        var config = ImageEditorController.PhotoConfig()
+        config.enableDebugLog = true
         let controller = ImageEditorController(image: image, config: config, delegate: self)
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion: nil)
