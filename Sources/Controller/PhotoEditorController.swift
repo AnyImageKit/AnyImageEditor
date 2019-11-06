@@ -173,4 +173,8 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     func toolViewCropResetButtonTapped(_ toolView: PhotoToolView) {
         contentView.cropReset()
     }
+    
+    func toolViewDoneButtonTapped(_ toolView: PhotoToolView) {
+        // TODO: 完成
+    }
 }

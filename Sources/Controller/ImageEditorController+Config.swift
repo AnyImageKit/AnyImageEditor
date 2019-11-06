@@ -12,6 +12,10 @@ extension ImageEditorController {
     
     public struct PhotoConfig {
         
+        /// 主题色
+        /// 默认：green
+        public var tintColor: UIColor
+        
         /// 编辑功能，会按顺序排布
         /// 默认：[.pen, .crop, .mosaic]
         public var editOptions: [PhotoEditOption]
@@ -40,13 +44,15 @@ extension ImageEditorController {
         /// 默认：false
         public var enableDebugLog: Bool
         
-        public init(editOptions: [PhotoEditOption] = [.pen, .crop, .mosaic],
+        public init(tintColor: UIColor = Palette.main,
+                    editOptions: [PhotoEditOption] = [.pen, .crop, .mosaic],
                     penColors: [UIColor] = Palette.all,
                     defaultPenIdx: Int = 2,
                     mosaicOptions: [PhotoMosaicOption] = [.default, .colorful],
                     defaultMosaicIdx: Int = 0,
                     mosaicLevel: Int = 30,
                     enableDebugLog: Bool = false) {
+            self.tintColor = tintColor
             self.editOptions = editOptions
             self.penColors = penColors
             self.defaultPenIdx = defaultPenIdx

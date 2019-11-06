@@ -10,6 +10,10 @@ import UIKit
 
 public struct Palette {
     
+    public static var main: UIColor {
+        return UIColor.color(hex: 0x56BF6A)
+    }
+    
     public static var white: UIColor {
         return UIColor.color(hex: 0xF2F2F2)
     }

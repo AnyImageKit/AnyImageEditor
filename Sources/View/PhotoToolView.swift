@@ -20,6 +20,8 @@ protocol PhotoToolViewDelegate: class {
     func toolViewCropCancelButtonTapped(_ toolView: PhotoToolView)
     func toolViewCropDoneButtonTapped(_ toolView: PhotoToolView)
     func toolViewCropResetButtonTapped(_ toolView: PhotoToolView)
+    
+    func toolViewDoneButtonTapped(_ toolView: PhotoToolView)
 }
 
 final class PhotoToolView: UIView {
@@ -84,6 +86,17 @@ final class PhotoToolView: UIView {
         view.isHidden = true
         return view
     }()
+    private(set) lazy var doneButton: UIButton = {
+        let view = UIButton(type: .custom)
+        view.layer.cornerRadius = 2
+        view.backgroundColor = config.tintColor
+        view.setTitle("完成", for: .normal)
+        view.setTitleColor(UIColor.white, for: .normal)
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 10)
+        view.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
+        return view
+    }()
     
     init(frame: CGRect, config: ImageEditorController.PhotoConfig) {
         self.config = config
@@ -103,6 +116,8 @@ final class PhotoToolView: UIView {
         addSubview(penToolView)
         addSubview(cropToolView)
         addSubview(mosaicToolView)
+        addSubview(doneButton)
+        
         editOptionsView.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
             if #available(iOS 11, *) {
@@ -120,6 +135,10 @@ final class PhotoToolView: UIView {
         mosaicToolView.snp.makeConstraints { (maker) in
             maker.edges.equalTo(penToolView)
         }
+        doneButton.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(editOptionsView)
+            maker.right.equalToSuperview().offset(-20)
+        }
     }
     
     override func layoutSubviews() {
@@ -132,6 +151,14 @@ final class PhotoToolView: UIView {
                 maker.height.equalTo(65)
             }
         }
+    }
+}
+
+// MARK: - Action
+extension PhotoToolView {
+    
+    @objc private func doneButtonTapped(_ sender: UIButton) {
+        delegate?.toolViewDoneButtonTapped(self)
     }
 }
 
