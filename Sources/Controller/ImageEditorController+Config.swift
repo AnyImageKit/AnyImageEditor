@@ -10,10 +10,6 @@ import UIKit
 
 extension ImageEditorController {
     
-    public enum ImageType {
-        case photo(config: PhotoConfig, image: UIImage)
-    }
-    
     public struct PhotoConfig {
         
         /// 编辑功能，会按顺序排布

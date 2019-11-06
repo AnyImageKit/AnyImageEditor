@@ -12,16 +12,9 @@ final class PhotoManager {
     
     static let shared: PhotoManager = PhotoManager()
     
-    var config = ImageEditorController.PhotoConfig()
-    var image: UIImage {
-        switch imageType {
-        case .photo(_, let image):
-            return image
-        }
-    }
-    
-    var imageType: ImageEditorController.ImageType = .photo(config: ImageEditorController.PhotoConfig(), image: UIImage())
-    
+    var image = UIImage()
+    var photoConfig = ImageEditorController.PhotoConfig()
+
     private init() { }
     
 }

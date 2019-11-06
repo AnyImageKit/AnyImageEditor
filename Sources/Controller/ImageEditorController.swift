@@ -9,14 +9,12 @@
 import UIKit
 import SnapKit
 
-public protocol ImageEditorControllerDelegate: class {
+public protocol ImageEditorPhotoDelegate: class {
     
-    func imageEditor(_ editor: ImageEditorController, didFinish photo: UIImage)
+    func imageEditorDidFinishEdit(photo: UIImage)
 }
 
 open class ImageEditorController: UINavigationController {
-    
-    open weak var editorDelegate: ImageEditorControllerDelegate?
     
     open override var prefersStatusBarHidden: Bool {
         return true
@@ -30,11 +28,12 @@ open class ImageEditorController: UINavigationController {
         return .portrait
     }
     
-    required public init(imageType: ImageType, delegate: ImageEditorControllerDelegate) {
-        PhotoManager.shared.imageType = imageType
+    required public init(image: UIImage, config: PhotoConfig = PhotoConfig(), delegate: ImageEditorPhotoDelegate) {
+        PhotoManager.shared.image = image
+        PhotoManager.shared.photoConfig = config
         let rootViewController = PhotoEditorController()
+        rootViewController.delegate = delegate
         super.init(rootViewController: rootViewController)
-        self.editorDelegate = delegate
     }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

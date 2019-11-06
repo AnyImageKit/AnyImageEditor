@@ -28,16 +28,15 @@ final class ViewController: UIViewController {
     private func presentController() {
         guard let image = UIImage(named: "test-image") else { return }
         let config = ImageEditorController.PhotoConfig()
-        let controller = ImageEditorController(imageType: .photo(config: config, image: image), delegate: self)
+        let controller = ImageEditorController(image: image, config: config, delegate: self)
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion: nil)
     }
 }
 
-extension ViewController: ImageEditorControllerDelegate {
+extension ViewController: ImageEditorPhotoDelegate {
     
-    func imageEditor(_ editor: ImageEditorController, didFinish photo: UIImage) {
+    func imageEditorDidFinishEdit(photo: UIImage) {
         
     }
-    
 }

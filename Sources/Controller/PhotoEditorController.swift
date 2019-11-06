@@ -10,14 +10,16 @@ import UIKit
 
 final class PhotoEditorController: UIViewController {
     
+    weak var delegate: ImageEditorPhotoDelegate?
+    
     private lazy var contentView: PhotoContentView = {
-        let view = PhotoContentView(frame: self.view.bounds, image: manager.image, config: manager.config)
+        let view = PhotoContentView(frame: self.view.bounds, image: manager.image, config: manager.photoConfig)
         view.delegate = self
-        view.canvas.brush.color = manager.config.penColors[manager.config.defaultPenIdx]
+        view.canvas.brush.color = manager.photoConfig.penColors[manager.photoConfig.defaultPenIdx]
         return view
     }()
     private lazy var toolView: PhotoToolView = {
-        let view = PhotoToolView(frame: self.view.bounds, config: PhotoManager.shared.config)
+        let view = PhotoToolView(frame: self.view.bounds, config: PhotoManager.shared.photoConfig)
         view.delegate = self
         return view
     }()
@@ -136,7 +138,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     }
     
     func toolView(_ toolView: PhotoToolView, colorDidChange idx: Int) {
-        contentView.canvas.brush.color = PhotoManager.shared.config.penColors[idx]
+        contentView.canvas.brush.color = PhotoManager.shared.photoConfig.penColors[idx]
     }
     
     func toolView(_ toolView: PhotoToolView, mosaicDidChange idx: Int) {
