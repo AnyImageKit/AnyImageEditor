@@ -173,6 +173,7 @@ extension PhotoToolView: PhotoEditOptionsViewDelegate {
         if option == .crop {
             editOptionsView.isHidden = true
             topCoverLayer.isHidden = true
+            doneButton.isHidden = true
         }
     }
 }
@@ -196,6 +197,7 @@ extension PhotoToolView: PhotoCropToolViewDelegate {
         delegate?.toolViewCropCancelButtonTapped(self)
         editOptionsView.isHidden = false
         topCoverLayer.isHidden = false
+        doneButton.isHidden = false
         cropToolView.isHidden = true
         editOptionsView.unSelectButtons()
     }
@@ -204,6 +206,7 @@ extension PhotoToolView: PhotoCropToolViewDelegate {
         delegate?.toolViewCropDoneButtonTapped(self)
         editOptionsView.isHidden = false
         topCoverLayer.isHidden = false
+        doneButton.isHidden = false
         cropToolView.isHidden = true
         editOptionsView.unSelectButtons()
     }

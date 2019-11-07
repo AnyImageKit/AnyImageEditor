@@ -250,6 +250,7 @@
 				A550F0CC23613E4B0089D584 /* StatusBarHelper.swift */,
 				A5E07C872372BA1000DA10EB /* DebugHelper.swift */,
 				A5E07C862372BA1000DA10EB /* HUDHelper.swift */,
+				A5E07C8A2372BA4D00DA10EB /* HUDViewController.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -292,7 +293,6 @@
 				A5AC6F2D2360269600DED461 /* ImageEditorController.swift */,
 				A550F0D0236141B00089D584 /* ImageEditorController+Config.swift */,
 				A5AC6F2F2360270700DED461 /* PhotoEditorController.swift */,
-				A5E07C8A2372BA4D00DA10EB /* HUDViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

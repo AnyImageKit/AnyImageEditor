@@ -187,5 +187,6 @@ extension PhotoEditorController: PhotoToolViewDelegate {
         guard let cgImage = source.cropping(to: rect) else { return }
         let image = UIImage(cgImage: cgImage)
         delegate?.imageEditorDidFinishEdit(photo: image)
+        dismiss(animated: true, completion: nil)
     }
 }
