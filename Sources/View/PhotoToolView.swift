@@ -94,7 +94,6 @@ final class PhotoToolView: UIView {
         view.setTitleColor(UIColor.white, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 10)
-        view.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -151,14 +150,6 @@ final class PhotoToolView: UIView {
                 maker.height.equalTo(65)
             }
         }
-    }
-}
-
-// MARK: - Action
-extension PhotoToolView {
-    
-    @objc private func doneButtonTapped(_ sender: UIButton) {
-        delegate?.toolViewDoneButtonTapped(self)
     }
 }
 
@@ -245,6 +236,11 @@ extension PhotoToolView: ResponseTouch {
             if let subView = subView as? ResponseTouch, subView.responseTouch(viewPoint) {
                 return true
             }
+        }
+        let doneFrame = doneButton.frame.bigger(.init(top: 10, left: 20, bottom: 20, right: 20))
+        if doneFrame.contains(point) {
+            delegate?.toolViewDoneButtonTapped(self)
+            return true
         }
         return false
     }

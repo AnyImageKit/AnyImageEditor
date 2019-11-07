@@ -103,6 +103,8 @@ final class PhotoContentView: UIView {
     internal var cropRect: CGRect = .zero
     /// pan手势开始时裁剪框的位置
     internal var cropStartPanRect: CGRect = .zero
+    /// 裁剪框与imageView真实的位置
+    internal var cropRealRect: CGRect = .zero
     /// 上次裁剪的数据，用于再次进入裁剪
     internal var lastCropData: CropData = CropData()
     
@@ -140,6 +142,7 @@ final class PhotoContentView: UIView {
         scrollView.contentInset = .zero
         imageView.frame = fitFrame
         scrollView.contentSize = imageView.bounds.size
+        cropRealRect = imageView.frame
         updateCanvasFrame()
     }
 }

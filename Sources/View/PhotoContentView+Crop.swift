@@ -199,6 +199,7 @@ extension PhotoContentView {
         let cropAnimation = CABasicAnimation.create(duration: 0.25, fromValue: cropLayer.path, toValue: newCropPath.cgPath)
         cropLayer.add(cropAnimation, forKey: "path")
         cropLayer.path = newCropPath.cgPath
+        cropRealRect = CGRect(origin: CGPoint(x: x, y: y), size: contentSize)
     }
     
     /// 设置白色裁剪框的frame

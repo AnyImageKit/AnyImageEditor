@@ -122,7 +122,6 @@ extension PhotoEditorController: PhotoToolViewDelegate {
         guard let option = option else { return }
         switch option {
         case .pen:
-            showWaitHUD()
             contentView.canvas.isUserInteractionEnabled = true
         case .text:
             break
@@ -175,6 +174,18 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     }
     
     func toolViewDoneButtonTapped(_ toolView: PhotoToolView) {
-        // TODO: 完成
+        guard let source = contentView.imageView.screenshot?.cgImage else { return }
+        let size = CGSize(width: source.width, height: source.height)
+        let cropRect = contentView.cropRealRect
+        let imageRect = contentView.imageView.frame
+        var rect: CGRect = .zero
+        rect.origin.x = (cropRect.origin.x - imageRect.origin.x) / imageRect.width * size.width
+        rect.origin.y = (cropRect.origin.y - imageRect.origin.y) / imageRect.height * size.height
+        rect.size.width = size.width * cropRect.width / imageRect.width
+        rect.size.height = size.height * cropRect.height / imageRect.height
+        
+        guard let cgImage = source.cropping(to: rect) else { return }
+        let image = UIImage(cgImage: cgImage)
+        delegate?.imageEditorDidFinishEdit(photo: image)
     }
 }
