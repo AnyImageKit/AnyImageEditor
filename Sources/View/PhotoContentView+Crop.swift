@@ -74,14 +74,14 @@ extension PhotoContentView {
     @objc func panCropCorner(_ gr: UIPanGestureRecognizer) {
         guard let cornerView = gr.view as? CropCornerView else { return }
         let position = cornerView.position
-        let moveP = gr.translation(in: self)
+        let point = gr.translation(in: self)
         gr.setTranslation(.zero, in: self)
         
         if gr.state == .began {
             cropStartPanRect = cropRect
         }
         
-        updateCropRect(moveP, position)
+        updateCropRect(point, position)
         
         if gr.state == .ended {
             updateScrollViewAndCropRect(position)
@@ -234,45 +234,45 @@ extension PhotoContentView {
     
     // MARK: - Calculate
     /// pan手势移动中，计算新的裁剪框的位置
-    private func updateCropRect(_ moveP: CGPoint, _ position: CropCornerPosition) {
+    private func updateCropRect(_ point: CGPoint, _ position: CropCornerPosition) {
         let limit: CGFloat = 55
         var rect = cropRect
-        let isXUp = rect.size.width - moveP.x > limit && rect.origin.x + moveP.x > imageView.frame.origin.x + scrollView.frame.origin.x - scrollView.contentOffset.x
-        let isXDown = rect.size.width + moveP.x > limit && rect.size.width + moveP.x < imageView.frame.size.width - scrollView.contentOffset.x
-        let isYUp = rect.size.height - moveP.y > limit && rect.origin.y + moveP.y > imageView.frame.origin.y + scrollView.frame.origin.y - scrollView.contentOffset.y
-        let isYDown = rect.size.height + moveP.y > limit && rect.size.height + moveP.y < imageView.frame.size.height - scrollView.contentOffset.y
+        let isXUp = rect.size.width - point.x > limit && rect.origin.x + point.x > imageView.frame.origin.x + scrollView.frame.origin.x - scrollView.contentOffset.x
+        let isXDown = rect.size.width + point.x > limit && rect.size.width + point.x < imageView.frame.size.width - scrollView.contentOffset.x
+        let isYUp = rect.size.height - point.y > limit && rect.origin.y + point.y > imageView.frame.origin.y + scrollView.frame.origin.y - scrollView.contentOffset.y
+        let isYDown = rect.size.height + point.y > limit && rect.size.height + point.y < imageView.frame.size.height - scrollView.contentOffset.y
         switch position {
         case .topLeft: // x+ y+
             if isXUp {
-                rect.origin.x += moveP.x
-                rect.size.width -= moveP.x
+                rect.origin.x += point.x
+                rect.size.width -= point.x
             }
             if isYUp  {
-                rect.origin.y += moveP.y
-                rect.size.height -= moveP.y
+                rect.origin.y += point.y
+                rect.size.height -= point.y
             }
         case .topRight: // x- y+
             if isXDown {
-                rect.size.width += moveP.x
+                rect.size.width += point.x
             }
             if isYUp {
-                rect.origin.y += moveP.y
-                rect.size.height -= moveP.y
+                rect.origin.y += point.y
+                rect.size.height -= point.y
             }
         case .bottomLeft: // x+ y-
             if isXUp {
-                rect.origin.x += moveP.x
-                rect.size.width -= moveP.x
+                rect.origin.x += point.x
+                rect.size.width -= point.x
             }
             if isYDown {
-                rect.size.height += moveP.y
+                rect.size.height += point.y
             }
         case .bottomRight:// x- y-
             if isXDown {
-                rect.size.width += moveP.x
+                rect.size.width += point.x
             }
             if isYDown {
-                rect.size.height += moveP.y
+                rect.size.height += point.y
             }
         }
         setCropRect(rect)
