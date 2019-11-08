@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  AnyImageEditor
+
+  Created by 蒋惠 on 2019/11/8.
+  Copyright © 2019 AnyImageProject.org. All rights reserved.
+*/
+
+"Reset" = "还原";
+"Done" = "完成";
