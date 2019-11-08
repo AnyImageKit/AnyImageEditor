@@ -71,7 +71,7 @@ final class PhotoEditOptionsView: UIView {
         for btn in buttons {
             let isSelected = btn == button
             btn.isSelected = isSelected
-            btn.imageView?.tintColor = isSelected ? .green : .white
+            btn.imageView?.tintColor = isSelected ? PhotoManager.shared.photoConfig.tintColor : .white
         }
     }
 }

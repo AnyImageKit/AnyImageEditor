@@ -72,7 +72,14 @@ extension PhotoEditorController {
     
     @objc private func onSingleTap(_ tap: UITapGestureRecognizer) {
         let point = tap.location(in: toolView)
-        toolView.responseTouch(point)
+        let tapped = toolView.responseTouch(point)
+        if !tapped && toolView.currentOption != .crop { // 未命中视图时，显示/隐藏所有视图
+            let hidden = toolView.alpha == 1
+            UIView.animate(withDuration: 0.25) {
+                self.toolView.alpha = hidden ? 0 : 1
+                self.backButton.alpha = hidden ? 0 : 1
+            }
+        }
     }
 }
 

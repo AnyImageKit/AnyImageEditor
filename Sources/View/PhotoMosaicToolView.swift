@@ -101,7 +101,7 @@ extension PhotoMosaicToolView {
         switch option {
         case .default:
             for imageView in mosaicIcon {
-                imageView.tintColor = .green
+                imageView.tintColor = PhotoManager.shared.photoConfig.tintColor
                 imageView.layer.borderWidth = 0
             }
         default:
