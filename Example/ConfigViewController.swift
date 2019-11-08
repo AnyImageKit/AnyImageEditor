@@ -1,5 +1,5 @@
 //
-//  ConfigController.swift
+//  ConfigViewController.swift
 //  Example
 //
 //  Created by 蒋惠 on 2019/11/8.
@@ -9,7 +9,7 @@
 import UIKit
 import AnyImageEditor
 
-final class ConfigController: UITableViewController {
+final class ConfigViewController: UITableViewController {
 
     var config = ImageEditorController.PhotoConfig()
     
@@ -72,7 +72,7 @@ final class ConfigController: UITableViewController {
     }
 }
 
-extension ConfigController {
+extension ConfigViewController {
     
     private func editOptionsTapped() {
         let indexPath = RowType.editOptions.indexPath
@@ -186,14 +186,16 @@ extension ConfigController {
     }
 }
 
-extension ConfigController: ImageEditorPhotoDelegate {
+extension ConfigViewController: ImageEditorPhotoDelegate {
     
     func imageEditorDidFinishEdit(photo: UIImage) {
-        
+        let controller = ResultViewController()
+        controller.imageView.image = photo
+        navigationController?.pushViewController(controller, animated: false)
     }
 }
 
-extension ConfigController {
+extension ConfigViewController {
     
     enum RowType: Int, CaseIterable {
         case editOptions = 0

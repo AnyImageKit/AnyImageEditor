@@ -25,9 +25,10 @@
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
 		A5817CBD2374FD2700A4593A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5817CBF2374FD2700A4593A /* Localizable.strings */; };
-		A5817CC22375053300A4593A /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CC12375053300A4593A /* ConfigController.swift */; };
+		A5817CC22375053300A4593A /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CC12375053300A4593A /* ConfigViewController.swift */; };
 		A5817CC52375088100A4593A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5817CC72375088100A4593A /* Localizable.strings */; };
 		A5817CCA2375090600A4593A /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CC92375090600A4593A /* BundleHelper.swift */; };
+		A5817CCC23750EE100A4593A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CCB23750EE100A4593A /* ResultViewController.swift */; };
 		A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240352368048000C6DB3D /* PhotoCropToolView.swift */; };
 		A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403C236814CE00C6DB3D /* CropCornerView.swift */; };
 		A58240412368224D00C6DB3D /* PhotoContentView+Pen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */; };
@@ -107,10 +108,11 @@
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		A5817CBE2374FD2700A4593A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A5817CC02374FD2B00A4593A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A5817CC12375053300A4593A /* ConfigController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigController.swift; sourceTree = "<group>"; };
+		A5817CC12375053300A4593A /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 		A5817CC62375088100A4593A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A5817CC82375088200A4593A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A5817CC92375090600A4593A /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
+		A5817CCB23750EE100A4593A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		A58240352368048000C6DB3D /* PhotoCropToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropToolView.swift; sourceTree = "<group>"; };
 		A582403C236814CE00C6DB3D /* CropCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropCornerView.swift; sourceTree = "<group>"; };
 		A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Pen.swift"; sourceTree = "<group>"; };
@@ -317,7 +319,8 @@
 			children = (
 				A5DB049E23602486008D57A1 /* Example.entitlements */,
 				A5DB048C23602467008D57A1 /* AppDelegate.swift */,
-				A5817CC12375053300A4593A /* ConfigController.swift */,
+				A5817CC12375053300A4593A /* ConfigViewController.swift */,
+				A5817CCB23750EE100A4593A /* ResultViewController.swift */,
 				A5817CC92375090600A4593A /* BundleHelper.swift */,
 				A5817CC72375088100A4593A /* Localizable.strings */,
 				A5DB049523602468008D57A1 /* Assets.xcassets */,
@@ -565,9 +568,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5817CC22375053300A4593A /* ConfigController.swift in Sources */,
+				A5817CC22375053300A4593A /* ConfigViewController.swift in Sources */,
 				A5817CCA2375090600A4593A /* BundleHelper.swift in Sources */,
 				A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */,
+				A5817CCC23750EE100A4593A /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

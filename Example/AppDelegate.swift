@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +24,7 @@ extension AppDelegate {
     
     private func setupWindow() {
         let windows = UIWindow(frame: UIScreen.main.bounds)
-        let homeController = ConfigController(style: .plain)
+        let homeController = ConfigViewController(style: .plain)
         let navigationController = UINavigationController(rootViewController: homeController)
         windows.rootViewController = navigationController
         windows.makeKeyAndVisible()
