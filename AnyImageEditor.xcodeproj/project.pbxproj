@@ -25,6 +25,9 @@
 		A550F0D5236146200089D584 /* PhotoEditOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */; };
 		A57853B5236168B6005DE7F4 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57853B4236168B6005DE7F4 /* PhotoManager.swift */; };
 		A5817CBD2374FD2700A4593A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5817CBF2374FD2700A4593A /* Localizable.strings */; };
+		A5817CC22375053300A4593A /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CC12375053300A4593A /* ConfigController.swift */; };
+		A5817CC52375088100A4593A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5817CC72375088100A4593A /* Localizable.strings */; };
+		A5817CCA2375090600A4593A /* BundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5817CC92375090600A4593A /* BundleHelper.swift */; };
 		A58240362368048000C6DB3D /* PhotoCropToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240352368048000C6DB3D /* PhotoCropToolView.swift */; };
 		A582403D236814CE00C6DB3D /* CropCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582403C236814CE00C6DB3D /* CropCornerView.swift */; };
 		A58240412368224D00C6DB3D /* PhotoContentView+Pen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */; };
@@ -49,8 +52,6 @@
 		A5B748F023710A7800739681 /* CropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B748EF23710A7800739681 /* CropData.swift */; };
 		A5DB047B236023D7008D57A1 /* AnyImageEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = A5DB0479236023D7008D57A1 /* AnyImageEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB048C23602467008D57A1 /* AppDelegate.swift */; };
-		A5DB049123602467008D57A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB049023602467008D57A1 /* ViewController.swift */; };
-		A5DB049423602467008D57A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DB049223602467008D57A1 /* Main.storyboard */; };
 		A5DB049623602468008D57A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5DB049523602468008D57A1 /* Assets.xcassets */; };
 		A5DB049923602468008D57A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DB049723602468008D57A1 /* LaunchScreen.storyboard */; };
 		A5E07C882372BA1000DA10EB /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E07C862372BA1000DA10EB /* HUDHelper.swift */; };
@@ -104,9 +105,12 @@
 		A550F0D2236143800089D584 /* Ex+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+UIColor.swift"; sourceTree = "<group>"; };
 		A550F0D4236146200089D584 /* PhotoEditOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditOptionsView.swift; sourceTree = "<group>"; };
 		A57853B4236168B6005DE7F4 /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
-		A5817CBC2374FD1600A4593A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		A5817CBE2374FD2700A4593A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A5817CC02374FD2B00A4593A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A5817CC12375053300A4593A /* ConfigController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigController.swift; sourceTree = "<group>"; };
+		A5817CC62375088100A4593A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5817CC82375088200A4593A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A5817CC92375090600A4593A /* BundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleHelper.swift; sourceTree = "<group>"; };
 		A58240352368048000C6DB3D /* PhotoCropToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCropToolView.swift; sourceTree = "<group>"; };
 		A582403C236814CE00C6DB3D /* CropCornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropCornerView.swift; sourceTree = "<group>"; };
 		A58240402368224D00C6DB3D /* PhotoContentView+Pen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoContentView+Pen.swift"; sourceTree = "<group>"; };
@@ -132,8 +136,6 @@
 		A5DB047A236023D7008D57A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5DB048A23602467008D57A1 /* Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Editor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5DB048C23602467008D57A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A5DB049023602467008D57A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A5DB049323602467008D57A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5DB049523602468008D57A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5DB049823602468008D57A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5DB049A23602468008D57A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -315,8 +317,9 @@
 			children = (
 				A5DB049E23602486008D57A1 /* Example.entitlements */,
 				A5DB048C23602467008D57A1 /* AppDelegate.swift */,
-				A5DB049023602467008D57A1 /* ViewController.swift */,
-				A5DB049223602467008D57A1 /* Main.storyboard */,
+				A5817CC12375053300A4593A /* ConfigController.swift */,
+				A5817CC92375090600A4593A /* BundleHelper.swift */,
+				A5817CC72375088100A4593A /* Localizable.strings */,
 				A5DB049523602468008D57A1 /* Assets.xcassets */,
 				A5DB049723602468008D57A1 /* LaunchScreen.storyboard */,
 				A5DB049A23602468008D57A1 /* Info.plist */,
@@ -441,8 +444,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5DB049923602468008D57A1 /* LaunchScreen.storyboard in Resources */,
+				A5817CC52375088100A4593A /* Localizable.strings in Resources */,
 				A5DB049623602468008D57A1 /* Assets.xcassets in Resources */,
-				A5DB049423602467008D57A1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +565,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5DB049123602467008D57A1 /* ViewController.swift in Sources */,
+				A5817CC22375053300A4593A /* ConfigController.swift in Sources */,
+				A5817CCA2375090600A4593A /* BundleHelper.swift in Sources */,
 				A5DB048D23602467008D57A1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -587,13 +591,13 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		A5DB049223602467008D57A1 /* Main.storyboard */ = {
+		A5817CC72375088100A4593A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A5DB049323602467008D57A1 /* Base */,
-				A5817CBC2374FD1600A4593A /* zh-Hans */,
+				A5817CC62375088100A4593A /* en */,
+				A5817CC82375088200A4593A /* zh-Hans */,
 			);
-			name = Main.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		A5DB049723602468008D57A1 /* LaunchScreen.storyboard */ = {

@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  AnyImageEditor
+
+  Created by 蒋惠 on 2019/11/8.
+  Copyright © 2019 AnyImageProject.org. All rights reserved.
+*/
+
+"Open picker" = "打开选择器";
+"EditOptions" = "EditOptions (编辑功能)";
+"PenWidth" = "PenWidth (画笔宽度)";
+"MosaicOptions" = "MosaicOptions (马赛克种类)";
+"MosaicWidth" = "MosaicWidth (马赛克线条宽度)";
+"MosaicLevel" = "MosaicLevel (马赛克模糊度)";
