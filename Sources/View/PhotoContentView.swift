@@ -26,7 +26,7 @@ final class PhotoContentView: UIView {
         view.delegate = self
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-        view.maximumZoomScale = 3.0 // 15.0
+        view.maximumZoomScale = 3.0
         if #available(iOS 11.0, *) {
             view.contentInsetAdjustmentBehavior = .never
         }
@@ -44,6 +44,7 @@ final class PhotoContentView: UIView {
         view.delegate = self
         view.dataSource = self
         view.isUserInteractionEnabled = false
+        view.brush.lineWidth = config.penWidth
         return view
     }()
     /// 马赛克，延时加载

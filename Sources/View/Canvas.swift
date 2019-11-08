@@ -124,7 +124,7 @@ extension Canvas {
         shapeLayer.path = path.cgPath
         shapeLayer.lineCap = .round
         shapeLayer.lineJoin = .round
-        shapeLayer.lineWidth = 5.0 / scale
+        shapeLayer.lineWidth = brush.lineWidth / scale
         // Brush
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = brush.color.cgColor

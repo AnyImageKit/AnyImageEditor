@@ -26,6 +26,7 @@ final class Mosaic: UIView {
     
     private let originalMosaicImage: UIImage
     private let mosaicOptions: [ImageEditorController.PhotoMosaicOption]
+    private let lineWidth: CGFloat
     
     /// 当前马赛克覆盖的图片
     private var mosaicImage: UIImage!
@@ -47,9 +48,10 @@ final class Mosaic: UIView {
     }
     
     
-    init(frame: CGRect, originalMosaicImage: UIImage, mosaicOptions: [ImageEditorController.PhotoMosaicOption]) {
+    init(frame: CGRect, originalMosaicImage: UIImage, mosaicOptions: [ImageEditorController.PhotoMosaicOption], lineWidth: CGFloat) {
         self.originalMosaicImage = originalMosaicImage
         self.mosaicOptions = mosaicOptions
+        self.lineWidth = lineWidth
         super.init(frame: frame)
         setupView()
     }
@@ -118,7 +120,7 @@ extension Mosaic {
         shapeLayer.lineCap = .round
         shapeLayer.lineJoin = .round
         let sacle = dataSource?.mosaicGetScale(self) ?? 1.0
-        shapeLayer.lineWidth = 15.0 / sacle
+        shapeLayer.lineWidth = lineWidth / sacle
         shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.fillColor = nil
         mosaicImageLayer = CALayer()
@@ -138,7 +140,7 @@ extension Mosaic {
         switch state {
         case .begin:
             let sacle = dataSource?.mosaicGetScale(self) ?? 1.0
-            shapeLayer.lineWidth = 15.0 / sacle
+            shapeLayer.lineWidth = lineWidth / sacle
             
             lenth = 0
             tmpPath = CGMutablePath()

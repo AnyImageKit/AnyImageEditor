@@ -39,7 +39,10 @@ extension PhotoContentView {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 _print("Mosaic created")
-                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size), originalMosaicImage: mosaicImage, mosaicOptions: self.config.mosaicOptions)
+                self.mosaic = Mosaic(frame: CGRect(origin: .zero, size: self.imageView.bounds.size),
+                                     originalMosaicImage: mosaicImage,
+                                     mosaicOptions: self.config.mosaicOptions,
+                                     lineWidth: self.config.mosaicWidth)
                 self.mosaic?.setMosaicCoverImage(idx)
                 self.mosaic?.delegate = self
                 self.mosaic?.dataSource = self

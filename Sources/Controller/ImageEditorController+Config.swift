@@ -28,6 +28,10 @@ extension ImageEditorController {
         /// 默认：2
         public var defaultPenIdx: Int
         
+        /// 画笔宽度
+        /// 默认：5.0
+        public var penWidth: CGFloat
+        
         /// 马赛克的种类，会按顺序排布
         /// 默认：[.default, .colorful]
         public var mosaicOptions: [PhotoMosaicOption]
@@ -35,6 +39,10 @@ extension ImageEditorController {
         /// 默认选中马赛克的下标
         /// 默认：0
         public var defaultMosaicIdx: Int
+        
+        /// 马赛克线条宽度
+        /// 默认：15.0
+        public var mosaicWidth: CGFloat
         
         /// 马赛克模糊度，仅用于默认马赛克样式
         /// 默认：30
@@ -48,17 +56,21 @@ extension ImageEditorController {
                     editOptions: [PhotoEditOption] = [.pen, .crop, .mosaic],
                     penColors: [UIColor] = Palette.all,
                     defaultPenIdx: Int = 2,
+                    penWidth: CGFloat = 5.0,
                     mosaicOptions: [PhotoMosaicOption] = [.default, .colorful],
                     defaultMosaicIdx: Int = 0,
                     mosaicLevel: Int = 30,
+                    mosaicWidth: CGFloat = 15.0,
                     enableDebugLog: Bool = false) {
             self.tintColor = tintColor
             self.editOptions = editOptions
             self.penColors = penColors
             self.defaultPenIdx = defaultPenIdx
+            self.penWidth = penWidth
             self.mosaicOptions = mosaicOptions
             self.defaultMosaicIdx = defaultMosaicIdx
             self.mosaicLevel = mosaicLevel
+            self.mosaicWidth = mosaicWidth
             self.enableDebugLog = enableDebugLog
         }
     }
