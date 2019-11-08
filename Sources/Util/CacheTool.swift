@@ -85,7 +85,7 @@ extension CacheTool {
     private func writeToFile(_ image: UIImage, name: String) {
         queue.async { [weak self] in
             guard let self = self else { return }
-            guard let data = image.jpegData(compressionQuality: 1.0) else { return }
+            guard let data = image.pngData() else { return }
             let url = URL(fileURLWithPath: self.path + name)
             do {
                 try data.write(to: url)
