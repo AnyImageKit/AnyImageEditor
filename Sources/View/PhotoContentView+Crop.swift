@@ -282,14 +282,14 @@ extension PhotoContentView {
     private func updateScrollViewAndCropRect(_ position: CropCornerPosition) {
         // zoomScale
         let maxZoom = scrollView.maximumZoomScale
-        let zoom1 = scrollView.bounds.width / (cropRect.width / scrollView.zoomScale)
-        let zoom2 = scrollView.bounds.height / (cropRect.height / scrollView.zoomScale)
+        let zoomH = scrollView.bounds.width / (cropRect.width / scrollView.zoomScale)
+        let zoomV = scrollView.bounds.height / (cropRect.height / scrollView.zoomScale)
         let isVertical = cropRect.height * (scrollView.bounds.width / cropRect.width) > scrollView.bounds.height
         let zoom: CGFloat
         if !isVertical {
-            zoom = zoom1 > maxZoom ? maxZoom : zoom1
+            zoom = zoomH > maxZoom ? maxZoom : zoomH
         } else {
-            zoom = zoom2 > maxZoom ? maxZoom : zoom2
+            zoom = zoomV > maxZoom ? maxZoom : zoomV
         }
         
         // contentOffset
@@ -310,7 +310,7 @@ extension PhotoContentView {
         
         // newCropRect
         let newCropRect: CGRect
-        if (zoom == maxZoom && !isVertical) || zoom == zoom1 {
+        if (zoom == maxZoom && !isVertical) || zoom == zoomH {
             let scale = scrollView.bounds.width / cropRect.width
             let height = cropRect.height * scale
             let y = (scrollView.bounds.height - height) / 2 + scrollView.frame.origin.y
@@ -323,13 +323,13 @@ extension PhotoContentView {
         }
         
         // minimumZoomScale
-        let mZoom1 = scrollView.bounds.width / imageView.bounds.width
-        let mZoom2 = scrollView.bounds.height / imageView.bounds.height
+        let mZoomH = scrollView.bounds.width / imageView.bounds.width
+        let mZoomV = scrollView.bounds.height / imageView.bounds.height
         let mZoom: CGFloat
         if !isVertical {
-            mZoom = (imageView.bounds.height < newCropRect.height) ? (newCropRect.height / imageView.bounds.height) : mZoom1
+            mZoom = (imageView.bounds.height < newCropRect.height) ? (newCropRect.height / imageView.bounds.height) : mZoomH
         } else {
-            mZoom = (imageView.bounds.width < newCropRect.width) ? (newCropRect.width / imageView.bounds.width) : mZoom2
+            mZoom = (imageView.bounds.width < newCropRect.width) ? (newCropRect.width / imageView.bounds.width) : mZoomV
         }
         
         // set
