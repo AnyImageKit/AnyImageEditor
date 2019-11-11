@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    var screenshot: UIImage? {
+    var screenshot: UIImage {
         let renderer = UIGraphicsImageRenderer(size: self.bounds.size)
         let image = renderer.image { [weak self] (context) in
             return self?.layer.render(in: context.cgContext)

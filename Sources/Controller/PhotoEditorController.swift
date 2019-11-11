@@ -181,7 +181,7 @@ extension PhotoEditorController: PhotoToolViewDelegate {
     }
     
     func toolViewDoneButtonTapped(_ toolView: PhotoToolView) {
-        guard let source = contentView.imageView.screenshot?.cgImage else { return }
+        guard let source = contentView.imageView.screenshot.cgImage else { return }
         let size = CGSize(width: source.width, height: source.height)
         let cropRect = contentView.cropRealRect
         let imageRect = contentView.imageView.frame
