@@ -1,5 +1,7 @@
 ![AnyImagePicker](./Resources/TitleMap@2x.png)
 
+`AnyImageEditor` 已转移至 [AnyImageKit](https://github.com/AnyImageProject/AnyImageKit)。
+
 `AnyImageEditor` 是一个图片编辑器，支持涂鸦、裁剪、马赛克。使用 Swift 编写。
 
 ## 功能
@@ -21,26 +23,6 @@
 - iOS 10.0+
 - Xcode 11.0+
 - Swift 5.0+
-
-## 安装
-
-### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
-
-将下面内容添加到 `Podfile`，并执行依赖更新
-
-```ruby
-pod 'AnyImageEditor'
-```
-
-### [Carthage](https://github.com/Carthage/Carthage)
-
-将下面内容添加到 `Cartfile`，并执行依赖更新
-
-```ogdl
-github "AnyImageProject/AnyImageEditor"
-```
-
-> 由于 Carthage 的依赖问题，不支持 `--no-use-binaries`，请直接使用我们的二进制文件
 
 ## 使用方法
 
